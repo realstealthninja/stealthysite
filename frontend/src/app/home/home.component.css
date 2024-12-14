@@ -1,0 +1,17 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+header > p {
+    width: 32ch;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    gap: 2rem;
+}
