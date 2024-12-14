@@ -1,0 +1,19 @@
+nav {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav > ul {
+
+    display: flex;
+    list-style: none;
+    padding: 0px;
+    
+}
+
+li {
+    display: block;
+    padding: 1rem;
+}
