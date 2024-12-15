@@ -9,6 +9,8 @@ nav > ul {
 
     display: flex;
     list-style: none;
+    align-items: center;
+    justify-content: center;
     padding: 0px;
     
 }
@@ -16,4 +18,16 @@ nav > ul {
 li {
     display: block;
     padding: 1rem;
+}
+
+/* medium screens */
+
+@media only screen and (min-width: 768px) {
+    
+    nav > ul {
+        min-width: 768px;
+        justify-content: space-around;
+    }
+
+
 }
