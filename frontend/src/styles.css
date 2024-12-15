@@ -55,3 +55,37 @@ button.secondary:hover {
         --accent: #4e7960;
     }
 }
+
+.cards-grid {
+    display: grid;
+    padding: 1rem;
+    gap: 1rem;
+    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-color: var(--text);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1rem;
+}
+
+
+
+.author {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.author > small {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card > h3 {
+    text-align: center;
+}
