@@ -1,0 +1,37 @@
+name: 'Bump Version'
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  bump-version:
+    name: 'Bump Version on master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+        with:
+          ref: ${{ github.ref }}
+      - name: 'cat package.json'
+        run: cat ./package.json
+      - name: 'Automated Version Bump'
+        id: version-bump
+        uses: 'phips28/gh-action-bump-version@master'
+        with:
+            
+          tag-prefix: 'v'
+          skip-tag: true
+          patch-wording: 'fix'
+          minor-wording: 'feat'
+          major-wording: 'BREAKING CHANGE'
+          commit-message: 'ci: bump version to {{version}}'
+        env:
+          PACKAGEJSON_DIR:  'frontend'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Output Step'
+        env:
+          NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+        run: echo "new tag $NEW_TAG"
