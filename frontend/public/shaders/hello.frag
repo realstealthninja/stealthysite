@@ -6,8 +6,13 @@ precision highp float;
 uniform vec3 iResolution;
 uniform float iTime;
 
+
 uniform vec3 background;
 uniform vec3 accent;
+uniform vec3 primary;
+uniform vec3 secondary;
+
+
 uniform bool dark;
 
 out vec4 outColor;
@@ -56,14 +61,12 @@ void main() {
   if (dark) {
     color = background;
     color = background * smoothstep(.18, .2, noise(st));
-    color += accent * smoothstep(.15, .2, noise(st * 10.0));
-    color -= accent * smoothstep(.35, .4, noise(st * 10.0));
+    color += secondary * smoothstep(.15, .2, noise(st * 10.0));
+    color -= secondary * smoothstep(.35, .4, noise(st * 10.0));
 
   } else {
-    color = accent;
-    color = background * smoothstep(.0, .3, noise(st));
-    color += accent * smoothstep(-0.3, .2, noise(st * 10.0));
-    color -= accent * smoothstep(.35, .4, noise(st * 10.0));
+    color = secondary;
+    color += background * smoothstep(.35, .4, noise(st * 10.0));
 
   }
   outColor = vec4(color, 1.0);
