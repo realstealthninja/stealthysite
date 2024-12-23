@@ -114,6 +114,8 @@ export class GlslComponent {
 
       var background = gl.context.getUniformLocation(gl.program, 'background');
       var accent = gl.context.getUniformLocation(gl.program, 'accent');
+ 
+      var secondary = gl.context.getUniformLocation(gl.program, "secondary");
       var dark = gl.context.getUniformLocation(gl.program, "dark");
 
       let startTime = this.startTime;
@@ -133,9 +135,15 @@ export class GlslComponent {
         var accent_color = window
           .getComputedStyle(document.body)
           .getPropertyValue('--accent');
+
+        var secondary_hex = window
+        .getComputedStyle(document.body)
+        .getPropertyValue('--secondary');
+        
         var theme = window.matchMedia("(prefers-color-scheme: dark)");
 
         var rgb = hexToRgb(color)!;
+        var secondary_rgb = hexToRgb(secondary_hex)!;
         var rgb_normalised = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
 
         var accent_rgb = hexToRgb(accent_color)!;
@@ -162,6 +170,16 @@ export class GlslComponent {
           accent_normalised[1],
           accent_normalised[2]
         );
+
+        gl.context.uniform3f(
+          secondary,
+          secondary_rgb.r / 255,
+          secondary_rgb.g / 255,
+          secondary_rgb.b / 255
+        );
+
+
+
         if(theme.matches) {
           
           gl.context.uniform1i(dark, 1);
