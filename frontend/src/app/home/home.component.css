@@ -55,6 +55,11 @@ header > p {
 .card > h3 {
     text-align: center;
 }
+footer {
+    margin: 1rem;
+}
+
+
 
 
 /* medium screens */
@@ -73,8 +78,9 @@ header > p {
         "d e f";
     }
 
+    footer {
+        margin-inline: 5rem;
+    }
+    
 }
 
-footer {
-    margin: 1rem;
-}
