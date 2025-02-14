@@ -8,9 +8,8 @@ describe('GlslComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GlslComponent]
-    })
-    .compileComponents();
+      imports: [GlslComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(GlslComponent);
     component = fixture.componentInstance;

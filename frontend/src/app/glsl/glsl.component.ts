@@ -18,33 +18,6 @@ export class GlslComponent implements OnInit {
   }
 
   ngOnInit() {
-    function setUniform(
-    gl: Webgl,
-    name: string,
-   data: number[]
-    ) {
-    const loc = gl.context.getUniformLocation(
-      gl.program, name
-    );
-
-    switch (data.length) {
-      case 1:
-
-        gl.context.uniform1f(loc, data[0]);
-        break;
-      case 2:
-        gl.context.uniform2f(loc, data[0], data[1]);
-        break;
-      case 3:
-        gl.context.uniform3f(loc, data[0], data[1], data[2]);
-        break;
-      default:
-
-    }
-
-
-    }
-
     function hexToRgb(hex: string) {
       // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
       const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -63,63 +36,43 @@ export class GlslComponent implements OnInit {
     }
     function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement) {
       // Lookup the size the browser is displaying the canvas in CSS pixels.
-      const displayWidth  = canvas.clientWidth;
+      const displayWidth = canvas.clientWidth;
       const displayHeight = canvas.clientHeight;
 
       // Check if the canvas is not the same size.
-      const needResize = canvas.width  !== displayWidth ||
-                         canvas.height !== displayHeight;
+      const needResize =
+        canvas.width !== displayWidth || canvas.height !== displayHeight;
 
       if (needResize) {
         // Make the canvas the same size
-        canvas.width  = displayWidth;
+        canvas.width = displayWidth;
         canvas.height = displayHeight;
 
-        console.log("scaling");
+        console.log('scaling');
       }
 
       return needResize;
     }
 
-    this.canvas = document.getElementById(
-      'gl-canvas'
-    ) as HTMLCanvasElement;
+    this.canvas = document.getElementById('gl-canvas') as HTMLCanvasElement;
 
-    combineLatest(
-      [
-        this.httpClient.get(
-          'shaders/hello.vert',
-          { responseType: 'text' }
-        ),
+    combineLatest([
+      this.httpClient.get('shaders/hello.vert', { responseType: 'text' }),
 
-        this.httpClient.get(
-          'shaders/hello.frag',
-          { responseType: 'text' }
-        ),
-      ]
-    ).subscribe(([vertex, fragment]) => {
-
+      this.httpClient.get('shaders/hello.frag', { responseType: 'text' }),
+    ]).subscribe(([vertex, fragment]) => {
       const gl = new Webgl(this.canvas!, vertex, fragment);
 
-      const positionAttributeLocation =
-        gl.context.getAttribLocation(
+      const positionAttributeLocation = gl.context.getAttribLocation(
         gl.program,
         'a_position'
       );
 
       const positionBuffer = gl.context.createBuffer();
 
-      gl.context.bindBuffer(
-        gl.context.ARRAY_BUFFER,
-        positionBuffer
-      );
+      gl.context.bindBuffer(gl.context.ARRAY_BUFFER, positionBuffer);
 
-      const positions = [
-        -1.0, -1.0,
-        -1.0,  1.0,
-         1.0,  1.0,
-         1.0, -1.0
-      ]
+      const positions = [-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0];
 
       const indices = [0, 1, 2, 0, 2, 3];
 
@@ -133,9 +86,7 @@ export class GlslComponent implements OnInit {
 
       const ebo = gl.context.createBuffer();
 
-      gl.context.bindBuffer(
-        gl.context.ELEMENT_ARRAY_BUFFER, ebo
-      );
+      gl.context.bindBuffer(gl.context.ELEMENT_ARRAY_BUFFER, ebo);
 
       gl.context.bufferData(
         gl.context.ELEMENT_ARRAY_BUFFER,
@@ -143,12 +94,11 @@ export class GlslComponent implements OnInit {
         gl.context.STATIC_DRAW
       );
 
-      gl.context.enableVertexAttribArray(
-        positionAttributeLocation
-      );
+      gl.context.enableVertexAttribArray(positionAttributeLocation);
 
       const size = 2; // no of elements per row
-      const type = gl.context.FLOAT; const normalize = false;
+      const type = gl.context.FLOAT;
+      const normalize = false;
       const stride = 0;
       const offset = 0;
 
@@ -161,42 +111,25 @@ export class GlslComponent implements OnInit {
         offset
       );
 
-
-      const iresloc = gl.context.getUniformLocation(
-        gl.program, 'iResolution'
-      );
-      const iTimeloc = gl.context.getUniformLocation(
-        gl.program, 'iTime'
-      );
+      const iresloc = gl.context.getUniformLocation(gl.program, 'iResolution');
+      const iTimeloc = gl.context.getUniformLocation(gl.program, 'iTime');
 
       const background = gl.context.getUniformLocation(
-        gl.program, 'background'
+        gl.program,
+        'background'
       );
-      const accent = gl.context.getUniformLocation(
-        gl.program, 'accent'
-      );
+      const accent = gl.context.getUniformLocation(gl.program, 'accent');
 
-      const secondary = gl.context.getUniformLocation(
-        gl.program, "secondary"
-      );
+      const secondary = gl.context.getUniformLocation(gl.program, 'secondary');
 
-      const dark = gl.context.getUniformLocation(
-        gl.program, "dark"
-      );
+      const dark = gl.context.getUniformLocation(gl.program, 'dark');
 
       const startTime = this.startTime;
       const rgb_norm = 1 / 255;
 
-      
-
       function render() {
-
         resizeCanvasToDisplaySize(gl.canvas);
-        gl.context.viewport(
-          0, 0,
-          gl.canvas.width,
-          gl.canvas.height
-        );
+        gl.context.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         //clear canvas
         gl.context.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.context.clear(gl.context.COLOR_BUFFER_BIT);
@@ -210,12 +143,10 @@ export class GlslComponent implements OnInit {
           .getPropertyValue('--accent');
 
         const secondary_hex = window
-        .getComputedStyle(document.body)
-        .getPropertyValue('--secondary');
+          .getComputedStyle(document.body)
+          .getPropertyValue('--secondary');
 
-        const theme = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        );
+        const theme = window.matchMedia('(prefers-color-scheme: dark)');
 
         const rgb = hexToRgb(color)!;
         const secondary_rgb = hexToRgb(secondary_hex)!;
@@ -253,10 +184,7 @@ export class GlslComponent implements OnInit {
           secondary_rgb.b / 255
         );
 
-
-
-        if(theme.matches) {
-
+        if (theme.matches) {
           gl.context.uniform1i(dark, 1);
         } else {
           gl.context.uniform1i(dark, 0);
@@ -270,13 +198,8 @@ export class GlslComponent implements OnInit {
         const count = 6;
         const indexType = gl.context.UNSIGNED_SHORT;
 
-      gl.context.drawElements(
-        gl.context.TRIANGLES,
-        count,
-        indexType,
-        offset
-      );
-      requestAnimationFrame(render);
+        gl.context.drawElements(primitiveType, count, indexType, offset);
+        requestAnimationFrame(render);
       }
       requestAnimationFrame(render);
     });
