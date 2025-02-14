@@ -1,0 +1,39 @@
+
+header {
+  display: flex;
+  flex-direction: column;
+  margin-inline: 2rem;
+}
+
+main {
+  margin-inline: 0.2rem;
+  display: flex;
+}
+
+
+.card > h3 {
+  margin: 0px;
+  padding-block: 1rem;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.card > span {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.card > hr {
+  width: 100%;
+  color: var(--text);
+  border-bottom: unset;
+
+}
+
+.card > button {
+  align-self: center;
+  
+}
+
+footer {
+  margin-inline: 2rem;
+}
