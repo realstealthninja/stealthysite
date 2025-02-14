@@ -14,6 +14,5 @@ import { GlslComponent } from "../glsl/glsl.component";
 export class HomeComponent {
   angular_version = VERSION.full;
   project_version = version;
-  ngOnInit() {
-  }
+
 }
