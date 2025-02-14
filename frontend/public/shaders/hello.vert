@@ -1,7 +1,5 @@
 #version 300 es
 
-uniform float iTime;
-
 in vec4 a_position;
 
 void main() {
