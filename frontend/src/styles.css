@@ -23,6 +23,7 @@ button {
     padding: 0.5rem;
     width: 16ch;
     color: inherit;
+    background-color: var(--primary);
     text-align: center;
     border-radius: 0.2rem;
     border:none;
@@ -54,4 +55,21 @@ button.secondary:hover {
         --secondary: #3f5a3a;
         --accent: #4e7960;
     }
+}
+
+.cards-grid {
+    display: grid;
+    padding: 1rem;
+    gap: 1rem;
+    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-color: var(--text);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1rem;
 }
