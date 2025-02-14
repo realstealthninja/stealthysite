@@ -11,5 +11,4 @@ import { GlslComponent } from "./glsl/glsl.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'frontend';
 }

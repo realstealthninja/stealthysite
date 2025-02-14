@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GlslComponent } from './glsl.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('GlslComponent', () => {
   let component: GlslComponent;
@@ -9,6 +11,8 @@ describe('GlslComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GlslComponent],
+
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(GlslComponent);

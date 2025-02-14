@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VERSION } from '@angular/core';
-import {version} from '../../../package.json';
+import version from '../../../package.json';
 import { GlslComponent } from "../glsl/glsl.component";
 
 
@@ -9,7 +9,7 @@ import { GlslComponent } from "../glsl/glsl.component";
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  imports: [GlslComponent],
+  imports: [],
 })
 export class HomeComponent {
   angular_version = VERSION.full;
