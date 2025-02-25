@@ -113,6 +113,7 @@ export class GlslComponent implements OnInit {
 
       const iresloc = gl.context.getUniformLocation(gl.program, 'iResolution');
       const iTimeloc = gl.context.getUniformLocation(gl.program, 'iTime');
+      const iMouseloc = gl.context.getUniformLocation(gl.program, "iMouse"); 
 
       const background = gl.context.getUniformLocation(
         gl.program,
@@ -127,7 +128,20 @@ export class GlslComponent implements OnInit {
       const startTime = this.startTime;
       const rgb_norm = 1 / 255;
 
+      let mouseX = 0;
+      let mouseY = 0;
+    
+      function setMousePosition(e:  MouseEvent) {
+        const rect =  gl.canvas.parentElement!.parentElement!.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = rect.height - (e.clientY - rect.top) - 1;  // bottom is 0 in WebGL
+      }
+    
+      gl.canvas.parentElement!.parentElement!.addEventListener("mousemove", setMousePosition);
+      
+
       function render() {
+
         resizeCanvasToDisplaySize(gl.canvas);
         gl.context.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         //clear canvas
@@ -162,7 +176,7 @@ export class GlslComponent implements OnInit {
         gl.context.useProgram(gl.program);
 
         gl.context.uniform3f(iresloc, gl.canvas.width, gl.canvas.height, 1.0);
-
+        
         gl.context.uniform3f(
           background,
           rgb_normalised[0],
@@ -191,6 +205,7 @@ export class GlslComponent implements OnInit {
         }
 
         gl.context.uniform1f(iTimeloc, (Date.now() - startTime) * 0.001);
+        gl.context.uniform2f(iMouseloc, mouseX, mouseY);
 
         gl.context.bindVertexArray(vao);
         const primitiveType = gl.context.TRIANGLES;
