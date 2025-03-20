@@ -23,6 +23,9 @@ main {
 .card > button {
   align-self: center;
 }
+.card > p {
+  min-height: 3rem;
+}
 
 footer {
   margin-inline: 2rem;
