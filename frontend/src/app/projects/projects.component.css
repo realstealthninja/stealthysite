@@ -22,18 +22,20 @@ main {
   gap: 0.2rem;
 }
 
-.card > hr {
-  width: 100%;
-  color: var(--text);
-  border-bottom: unset;
-
-}
-
 .card > button {
   align-self: center;
-  
 }
 
 footer {
   margin-inline: 2rem;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .cards-grid {
+    margin-inline: 1rem;
+    grid-template-areas: 
+    "a b c"
+    "d e f";
+  }
 }
