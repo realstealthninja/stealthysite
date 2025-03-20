@@ -1,4 +1,3 @@
-
 header {
   display: flex;
   flex-direction: column;
@@ -9,7 +8,6 @@ main {
   margin-inline: 0.2rem;
   display: flex;
 }
-
 
 .card > h3 {
   margin: 0px;
@@ -30,12 +28,11 @@ footer {
   margin-inline: 2rem;
 }
 
-
 @media only screen and (min-width: 768px) {
   .cards-grid {
     margin-inline: 1rem;
-    grid-template-areas: 
-    "a b c"
-    "d e f";
+    grid-template-areas:
+      "a b c"
+      "d e f";
   }
 }
