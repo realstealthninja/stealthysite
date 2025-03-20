@@ -18,21 +18,7 @@ header > p {
 }
 
 
-.author {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
 
-.author > small {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.author > small > img {
-    border-radius: 1rem;
-    margin-right: 0.2rem;
-}
 .card > h3 {
     text-align: center;
 }
