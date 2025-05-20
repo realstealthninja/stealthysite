@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
+    color-scheme: light dark;
     --text: #070505;
     --background: #fdfcfc;
     --primary: #a57374;
@@ -87,8 +88,30 @@ button.secondary:hover {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border-color: var(--text);
-    border-width: 1px;
-    border-style: solid;
+    background-color: var(--secondary);
     border-radius: 1rem;
 }
+.card > button {
+    background-color: var(--primary);
+}
+/* medium screens */
+  
+@media only screen and (min-width: 768px) {
+    .cards-grid {
+      margin-inline: 1rem;
+      grid-template-areas:
+        "a b c"
+        "d e f";
+    }
+
+    header {
+        align-items:flex-start;
+        padding-inline: 5rem;
+        padding-block: 3rem;
+    }
+
+    footer {
+        margin-inline: 5rem;
+    }
+}
+  

@@ -1,7 +1,6 @@
 header {
   display: flex;
   flex-direction: column;
-  margin-inline: 2rem;
 }
 
 main {
@@ -23,19 +22,12 @@ main {
 .card > button {
   align-self: center;
 }
+
 .card > p {
   min-height: 3rem;
-}
 
+}
 footer {
   margin-inline: 2rem;
 }
 
-@media only screen and (min-width: 768px) {
-  .cards-grid {
-    margin-inline: 1rem;
-    grid-template-areas:
-      "a b c"
-      "d e f";
-  }
-}
