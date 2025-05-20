@@ -14,6 +14,11 @@ export class Webgl {
     ) {
         this.context = this.canvas.getContext("webgl2")!;
 
+        if (this.context == null) {
+          return
+          // TODO:throw a error
+        }
+
         this.vertexShader = new Shader(
             this.context,
             this.context.VERTEX_SHADER,
@@ -32,7 +37,7 @@ export class Webgl {
         this.vertexShader.attachShader(this.program);
         this.fragmentShader.attachShader(this.program);
         this.context.linkProgram(this.program);
-    
+
         if(!this.context.getProgramParameter(this.program, this.context.LINK_STATUS)) {
             this.context.deleteProgram(this.program);
             throw new ReferenceError("Unable to link program");
