@@ -8,7 +8,7 @@
             <h3>robotics an art worth the money</h3>
             <span class="author"><small><img alt="profile picture of stealthninja" src="images/stealthninja.png" width="32px" height="32px">stealthninja</small> <small>5 min read</small></span>
             <p>Read about my experience at a robotics workshop</p>
-            <button class="secondary">
+            <button [routerLink]="['/blogs/about-me']" class="secondary">
                 go to blog
             </button>
         </section>
@@ -16,7 +16,14 @@
             <h3>about me</h3>
             <span class="author"><small><img alt="profile picture of stealthninja" src="images/stealthninja.png" width="32px" height="32px">stealthninja</small> <small>5 min read</small></span>
             <p>Read more about how I became a hobbyist programmer</p>
-            <a class="button secondary">go to blog</a>
+            <button class="button secondary">go to blog</button>
+        </section>
+
+        <section class="card">
+            <h3>Writing an operating system</h3>
+            <span class="author"><small><img alt="profile picture of stealthninja" src="images/stealthninja.png" width="32px" height="32px">stealthninja</small> <small>5 min read</small></span>
+            <p>Join me on my journey of writing an operating system</p>
+            <a class="button secondary">coming soon</a>
         </section>
     </section>
 </main>
