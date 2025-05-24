@@ -1,0 +1,7 @@
+.gradle/
+
+bin/
+
+.git/
+
+HELP.md

@@ -1,0 +1,11 @@
+.angular/
+
+.vscode/
+
+node_modules/
+
+.git/
+
+README.md
+
+.editorconfig
