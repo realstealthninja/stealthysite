@@ -5,11 +5,10 @@ plugins {
 }
 
 group = "site.stealthy"
-version = "0.0.1-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -26,4 +25,8 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.jar {
+	archiveBaseName.set("backend")
 }
