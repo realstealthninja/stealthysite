@@ -1,0 +1,6 @@
+User-agent: GPTbot
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: PerplexityBot
+Disallow: /
