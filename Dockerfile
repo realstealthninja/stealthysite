@@ -14,21 +14,25 @@ RUN npm install -g @angular/cli
 RUN ng build --configuration=production
 
 # building backend
-FROM eclipse-temurin:21-jdk as backend-builder
+FROM gradle:8.14.0-jdk21-alpine as backend-builder
 
 WORKDIR /backend
 
-# copy project files over
+# get all dependencies
+COPY ./backend/build.gradle.kts ./backend/settings.gradle.kts ./ 
+
+RUN gradle clean build --no-daemon > /dev/null 2>&1 || true
+
 COPY ./backend .
 
 # get static files from frontend 
 COPY --from=frontend-builder ./frontend/dist/frontend/browser/ ./src/main/resources/static
 
-RUN ./gradlew build
+RUN gradle clean build --parallel --no-daemon -x test
 
 # runtime
 
-FROM eclipse-temurin:21-jre as runtime
+FROM eclipse-temurin:21-jre-alpine as runtime
 
 WORKDIR /app
 
