@@ -5,6 +5,7 @@ import { BlogsComponent } from './blogs/blogs.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
+    { path: "home", redirectTo: '/' },
     { path: "projects", component: ProjectsComponent},
     { path: "blogs", component: BlogsComponent}
 ];
