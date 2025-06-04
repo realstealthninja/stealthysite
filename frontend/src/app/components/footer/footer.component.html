@@ -6,10 +6,11 @@
         @if (loading) {
             getting backend version...
         }
-        @if (!loading && spring_version != null) {
+        @if (!loading && spring_version != null && java_version != null) {
         Spring V{{spring_version}}
+        Java V{{java_version}}
         }
-        @if (!loading && spring_version === null) {
+        @if (!loading && (spring_version === null || java_version === null)) {
         Backend is offline
         }
         <br/>
