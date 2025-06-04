@@ -1,0 +1,94 @@
+
+form {
+    border-radius: 1rem;
+    padding: 2rem;
+    background-color: var(--background);
+    border-style: solid;
+    border-color: var(--secondary);
+}
+
+button {
+    margin-inline: 1rem;
+
+
+}
+
+a {
+    color: blue;
+}
+
+.form-controls {
+    display: flex;
+}
+
+fieldset {
+    margin-block: 2rem;
+}
+
+.form-error {
+    color: red;
+}
+
+.form-footer {
+    
+    margin-block: 1rem;
+}
+
+
+.ng-invalid.ng-touched {
+    border-color: red;
+    animation: shake 0.1s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(10px); }
+    10% { transform: translateX(-10px); }
+
+    20% { transform: translateX(10px); }
+    30% { transform: translateX(-10px); }
+
+    4% { transform: translateX(10px); }
+    50% { transform: translateX(-10px); }
+
+    6% { transform: translateX(10px); }
+    70% { transform: translateX(-10px); }
+
+    80% { transform: translateX(10px); }
+    90% { transform: translateX(-10px); }
+
+    100% { transform: translateX(0px); }
+}
+
+input {
+    padding: 1rem 2rem;
+    margin: 0.5rem;
+    box-sizing: border-box;
+}
+
+
+input:focus {
+    border-color: blue;
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: right;
+}
+
+.required {
+    color: red;
+}
+
+button:disabled {
+    background-color: grey;
+}
+
+@media only screen and (min-width: 768px) {
+    main {
+        margin-inline: 5rem;
+    }
+    
+}
+
