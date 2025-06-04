@@ -36,8 +36,8 @@ export class FooterComponent {
       )
     ).subscribe(
       result => {
-        this.java_version = result.java;
-        this.spring_version = result.spring;
+        this.java_version = result.java.version;
+        this.spring_version = result.spring.version;
         this.loading = false;
       }
     )
