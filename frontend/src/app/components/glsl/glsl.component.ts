@@ -57,9 +57,9 @@ export class GlslComponent implements OnInit {
     this.canvas = document.getElementById('gl-canvas') as HTMLCanvasElement;
 
     combineLatest([
-      this.httpClient.get('shaders/hello.vert', { responseType: 'text' }),
-
-      this.httpClient.get('shaders/hello.frag', { responseType: 'text' }),
+      this.httpClient.get('shaders/background.vert', { responseType: 'text' }),
+      this.httpClient.get('shaders/background.frag', { responseType: 'text' })
+      
     ]).subscribe(([vertex, fragment]) => {
       const gl = new Webgl(this.canvas!, vertex, fragment);
 
