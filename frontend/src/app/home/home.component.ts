@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { VERSION } from '@angular/core';
-import project from '../../../package.json';
 
 
 @Component({
@@ -11,7 +9,4 @@ import project from '../../../package.json';
   imports: [],
 })
 export class HomeComponent {
-  angular_version = VERSION.full;
-  project_version = project.version;
-
 }
