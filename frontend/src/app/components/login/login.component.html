@@ -1,0 +1,80 @@
+<header>
+  <h1>Login</h1>
+  <p>Comment on my blogs, Maybe even get a chance to write your own.</p>
+</header>
+<main>
+  <form [formGroup]="registrationForm" #formDir="ngForm">
+    <section [hidden]="formDir.submitted">
+      <h2>Login details</h2>
+      <fieldset>
+        <p>
+          <label for="email">
+            <span>Email:</span>
+            <strong
+              ><span class="required" aria-label="required">*</span></strong
+            >
+          </label>
+          <input
+            id="email"
+            formControlName="email"
+            placeholder="jahnxdoe@emailprovider.in"
+            name="email"
+            type="email"
+          />
+          @if(email?.invalid && (email?.dirty || email?.touched)) {
+            @if(email?.hasError("required")) {
+            <span class="form-error">An email address is required</span>
+            }
+
+            @if(email?.hasError("email")) {
+              <span class="form-error">Email is invalid</span>
+            }
+          }
+        </p>
+        <p>
+          <label for="password">
+            <span>Password:</span>
+            <strong
+              ><span class="required" aria-label="required">*</span></strong
+            >
+          </label>
+          <input
+            placeholder="********"
+            minlength=8
+            id="password"
+            name="password"
+            formControlName="password"
+            type="password"
+          />
+          @if(password?.invalid && (password?.dirty || password?.touched)) {
+            @if(password?.hasError("required")) {
+              <span class="form-error">
+                A password is required
+              </span> 
+            }
+            @if(password?.hasError("minlength")) {
+                <span class="form-error">
+                    A password should be atleast 8 characters long
+                </span>
+            }
+            @if(password?.hasError("pattern")) {
+              <span class="form-error">
+                   Password should contain atleast a lower case character, upper case character,
+                   numbers and a special character
+              </span>
+            }
+          }
+        </p>
+      </fieldset>
+
+      <section class="form-controls">
+        <button [disabled]="formDir.invalid" type="submit">Submit</button>
+        <button type="reset" class="secondary">Clear</button>
+      </section>
+
+      <section class="form-footer">
+        <small><a [routerLink]="'/register'" alt="register">dont have an account?</a></small>
+      </section>
+    </section>
+  </form>
+</main>
