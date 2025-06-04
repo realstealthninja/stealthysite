@@ -46,6 +46,7 @@ button.primary:hover {
     box-shadow: 
     rgb(from var(--primary) r g b / 0.35) 0px 5px 15px;
 }
+
 button.secondary:hover {
     box-shadow: 
     rgb(from var(--secondary) r g b / 0.35) 0px 5px 15px;
