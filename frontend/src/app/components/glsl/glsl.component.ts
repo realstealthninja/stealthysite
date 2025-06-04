@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { Webgl } from '../webgl/webgl';
+import { Webgl } from '../../classes/webgl/webgl';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, VERSION } from '@angular/core';
-import project from '../../../package.json';
-import { VersionService } from '../services/version.service';
+import project from '../../../../package.json';
+import { VersionService } from '../../services/version/version.service';
 
 @Component({
   selector: 'app-footer',
