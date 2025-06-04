@@ -1,5 +1,4 @@
-import { Component, VERSION } from '@angular/core';
-import project from '../../../package.json';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -9,6 +8,4 @@ import project from '../../../package.json';
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent {
-  angular_version = VERSION.full;
-  project_version = project.version;
 }
