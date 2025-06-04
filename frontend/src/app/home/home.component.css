@@ -1,53 +1,39 @@
 /* small screens */
 header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 header > p {
-    width: 32ch;
+  width: 32ch;
 }
 
 .buttons {
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    gap: 2rem;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  gap: 2rem;
 }
-
-
 
 .card > h3 {
-    text-align: center;
+  text-align: center;
 }
-footer {
-    margin: 1rem;
-}
-
-
-
 
 /* medium screens */
 
 @media only screen and (min-width: 768px) {
-    header {
-        align-items:flex-start;
-        padding-inline: 5rem;
-        padding-block: 3rem;
-    }
+  header {
+    align-items: flex-start;
+    padding-inline: 5rem;
+    padding-block: 3rem;
+  }
 
-    .cards-grid {
-        margin-inline: 4rem;
-        grid-template-areas: 
-        "a b c"
-        "d e f";
-    }
-
-    footer {
-        margin-inline: 5rem;
-    }
-    
+  .cards-grid {
+    margin-inline: 4rem;
+    grid-template-areas:
+      "a b c"
+      "d e f";
+  }
 }
-
