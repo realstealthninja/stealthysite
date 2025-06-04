@@ -5,6 +5,7 @@ plugins {
 }
 
 group = "site.stealthy"
+description = "Backend for stealthy.site"
 
 java {
 	toolchain {
