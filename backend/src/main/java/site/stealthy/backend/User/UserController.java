@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,9 +34,11 @@ public class UserController {
     @Autowired
     private RoleRepository RoleRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    UserController() {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @PostMapping(
         path="/users/register",
@@ -74,6 +77,8 @@ public class UserController {
                 loginDTO.getUsername(), loginDTO.getPassword()
             )
         );
+
+        System.out.println("user login attempt");
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new ResponseEntity<>("User sign in successful", HttpStatus.OK);
