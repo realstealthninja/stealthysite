@@ -3,7 +3,7 @@
   <p>Comment on my blogs, Maybe even get a chance to write your own.</p>
 </header>
 <main>
-  <form [formGroup]="registrationForm" #formDir="ngForm">
+  <form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
     <section [hidden]="formDir.submitted">
       <h2>Login details</h2>
       <fieldset>
@@ -17,7 +17,7 @@
           <input
             id="email"
             formControlName="email"
-            placeholder="jahnxdoe@emailprovider.in"
+            placeholder="janexdoe@emailprovider.in"
             name="email"
             type="email"
           />
@@ -75,6 +75,10 @@
       <section class="form-footer">
         <small><a [routerLink]="'/register'" alt="register">dont have an account?</a></small>
       </section>
+    </section>
+    
+    <section [hidden]="!formDir.submitted">
+      <div>Login request sent</div>
     </section>
   </form>
 </main>
