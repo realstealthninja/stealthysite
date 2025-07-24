@@ -8,26 +8,22 @@
       <h2>Login details</h2>
       <fieldset>
         <p>
-          <label for="email">
-            <span>Email:</span>
+          <label for="username">
+            <span>Username:</span>
             <strong
               ><span class="required" aria-label="required">*</span></strong
             >
           </label>
           <input
-            id="email"
-            formControlName="email"
-            placeholder="janexdoe@emailprovider.in"
-            name="email"
-            type="email"
+            id="username"
+            formControlName="username"
+            placeholder="jane013"
+            name="text"
+            type="text"
           />
-          @if(email?.invalid && (email?.dirty || email?.touched)) {
-            @if(email?.hasError("required")) {
-            <span class="form-error">An email address is required</span>
-            }
-
-            @if(email?.hasError("email")) {
-              <span class="form-error">Email is invalid</span>
+          @if(username?.invalid && (username?.dirty || username?.touched)) {
+            @if(username?.hasError("required")) {
+            <span class="form-error">A Username is required</span>
             }
           }
         </p>

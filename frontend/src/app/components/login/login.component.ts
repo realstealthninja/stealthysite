@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoginDTO } from '../../interfaces/LoginDTO';
@@ -12,7 +12,7 @@ import { UserauthService } from '../../services/userauth/userauth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
 
@@ -25,7 +25,7 @@ export class LoginComponent {
 
     this.loginForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/)]],
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
     })
 
   }
@@ -34,21 +34,16 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  get email() {
-    return this.loginForm.get('email')
+  get username() {
+    return this.loginForm.get('username')
   }
-  onSubmit(formData: FormData) {
+  onSubmit(_: FormData) {
 
-    let user: LoginDTO = {
-      email: this.email?.value,
+    const user: LoginDTO = {
+      username: this.username?.value,
       password: this.password?.value
     }
-    console.log("hello");
-    let hello = this.userAuth.loginUser(user).subscribe (
-      result => {
-        console.log(result);
-      }
-    );
-    console.log(hello);
+    
+    this.userAuth.loginUser(user);
   }
 }
