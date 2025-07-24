@@ -2,21 +2,50 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { registerDTO } from '../../interfaces/registerDTO';
 import { LoginDTO } from '../../interfaces/LoginDTO';
+import { JwtDTO } from '../../interfaces/jwt-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserauthService {
-  private apiURL: string = "/api/v1/users"
+  private apiURL = "/api/v1/users"
 
-  constructor(private httpClient: HttpClient) {}
+  get isLoggedIn(): boolean {
+    return localStorage.getItem("jwt") !== null;
+  }
+
+  constructor(private httpClient: HttpClient) { }
 
   registerUser(user: registerDTO) {
-    return this.httpClient.post(`${this.apiURL}/register`, user);
+    this.httpClient.post<JwtDTO>(`${this.apiURL}/register`, user).subscribe({
+      next: (data: JwtDTO) => {
+        localStorage.setItem("jwt", data.jwt);
+      },
+
+      error: (error) => {
+        console.error(error);
+
+      }
+    }
+    )
   }
 
   loginUser(user: LoginDTO) {
-    return this.httpClient.post(`${this.apiURL}/login`, user);
-  } 
-  
+    this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
+      next: (data: JwtDTO) => {
+        localStorage.setItem("jwt", data.jwt);
+
+      },
+
+      error: (error) => {
+        console.log(error)
+      }
+
+    });
+  }
+
+  logoutUser() {
+    localStorage.removeItem("jwt");
+  }
+
 }
