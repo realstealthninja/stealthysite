@@ -33,6 +33,10 @@ public class UserService implements UserDetailsService {
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByusername(username);
     }
+    
+    public Optional<User> findUserbyEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,6 +55,27 @@ public class UserService implements UserDetailsService {
                 Collectors.toSet()
             );
 
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .authorities(authorities)
+                .build();
+    }
+
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException{
+        User user = userRepository.findByEmail(email).orElseThrow(
+            () ->
+            new UsernameNotFoundException("Email not found " + email)
+        );
+
+        Set<GrantedAuthority> authorities = user.getRoles()
+            .stream()
+            .map(
+                (role) -> new SimpleGrantedAuthority(role.getName())
+            ).collect(
+                Collectors.toSet()
+            );
+        
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())

@@ -1,9 +1,13 @@
 package site.stealthy.backend.User;
 
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,14 +20,14 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import site.stealthy.backend.Role.Role;
 
-@Entity
+@Entity 
 @Table(
     name = "users",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"})
     }
-)   
-public class User {
+)
+public class User implements UserDetails {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -145,6 +149,17 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.getRoles()
+            .stream()
+            .map(
+                (role) -> new SimpleGrantedAuthority(role.getName())
+            ).collect(
+                Collectors.toSet()
+            );
     }
 
 }
