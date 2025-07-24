@@ -16,9 +16,13 @@
           </a>
         </li>
         <li>
-          <a [routerLink]="['login']">
-            login
-          </a>
+          
+          @if(userAuth.isLoggedIn) {
+            <a routerLink="'profile'">profile</a>
+              
+          } @else {
+            <a routerLink="'login'">login</a>
+          }
         </li>
 
     </ul>
