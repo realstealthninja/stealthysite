@@ -15,21 +15,21 @@ export class ThemeSwitcherComponent {
       localStorage.setItem('theme', 'light');
     }
 
-    var theme = localStorage.getItem('theme');
-    var rules = document.styleSheets[0].cssRules;
+    const theme = localStorage.getItem('theme');
+    const rules = document.styleSheets[0].cssRules;
 
-    for (var i = 0; i < rules.length - 1; i++) {
+    for (let i = 0; i < rules.length - 1; i++) {
       if (!(rules.item(i) instanceof CSSMediaRule)) {
         continue;
       }
 
-      var rule: CSSMediaRule | null = <CSSMediaRule | null>rules.item(i);
+      const rule: CSSMediaRule | null = rules.item(i) as CSSMediaRule | null;
 
       if (rule!.media.mediaText.includes('prefers-color-scheme')) {
         continue;
       }
       
-      var media = rule!.media;
+      const media = rule!.media;
       switch (theme) {
         case 'light':
           media.appendMedium("original-prefers-color-scheme");
