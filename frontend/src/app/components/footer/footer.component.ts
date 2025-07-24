@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component, VERSION, OnInit } from '@angular/core';
 import project from '../../../../package.json';
 import { VersionService } from '../../services/version/version.service';
 import { catchError, EMPTY, forkJoin} from 'rxjs';
@@ -10,13 +10,13 @@ import { catchError, EMPTY, forkJoin} from 'rxjs';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
   angular_version: string = VERSION.full;
   project_version: string = project.version;
   spring_version: string | null = null;
   java_version: string | null = null;
 
-  loading: boolean = true;
+  loading = true;
 
   constructor (private versionService: VersionService) {}
 
