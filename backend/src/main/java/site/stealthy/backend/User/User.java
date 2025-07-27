@@ -16,8 +16,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import site.stealthy.backend.Blog.Blog;
+import site.stealthy.backend.Blog.Comment;
 import site.stealthy.backend.Role.Role;
 
 @Entity 
@@ -29,6 +32,7 @@ import site.stealthy.backend.Role.Role;
 )
 public class User implements UserDetails {
 
+
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -36,10 +40,15 @@ public class User implements UserDetails {
     private String username;
     private String firstname;
 
-
     private String email;
     private String lastname;
     private String password;
+
+    @OneToMany(mappedBy = "author")
+    private Blog[] blogs;
+
+    @OneToMany(mappedBy = "author")
+    private Comment[] comments;
 
     private boolean approved = false;
     private boolean blogger = false;
