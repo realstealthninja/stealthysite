@@ -3,7 +3,7 @@ import { Shader } from './shader';
 describe('Shader', () => {
   it('should create an instance', () => {
 
-    var shaderSource = 
+    const shaderSource = 
     `#version 300 es
 
     in vec4 a_position;
@@ -13,7 +13,7 @@ describe('Shader', () => {
     }
     `
 
-    var context: WebGL2RenderingContext = document.createElement("canvas").getContext("webgl2") as WebGL2RenderingContext;
+    const context: WebGL2RenderingContext = document.createElement("canvas").getContext("webgl2") as WebGL2RenderingContext;
     expect(new Shader(context, context.VERTEX_SHADER, shaderSource)).toBeTruthy();
   });
 });

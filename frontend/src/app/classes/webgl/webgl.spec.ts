@@ -3,9 +3,9 @@ import { Webgl } from './webgl';
 describe('Webgl', () => {
   it('should create an instance', () => {
   
-    var canvas: HTMLCanvasElement = document.createElement("canvas") as HTMLCanvasElement;
+    const canvas: HTMLCanvasElement = document.createElement("canvas") as HTMLCanvasElement;
     
-    var vert = 
+    const vert = 
     `#version 300 es
 
     in vec4 a_position;
@@ -15,7 +15,7 @@ describe('Webgl', () => {
     }
     `;
 
-    var frag = 
+    const frag = 
     `#version 300 es
     precision highp float;
      
