@@ -22,6 +22,7 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "chokidar": "^4.0.3",
+    "emoji-toolkit": "^9.0.1",
     "husky": "^9.1.7",
     "marked": "^15.0.12",
     "ngx-markdown": "^20.0.0",
