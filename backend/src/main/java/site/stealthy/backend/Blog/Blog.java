@@ -1,0 +1,99 @@
+package site.stealthy.backend.Blog;
+
+
+
+import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import site.stealthy.backend.User.User;
+
+@Entity
+@Table(name = "blogs")
+public class Blog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String title;
+    
+    private String content;
+
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date editedOn;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @OneToMany
+    private Comment[] comments;
+        
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Date getEditedOn() {
+        return editedOn;
+    }
+
+    public void setEditedOn(Date editedOn) {
+        this.editedOn = editedOn;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Comment[] getComments() {
+        return comments;
+    }
+
+    public void setComments(Comment[] comments) {
+        this.comments = comments;
+    }
+
+
+
+}
