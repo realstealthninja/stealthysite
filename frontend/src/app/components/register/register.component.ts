@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { registerDTO } from '../../interfaces/registerDTO';
@@ -11,7 +11,7 @@ import { UserauthService } from '../../services/userauth/userauth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
 
 
@@ -53,7 +53,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    let user: registerDTO = {
+    const user: registerDTO = {
       firstname: this.firstname?.value,
       lastname: this.lastname?.value,
       username: this.username?.value,
@@ -62,8 +62,7 @@ export class RegisterComponent {
     };
 
     
-    let hello = this.userAuth.registerUser(user);
+    const hello = this.userAuth.registerUser(user);
     console.log(hello);
-
   }
 }
