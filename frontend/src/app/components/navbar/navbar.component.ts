@@ -3,11 +3,10 @@ import { RouterLink} from '@angular/router';
 import { UserauthService } from '../../services/userauth/userauth.service';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+    selector: 'app-navbar',
+    imports: [RouterLink],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 

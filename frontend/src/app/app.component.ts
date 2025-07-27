@@ -6,18 +6,16 @@ import { ThemeSwitcherComponent } from "./components/theme-switcher/theme-switch
 import { FooterComponent } from "./components/footer/footer.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    GlslComponent,
-    ThemeSwitcherComponent,
-    FooterComponent,
-  ],
-
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [
+        RouterOutlet,
+        NavbarComponent,
+        GlslComponent,
+        ThemeSwitcherComponent,
+        FooterComponent,
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
 }

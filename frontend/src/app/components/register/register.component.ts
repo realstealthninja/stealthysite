@@ -5,11 +5,10 @@ import { registerDTO } from '../../interfaces/registerDTO';
 import { UserauthService } from '../../services/userauth/userauth.service';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-register',
+    imports: [ReactiveFormsModule, RouterLink],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
   private formBuilder = inject(FormBuilder);

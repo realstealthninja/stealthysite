@@ -4,11 +4,10 @@ import { VersionService } from '../../services/version/version.service';
 import { catchError, EMPTY, forkJoin} from 'rxjs';
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+    selector: 'app-footer',
+    imports: [],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.css'
 })
 export class FooterComponent implements OnInit {
   private versionService = inject(VersionService);

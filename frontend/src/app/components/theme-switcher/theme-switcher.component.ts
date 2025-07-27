@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-theme-switcher',
-  standalone: true,
-  imports: [],
-  templateUrl: './theme-switcher.component.html',
-  styleUrl: './theme-switcher.component.css',
+    selector: 'app-theme-switcher',
+    imports: [],
+    templateUrl: './theme-switcher.component.html',
+    styleUrl: './theme-switcher.component.css'
 })
 export class ThemeSwitcherComponent {
   toggle_theme() {
