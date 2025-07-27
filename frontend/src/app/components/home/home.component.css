@@ -30,6 +30,8 @@ header > p {
     padding-block: 3rem;
   }
 
+  
+
   .cards-grid {
     margin-inline: 4rem;
     grid-template-areas:
