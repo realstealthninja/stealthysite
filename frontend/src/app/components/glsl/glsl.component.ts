@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { Webgl } from '../../classes/webgl/webgl';
 import { HttpClient } from '@angular/common/http';
@@ -10,10 +10,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './glsl.component.css',
 })
 export class GlslComponent implements OnInit {
+  private httpClient = inject(HttpClient);
+
   private startTime = 0;
   private canvas: HTMLCanvasElement | null = null;
 
-  constructor(private httpClient: HttpClient) {
+  constructor() {
     this.startTime = Date.now();
   }
 

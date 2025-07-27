@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Version } from '../../interfaces/version';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VersionService {
-  private apiURL = "/api/v1/version"
+  private httpClient = inject(HttpClient);
 
-  constructor(private httpClient: HttpClient) { }
+  private apiURL = "/api/v1/version"
 
   getSpringVersion() {
     return this.httpClient.get<Version>(`${this.apiURL}/spring`);

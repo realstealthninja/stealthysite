@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoginDTO } from '../../interfaces/LoginDTO';
@@ -13,13 +13,10 @@ import { UserauthService } from '../../services/userauth/userauth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
+  private formBuilder = inject(FormBuilder);
+  private userAuth = inject(UserauthService);
+
   loginForm!: FormGroup;
-
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private userAuth: UserauthService
-  ) {}
 
   ngOnInit() {
 
