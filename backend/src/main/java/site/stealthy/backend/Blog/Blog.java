@@ -3,6 +3,9 @@ package site.stealthy.backend.Blog;
 
 
 import java.util.Date;
+import java.util.Set;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +26,8 @@ public class Blog {
     private long id;
     private String title;
     
+    @ElementCollection
+    private Set<String> tags;
     private String content;
 
     
