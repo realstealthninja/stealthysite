@@ -68,6 +68,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN", "BLOGGER")
                         .requestMatchers("/blog/create/**").hasAnyRole("BLOGGER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/blog/create").hasAnyRole("BLOGGER", "ADMIN")
                         .anyRequest().authenticated()
                         
                 ).httpBasic(Customizer.withDefaults())
