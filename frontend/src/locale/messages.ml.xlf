@@ -12,9 +12,9 @@
           <context context-type="linenumber">2,3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4044730633169745677" datatype="html">
-        <source>the user name is stealthninja. I am a programmer from Kerala. This is my website Its hosted on my &quot;server&quot; beside my desk. Feel free to make yourself at home. </source>
-        <target>എൻ്റെ യുസ‌‌‍ർനേയിം സ്റ്റേല‍ത്ത്നീന്ജ എന്ന് ആണ്. ഞാൻ കേരളത്തിേ നിന്ന് വാരുന്ന ഒരൂ പ്രോഗ്രാമർ ആണ്. ഈ വേബ്സ്റ്റൈ് എൻ്റെ ടെസ്കിനടുത്തുള്ള സെർവറിൽ ഒടുന്നൂ. ഈ വീറ്റിലെക്ക് താങ്ങളക്ക് സ്വാഗതം. </target>
+      <trans-unit id="4451171116999974551" datatype="html">
+        <source>The user name is stealthninja. I&apos;m a programmer from Kerala. This is my website Its hosted on my &quot;server&quot; beside my desk. Feel free to make yourself at home. </source>
+        <target>എൻ്റെ യുസ‌‌‍ർനേയിം സ്റ്റേല‍ത്ത്നീന്ജ എന്ന് ആണ്. ഞാൻ കേരളത്തിേൽ നിന്ന് വാരുന്ന ഒരൂ പ്രോഗ്രാമർ ആണ്. ഈ വേബ്സ്റ്റൈ് എൻ്റെ ടെസ്കിനടുത്തുള്ള സെർവറിൽ ഒടുന്നൂ. ഈ വീറ്റിലെക്ക് താങ്ങളക്ക് സ്വാഗതം. </target>
         <note priority="1" from="description">About me</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/home/home.component.html</context>
@@ -23,6 +23,7 @@
       </trans-unit>
       <trans-unit id="3836000317327860441" datatype="html">
         <source>projects</source>
+        <target>പ്രോ‍ജേകറ്റുക്കൾ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/home/home.component.html</context>
           <context context-type="linenumber">12,13</context>
@@ -30,10 +31,56 @@
       </trans-unit>
       <trans-unit id="9065314221981243717" datatype="html">
         <source>latest blogs</source>
+        <target>പുതിയ ബ്ലോഗുക്കൾ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/home/home.component.html</context>
           <context context-type="linenumber">13,14</context>
         </context-group>
+      </trans-unit>
+            <trans-unit id="8364309938383915497" datatype="html">
+        <source> Home </source>
+        <target> മു‍നപേജ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+        <note priority="1" from="description">navbar-home</note>
+      </trans-unit>
+      <trans-unit id="1159411823290943252" datatype="html">
+        <source> projects </source>
+        <target> പ്രോ‍ജേകറ്റുക്കൾ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+        <note priority="1" from="description">navbar-projects</note>
+      </trans-unit>
+      <trans-unit id="3574233525852146016" datatype="html">
+        <source> blogs </source>
+        <target> ബ്ലോഗുക്കൾ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+        <note priority="1" from="description">navbar-blogs</note>
+      </trans-unit>
+      <trans-unit id="7813000971625481835" datatype="html">
+        <source>profile</source>
+        <target>പ്രോഫൈൽ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+        <note priority="1" from="description">navbar-profile</note>
+      </trans-unit>
+      <trans-unit id="6542676228301148432" datatype="html">
+        <source>login</source>
+        <target>ലോഗീൻ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+        <note priority="1" from="description">navbar-login</note>
       </trans-unit>
     </body>
   </file>
