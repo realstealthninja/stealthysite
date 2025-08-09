@@ -9,6 +9,14 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ml": {
+            "translation": "src/locale/messages.ml.xlf"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -16,6 +24,7 @@
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "localize": true,
             "polyfills": [
               "zone.js",
               "@angular/localize/init"
@@ -52,6 +61,9 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "ml": {
+              "localize": ["ml"]
             }
           },
           "defaultConfiguration": "production"
@@ -64,6 +76,9 @@
             },
             "development": {
               "buildTarget": "frontend:build:development"
+            },
+            "ml": {
+              "buildTarget": "frontend:build:development,ml"
             }
           },
           "defaultConfiguration": "development"
