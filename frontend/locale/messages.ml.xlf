@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="7504752220377521818" datatype="html">
+        <source>welcome 👋</source>
+        <target>സ്വാഗതം 👋</target>
+        <note priority="1" from="description">A greeting to the user </note>
+        <note priority="1" from="meaning">User welcome</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/home/home.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4044730633169745677" datatype="html">
+        <source>the user name is stealthninja. I am a programmer from Kerala. This is my website Its hosted on my &quot;server&quot; beside my desk. Feel free to make yourself at home. </source>
+        <target>എൻ്റെ യുസ‌‌‍ർനേയിം സ്റ്റേല‍ത്ത്നീന്ജ എന്ന് ആണ്. ഞാൻ കേരളത്തിേ നിന്ന് വാരുന്ന ഒരൂ പ്രോഗ്രാമർ ആണ്. ഈ വേബ്സ്റ്റൈ് എൻ്റെ ടെസ്കിനടുത്തുള്ള സെർവറിൽ ഒടുന്നൂ. ഈ വീറ്റിലെക്ക് താങ്ങളക്ക് സ്വാഗതം. </target>
+        <note priority="1" from="description">About me</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/home/home.component.html</context>
+          <context context-type="linenumber">3,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3836000317327860441" datatype="html">
+        <source>projects</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/home/home.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9065314221981243717" datatype="html">
+        <source>latest blogs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/home/home.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+    </body
+  </file>
+</xliff>
