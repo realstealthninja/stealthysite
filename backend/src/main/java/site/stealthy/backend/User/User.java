@@ -8,6 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +35,21 @@ import site.stealthy.backend.Role.Role;
         @UniqueConstraint(columnNames = {"username"})
     }
 )
+@JsonIgnoreProperties(
+    value = {
+        "email",
+        "password",
+        "approved",
+        "blogger",
+        "roles",
+        "authorities",
+        "accountNonExpired",
+        "enabled",
+        "credentialsNonExpired",
+        "accountNonLocked"
+    }
+)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User implements UserDetails {
 
 
@@ -38,19 +58,25 @@ public class User implements UserDetails {
     private long id;
 
     private String username;
+
+
     private String firstname;
+
 
     private String email;
     private String lastname;
     private String password;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "author")
-    private Blog[] blogs;
+    private Set<Blog> blogs;
 
     @OneToMany(mappedBy = "author")
-    private Comment[] comments;
+    private Set<Comment> comments;
+
 
     private boolean approved = false;
+
     private boolean blogger = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -158,6 +184,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(Set<Blog> blogs) {
+        this.blogs = blogs;
     }
 
     @Override
