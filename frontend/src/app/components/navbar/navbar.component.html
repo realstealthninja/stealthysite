@@ -1,27 +1,27 @@
 <nav>
     <ul>
         <li>
-            <a [routerLink]="['/']" >
+            <a i18n="navbar-home" [routerLink]="['/']" >
             Home
             </a>
         </li>
         <li>
-          <a [routerLink]="['projects']">
+          <a i18n="navbar-projects" [routerLink]="['projects']">
             projects
           </a>
         </li>
         <li>
-          <a [routerLink]="['blogs']">
+          <a i18n="navbar-blogs" [routerLink]="['blogs']">
             blogs
           </a>
         </li>
         <li>
           
           @if(userAuth.isLoggedIn) {
-            <a routerLink="'profile'">profile</a>
+            <a i18n="navbar-profile" routerLink="'profile'">profile</a>
               
           } @else {
-            <a routerLink="'login'">login</a>
+            <a i18n="navbar-login" routerLink="'login'">login</a>
           }
         </li>
 
