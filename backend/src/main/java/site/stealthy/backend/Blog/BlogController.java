@@ -71,7 +71,7 @@ public class BlogController {
         return null;
     }
 
-    @PutMapping("/edit/:id")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<ObjectNode> editBlog() {
         return null;
     }
