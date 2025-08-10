@@ -64,9 +64,7 @@ public class UserController {
             registerDto.getUsername(),
             registerDto.getFirstname(),
             registerDto.getLastname(),
-            passwordEncoder.encode(registerDto.getPassword()),
-            false,
-            false
+            passwordEncoder.encode(registerDto.getPassword())
         );
         
         Role roles = RoleRepository.findByName("USER").get();

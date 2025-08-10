@@ -74,11 +74,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
 
-
-    private boolean approved = false;
-
-    private boolean blogger = false;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                                     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -90,10 +85,7 @@ public class User implements UserDetails {
         String username,
         String firstname,
         String lastname,
-        String password,
-        
-        boolean approved,
-        boolean blogger
+        String password
     ) {
         this.username = username;
         this.password = password;
@@ -101,6 +93,18 @@ public class User implements UserDetails {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.getRoles()
+            .stream()
+            .map(
+                (role) -> new SimpleGrantedAuthority(role.getName())
+            ).collect(
+                Collectors.toSet()
+            );
+    }
+
 
 
     public long getId() {
@@ -156,27 +160,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
-
-    public boolean isBlogger() {
-        return blogger;
-    }
-
-
-    public void setBlogger(boolean blogger) {
-        this.blogger = blogger;
-    }
-
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -194,15 +177,5 @@ public class User implements UserDetails {
         this.blogs = blogs;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles()
-            .stream()
-            .map(
-                (role) -> new SimpleGrantedAuthority(role.getName())
-            ).collect(
-                Collectors.toSet()
-            );
-    }
 
 }
