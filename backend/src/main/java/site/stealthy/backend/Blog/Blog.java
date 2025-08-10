@@ -104,4 +104,13 @@ public class Blog {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+    
 }
