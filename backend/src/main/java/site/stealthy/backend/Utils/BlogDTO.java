@@ -4,9 +4,9 @@ import java.util.Set;
 
 public class BlogDTO {
     private String title;
-    
     private Set<String> tags;
     private String content;
+
     public String getTitle() {
         return title;
     }
