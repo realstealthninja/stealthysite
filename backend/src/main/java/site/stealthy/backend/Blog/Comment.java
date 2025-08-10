@@ -1,7 +1,9 @@
 package site.stealthy.backend.Blog;
 
 import java.util.Date;
-import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,6 +16,7 @@ import site.stealthy.backend.User.User;
 
 @Entity
 @Table(name = "comments")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Comment {
     @Id
     private long id;
@@ -25,6 +28,10 @@ public class Comment {
 
     @ManyToOne
     private Blog blog;
+
+    @ManyToOne
+    private Comment parent;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 

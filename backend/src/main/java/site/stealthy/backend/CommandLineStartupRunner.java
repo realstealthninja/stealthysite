@@ -55,18 +55,13 @@ public class CommandLineStartupRunner implements CommandLineRunner {
         roleRepository.flush();
 
         String username = "stealthninja";
-
-        
-
         if (userService.findUserByUsername(username).isEmpty()) {
 
             User admin_user = new User(
-                    "stealthninja",
+                    username,
                     null,
                     null,
-                    password,
-                    true,
-                    true
+                    password
             );
             admin_user.setEmail(email);
 

@@ -8,6 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,8 +21,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import site.stealthy.backend.Blog.Blog;
+import site.stealthy.backend.Blog.Comment;
 import site.stealthy.backend.Role.Role;
 
 @Entity 
@@ -27,13 +35,31 @@ import site.stealthy.backend.Role.Role;
         @UniqueConstraint(columnNames = {"username"})
     }
 )
+@JsonIgnoreProperties(
+    value = {
+        "email",
+        "password",
+        "approved",
+        "blogger",
+        "roles",
+        "authorities",
+        "accountNonExpired",
+        "enabled",
+        "credentialsNonExpired",
+        "accountNonLocked"
+    }
+)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User implements UserDetails {
+
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String username;
+
+
     private String firstname;
 
 
@@ -41,8 +67,12 @@ public class User implements UserDetails {
     private String lastname;
     private String password;
 
-    private boolean approved = false;
-    private boolean blogger = false;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "author")
+    private Set<Blog> blogs;
+
+    @OneToMany(mappedBy = "author")
+    private Set<Comment> comments;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -55,10 +85,7 @@ public class User implements UserDetails {
         String username,
         String firstname,
         String lastname,
-        String password,
-        
-        boolean approved,
-        boolean blogger
+        String password
     ) {
         this.username = username;
         this.password = password;
@@ -66,6 +93,18 @@ public class User implements UserDetails {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.getRoles()
+            .stream()
+            .map(
+                (role) -> new SimpleGrantedAuthority(role.getName())
+            ).collect(
+                Collectors.toSet()
+            );
+    }
+
 
 
     public long getId() {
@@ -121,27 +160,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
-
-    public boolean isBlogger() {
-        return blogger;
-    }
-
-
-    public void setBlogger(boolean blogger) {
-        this.blogger = blogger;
-    }
-
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -151,15 +169,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles()
-            .stream()
-            .map(
-                (role) -> new SimpleGrantedAuthority(role.getName())
-            ).collect(
-                Collectors.toSet()
-            );
+    public Set<Blog> getBlogs() {
+        return blogs;
     }
+
+    public void setBlogs(Set<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
 
 }

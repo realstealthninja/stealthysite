@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import jakarta.servlet.http.Cookie;
-
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -66,9 +64,7 @@ public class UserController {
             registerDto.getUsername(),
             registerDto.getFirstname(),
             registerDto.getLastname(),
-            passwordEncoder.encode(registerDto.getPassword()),
-            false,
-            false
+            passwordEncoder.encode(registerDto.getPassword())
         );
         
         Role roles = RoleRepository.findByName("USER").get();

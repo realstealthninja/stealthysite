@@ -1,0 +1,15 @@
+<header>
+    <h1>
+        {{(blog$ | async)?.title}}
+    </h1>
+    <span> {{( blog$ | async)?.author?.username }} </span>
+</header>
+
+<main>
+    <section class="markdown" [innerHTML]="((blog$ | async)?.content ?? '') | markdown | async">
+    </section>
+    <section class="comment-section">
+        <form></form>
+        
+    </section>
+</main>

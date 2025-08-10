@@ -1,0 +1,19 @@
+header {
+    padding: 1rem;
+}
+
+.blog-nav > ul {
+    list-style: none; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.search-bar {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border-color: black;
+    border-width: 2px;
+
+}

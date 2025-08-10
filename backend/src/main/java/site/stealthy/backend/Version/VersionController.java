@@ -1,8 +1,6 @@
 package site.stealthy.backend.Version;
 
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,7 @@ public class VersionController {
     @Autowired
     ObjectMapper mapper;
 
-
+    
     @GetMapping("spring")
     ObjectNode spring() {
         ObjectNode versionObject = mapper.createObjectNode();

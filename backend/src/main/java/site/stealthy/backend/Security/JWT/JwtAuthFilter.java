@@ -37,7 +37,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (authstring != null && authstring.startsWith("Bearer ")) {
             token = authstring.substring(7);
-            
             user = jwtUtil.extractUser(token, userService); 
         }
 

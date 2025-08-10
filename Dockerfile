@@ -26,7 +26,7 @@ RUN gradle clean build --no-daemon > /dev/null 2>&1 || true
 COPY ./backend .
 
 # get static files from frontend 
-COPY --from=frontend-builder ./frontend/dist/frontend/browser/ ./src/main/resources/static
+COPY --from=frontend-builder ./frontend/dist/frontend/ ./src/main/resources/static
 
 RUN gradle clean build --parallel --no-daemon -x test
 

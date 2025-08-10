@@ -3,6 +3,12 @@ package site.stealthy.backend.Blog;
 
 
 import java.util.Date;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,12 +23,17 @@ import site.stealthy.backend.User.User;
 
 @Entity
 @Table(name = "blogs")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     
+    @ElementCollection
+    private Set<String> tags;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     
@@ -36,7 +47,7 @@ public class Blog {
     private User author;
 
     @OneToMany
-    private Comment[] comments;
+    private Set<Comment> comments;
         
     public long getId() {
         return id;
@@ -86,14 +97,20 @@ public class Blog {
         this.author = author;
     }
 
-    public Comment[] getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Comment[] comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
+    public Set<String> getTags() {
+        return tags;
+    }
 
-
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+    
 }
