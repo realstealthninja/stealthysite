@@ -22,7 +22,7 @@ import site.stealthy.backend.User.UserRepository;
 import site.stealthy.backend.Utils.BlogDTO;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/blogs")
 public class BlogController {
     @Autowired
     ObjectMapper mapper;
@@ -33,7 +33,7 @@ public class BlogController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/blogs/")
+    @GetMapping("/")
     public ResponseEntity<ObjectNode> listBlogs() {
         ObjectNode ret = mapper.createObjectNode();
         Optional<Set<Blog>> blogs = blogRepository.getAllBlogs();
@@ -52,7 +52,7 @@ public class BlogController {
         return (new ResponseEntity<ObjectNode>(ret, HttpStatus.OK));
     }
 
-    @GetMapping("/blogs/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ObjectNode> getBlogbyId(@PathVariable("id") Long id) {
         ObjectNode respObject = mapper.createObjectNode();
         Optional<Blog> blog = blogRepository.findById(id);
@@ -66,12 +66,12 @@ public class BlogController {
     }
 
 
-    @PostMapping("/blogs/create/")
+    @PostMapping("/create/")
     public ResponseEntity<ObjectNode> createBlog(@RequestBody BlogDTO blog) {
         return null;
     }
 
-    @PutMapping("/blogs/edit/:id")
+    @PutMapping("/edit/:id")
     public ResponseEntity<ObjectNode> editBlog() {
         return null;
     }
