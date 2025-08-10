@@ -8,4 +8,6 @@ export interface Blog {
     content: string;
     comments: Comment[]
     author: User;
+    created_on: Date;
+    edited_on: Date;
 }
