@@ -1,0 +1,18 @@
+.text-preview {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-inline: 1rem;
+}
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.tabs > ul {
+    list-style: none;
+    display: flex;
+    background-color: var(--primary);
+}

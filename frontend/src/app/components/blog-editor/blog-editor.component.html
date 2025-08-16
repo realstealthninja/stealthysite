@@ -4,5 +4,23 @@
     </h1>
 </header>
 <main>
-    
+    <section class="tabs">
+        <ul>
+            <li><button>Editor</button></li>
+            <li><button>Preview</button></li>
+        </ul>
+    <section class="text-preview">
+
+        
+        <form>
+            <input placeholder="My latest blog"/>
+            <br/>
+            <textarea class="markdown-text" (change)="this.renderMarkdown($event)" ng-model="textarea"></textarea>
+        </form>
+        <section>
+            <h2>Markdown preview</h2>
+            <iframe class="preview-window" [srcdoc]="this.markdownText | markdown | async "></iframe>
+        </section>
+    </section>
+    </section>
 </main>
