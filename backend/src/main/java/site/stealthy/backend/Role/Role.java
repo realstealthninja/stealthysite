@@ -10,8 +10,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "roles", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "name")
-})
+        @UniqueConstraint(columnNames = "name") })
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +18,6 @@ public class Role {
 
     @Column(length = 60)
     private String name;
-
 
     public String getName() {
         return this.name;
