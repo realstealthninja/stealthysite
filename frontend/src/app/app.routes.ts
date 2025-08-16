@@ -5,12 +5,14 @@ import { BlogsComponent } from './components/blogs/blogs.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BlogRendererComponent } from './components/blog-renderer/blog-renderer.component';
+import { BlogEditorComponent } from './components/blog-editor/blog-editor.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
     { path: "home", redirectTo: '/' },
     { path: "projects", component: ProjectsComponent},
     { path: "blogs", component: BlogsComponent},
+    { path: "blogs/editor", component: BlogEditorComponent},
     { path: "blogs/:id", component: BlogRendererComponent},
     { path: "login", component: LoginComponent},
     { path: "register", component: RegisterComponent},
