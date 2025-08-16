@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import site.stealthy.backend.User.User;
 import site.stealthy.backend.User.UserRepository;
-import site.stealthy.backend.Utils.BlogDTO;
 
 @RestController
 @RequestMapping("/api/v1/blogs")
@@ -67,8 +68,13 @@ public class BlogController {
 
 
     @PostMapping("/create/")
-    public ResponseEntity<ObjectNode> createBlog(@RequestBody BlogDTO blog) {
-        return null;
+    public ResponseEntity<ObjectNode> createBlog(@RequestBody ObjectNode blog) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Blog resBlog = mapper.convertValue(blog, Blog.class);
+        resBlog.setAuthor(user);
+        blogRepository.save(resBlog);
+        blogRepository.flush();
+        return (new ResponseEntity<ObjectNode>(mapper.convertValue(resBlog, ObjectNode.class), HttpStatus.OK));  
     }
 
     @PutMapping("/edit/{id}")
