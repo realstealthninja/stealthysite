@@ -28,16 +28,16 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private JWTUtil jwtUtil;
-    
+
     @Autowired
     private RoleRepository RoleRepository;
 
@@ -50,43 +50,35 @@ public class UserController {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @PostMapping(
-        path="/users/register",
-        consumes = "application/json")
-    ResponseEntity<?> registerUser(
-        @RequestBody RegisterDTO registerDto
-    ) {
-        if(userRepository.existsByusername(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+    @PostMapping(path = "/users/register", consumes = "application/json")
+    ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDto) {
+        if (userRepository.existsByusername(registerDto.getUsername())) {
+            return new ResponseEntity<>("Username already exists",
+                    HttpStatus.BAD_REQUEST);
         }
 
-        User user = new User(
-            registerDto.getUsername(),
-            registerDto.getFirstname(),
-            registerDto.getLastname(),
-            passwordEncoder.encode(registerDto.getPassword())
-        );
-        
+        User user = new User(registerDto.getUsername(),
+                registerDto.getFirstname(), registerDto.getLastname(),
+                passwordEncoder.encode(registerDto.getPassword()));
+
         Role roles = RoleRepository.findByName("USER").get();
         user.setRoles(Collections.singleton(roles));
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User registered successfully",
+                HttpStatus.OK);
     }
 
-    @PostMapping(
-        path = "/users/login",
-        consumes = "application/json"
-    )
-    public ResponseEntity<ObjectNode> authenticateUser(@RequestBody LoginDTO loginDTO) {
+    @PostMapping(path = "/users/login", consumes = "application/json")
+    public ResponseEntity<ObjectNode> authenticateUser(
+            @RequestBody LoginDTO loginDTO) {
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                loginDTO.getUsername(), loginDTO.getPassword()
-            )
-        );
+                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
+                        loginDTO.getPassword()));
 
-        Optional<User> user = userRepository.findByusername(loginDTO.getUsername());
+        Optional<User> user = userRepository
+                .findByusername(loginDTO.getUsername());
 
         ObjectNode respNode = mapper.createObjectNode();
 
@@ -95,10 +87,9 @@ public class UserController {
             return new ResponseEntity<>(respNode, HttpStatus.OK);
         }
 
-
         if (authentication.isAuthenticated()) {
             respNode.put("jwt", jwtUtil.generateToken(user.get()));
-            
+
             return new ResponseEntity<ObjectNode>(respNode, HttpStatus.OK);
         }
         respNode.put("error", "Internal Server error");
