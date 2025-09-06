@@ -34,42 +34,35 @@ public class CommandLineStartupRunner implements CommandLineRunner {
 
         Role user = new Role();
         user.setName("USER");
-        if(roleRepository.findByName(user.getName()).isEmpty()) {
+        if (roleRepository.findByName(user.getName()).isEmpty()) {
             roleRepository.save(user);
         }
 
         Role blogger = new Role();
         blogger.setName("BLOGGER");
-        if(roleRepository.findByName(blogger.getName()).isEmpty()) {
+        if (roleRepository.findByName(blogger.getName()).isEmpty()) {
             roleRepository.save(blogger);
         }
-        
 
         Role admin = new Role();
         admin.setName("ADMIN");
-        if(roleRepository.findByName(admin.getName()).isEmpty()) {
-            admin =roleRepository.saveAndFlush(admin);
+        if (roleRepository.findByName(admin.getName()).isEmpty()) {
+            admin = roleRepository.saveAndFlush(admin);
         }
-
 
         roleRepository.flush();
 
         String username = "stealthninja";
         if (userService.findUserByUsername(username).isEmpty()) {
 
-            User admin_user = new User(
-                    username,
-                    null,
-                    null,
-                    password
-            );
+            User admin_user = new User(username, null, null, password);
             admin_user.setEmail(email);
 
             Role adminRole = roleRepository.findByName("ADMIN").get();
             admin_user.setRoles(Collections.singleton(adminRole));
 
             userService.saveUser(admin_user);
-        } 
+        }
 
     }
 
