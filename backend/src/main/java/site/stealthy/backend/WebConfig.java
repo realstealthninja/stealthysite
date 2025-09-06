@@ -19,24 +19,26 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
-       registry 
-            .addResourceHandler("/**")
-            .addResourceLocations("classpath:/static/browser")
-            .resourceChain(true)
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/browser")
+                .resourceChain(true)
 
-            .addResolver(
-                new PathResourceResolver() {
+                .addResolver(new PathResourceResolver() {
                     @Override
-                    protected Resource getResource(@NonNull String resourcePath, @NonNull Resource location) throws java.io.IOException {
-                        Resource requestedResource = location.createRelative(resourcePath);
+                    protected Resource getResource(@NonNull String resourcePath,
+                            @NonNull Resource location)
+                            throws java.io.IOException {
+                        Resource requestedResource = location
+                                .createRelative(resourcePath);
 
-                        if(requestedResource.exists() && requestedResource.isReadable()) {
+                        if (requestedResource.exists()
+                                && requestedResource.isReadable()) {
                             return requestedResource;
                         }
 
-                        return new ClassPathResource("/static/browser/index.html");
+                        return new ClassPathResource(
+                                "/static/browser/index.html");
                     };
-                }
-            );
+                });
     }
 }
