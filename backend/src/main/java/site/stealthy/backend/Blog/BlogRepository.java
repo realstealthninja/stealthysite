@@ -12,6 +12,7 @@ import site.stealthy.backend.User.User;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
     Optional<Set<Blog>> findBlogsByAuthor(User user);
+
     Optional<Set<Blog>> findBlogsByTags(Set<String> tags);
 
     @NativeQuery("SELECT * FROM blogs ORDER BY created_on DESC;")

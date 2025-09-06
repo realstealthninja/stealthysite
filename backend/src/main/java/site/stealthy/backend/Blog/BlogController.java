@@ -34,6 +34,9 @@ public class BlogController {
     @Autowired
     UserRepository userRepository;
 
+    /** 
+     * @return ResponseEntity<ObjectNode>
+     */
     @GetMapping("/")
     public ResponseEntity<ObjectNode> listBlogs() {
         ObjectNode ret = mapper.createObjectNode();
@@ -43,16 +46,18 @@ public class BlogController {
             return (new ResponseEntity<ObjectNode>(ret, HttpStatus.OK));
         }
         ArrayNode blogarr = ret.putArray("blogs");
-        
+
         for (Blog blog : blogs.get()) {
-            blogarr.add(
-                mapper.convertValue(blog, ObjectNode.class)
-            );
+            blogarr.add(mapper.convertValue(blog, ObjectNode.class));
         }
 
         return (new ResponseEntity<ObjectNode>(ret, HttpStatus.OK));
     }
 
+    /** 
+     * @param id
+     * @return ResponseEntity<ObjectNode>
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ObjectNode> getBlogbyId(@PathVariable("id") Long id) {
         ObjectNode respObject = mapper.createObjectNode();
@@ -66,7 +71,10 @@ public class BlogController {
         return (new ResponseEntity<ObjectNode>(respObject, HttpStatus.OK));
     }
 
-
+    /** 
+     * @param blog
+     * @return ResponseEntity<ObjectNode>
+     */
     @PostMapping("/create/")
     public ResponseEntity<ObjectNode> createBlog(@RequestBody ObjectNode blog) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,12 +82,16 @@ public class BlogController {
         resBlog.setAuthor(user);
         blogRepository.save(resBlog);
         blogRepository.flush();
-        return (new ResponseEntity<ObjectNode>(mapper.convertValue(resBlog, ObjectNode.class), HttpStatus.OK));  
+        return (new ResponseEntity<ObjectNode>(mapper.convertValue(resBlog, ObjectNode.class),
+                HttpStatus.OK));
     }
 
+    /** 
+     * @return ResponseEntity<ObjectNode>
+     */
     @PutMapping("/edit/{id}")
     public ResponseEntity<ObjectNode> editBlog() {
         return null;
     }
-    
+
 }

@@ -9,8 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name") })
+@Table(name = "roles", uniqueConstraints = { @UniqueConstraint(columnNames = "name") })
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +18,16 @@ public class Role {
     @Column(length = 60)
     private String name;
 
+    /** 
+     * @return String
+     */
     public String getName() {
         return this.name;
     }
 
+    /** 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }

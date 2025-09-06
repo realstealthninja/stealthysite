@@ -28,48 +28,54 @@ public class WebSecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
+    /** 
+     * @return PasswordEncoder
+     */
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /** 
+     * @return AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        
+
         authenticationProvider.setUserDetailsService(userService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
 
-        ProviderManager providerManager  = new ProviderManager(authenticationProvider);
+        ProviderManager providerManager = new ProviderManager(authenticationProvider);
         providerManager.setEraseCredentialsAfterAuthentication(false);
 
         return providerManager;
-    
+
     }
 
-
+    /** 
+     * @param httpSecurity
+     * @return SecurityFilterChain
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
         return httpSecurity
-                .csrf(
-                    csrf ->
-                    csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler())
-                )
-                .authorizeHttpRequests(
-                    auth -> auth
-                        .requestMatchers("/**").permitAll()
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
                         .requestMatchers("/blog/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/users/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN", "BLOGGER")
                         .requestMatchers("/blog/create/**").hasAnyRole("BLOGGER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/blog/create").hasAnyRole("BLOGGER", "ADMIN")
-                        .anyRequest().authenticated()
-                        
+                        .requestMatchers(HttpMethod.POST, "/api/v1/blog/create")
+                        .hasAnyRole("BLOGGER", "ADMIN").anyRequest().authenticated()
+
                 ).httpBasic(Customizer.withDefaults())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
 }

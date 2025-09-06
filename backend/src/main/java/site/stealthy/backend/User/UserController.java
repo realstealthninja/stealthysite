@@ -50,35 +50,38 @@ public class UserController {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
+    /** 
+     * @param registerDto
+     * @return ResponseEntity<?>
+     */
     @PostMapping(path = "/users/register", consumes = "application/json")
     ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDto) {
         if (userRepository.existsByusername(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username already exists",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
 
-        User user = new User(registerDto.getUsername(),
-                registerDto.getFirstname(), registerDto.getLastname(),
-                passwordEncoder.encode(registerDto.getPassword()));
+        User user = new User(registerDto.getUsername(), registerDto.getFirstname(),
+                registerDto.getLastname(), passwordEncoder.encode(registerDto.getPassword()));
 
         Role roles = RoleRepository.findByName("USER").get();
         user.setRoles(Collections.singleton(roles));
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully",
-                HttpStatus.OK);
+        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
 
+    /** 
+     * @param loginDTO
+     * @return ResponseEntity<ObjectNode>
+     */
     @PostMapping(path = "/users/login", consumes = "application/json")
-    public ResponseEntity<ObjectNode> authenticateUser(
-            @RequestBody LoginDTO loginDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
+    public ResponseEntity<ObjectNode> authenticateUser(@RequestBody LoginDTO loginDTO) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
                         loginDTO.getPassword()));
 
-        Optional<User> user = userRepository
-                .findByusername(loginDTO.getUsername());
+        Optional<User> user = userRepository.findByusername(loginDTO.getUsername());
 
         ObjectNode respNode = mapper.createObjectNode();
 

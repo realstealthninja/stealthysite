@@ -16,7 +16,7 @@ import site.stealthy.backend.User.User;
 
 @Entity
 @Table(name = "comments")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment {
     @Id
     private long id;
@@ -38,39 +38,86 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date editedOn;
 
+    /** 
+     * @return long
+     */
     public long getId() {
         return id;
     }
+
+    /** 
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
+
+    /** 
+     * @return User
+     */
     public User getAuthor() {
         return author;
     }
+
+    /** 
+     * @param author
+     */
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    /** 
+     * @return String
+     */
     public String getBody() {
         return body;
     }
+
+    /** 
+     * @param body
+     */
     public void setBody(String body) {
         this.body = body;
     }
+
+    /** 
+     * @return Blog
+     */
     public Blog getBlog() {
         return blog;
     }
+
+    /** 
+     * @param blog
+     */
     public void setBlog(Blog blog) {
         this.blog = blog;
     }
+
+    /** 
+     * @return Date
+     */
     public Date getCreatedOn() {
         return createdOn;
     }
+
+    /** 
+     * @param createdOn
+     */
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
+
+    /** 
+     * @return Date
+     */
     public Date getEditedOn() {
         return editedOn;
     }
+
+    /** 
+     * @param editedOn
+     */
     public void setEditedOn(Date editedOn) {
         this.editedOn = editedOn;
     }

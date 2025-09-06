@@ -11,24 +11,33 @@ import org.springframework.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 public class AngularCsrfTokenRequestHandler implements CsrfTokenRequestHandler {
     private final CsrfTokenRequestHandler plain = new CsrfTokenRequestAttributeHandler();
     private final CsrfTokenRequestHandler xor = new XorCsrfTokenRequestAttributeHandler();
 
+    /** 
+     * @param request
+     * @param response
+     * @param csrfToken
+     */
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, Supplier<CsrfToken> csrfToken) {
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+            Supplier<CsrfToken> csrfToken) {
         this.xor.handle(request, response, csrfToken);
         csrfToken.get();
     }
 
+    /** 
+     * @param request
+     * @param csrfToken
+     * @return String
+     */
     @Override
     public String resolveCsrfTokenValue(HttpServletRequest request, CsrfToken csrfToken) {
         String value = request.getHeader(csrfToken.getHeaderName());
 
-
-        return (StringUtils.hasText(value) ? this.plain : this.xor).resolveCsrfTokenValue(request, csrfToken);
+        return (StringUtils.hasText(value) ? this.plain : this.xor).resolveCsrfTokenValue(request,
+                csrfToken);
     }
-
 
 }
