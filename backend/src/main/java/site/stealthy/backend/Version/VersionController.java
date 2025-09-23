@@ -17,6 +17,9 @@ public class VersionController {
     ObjectMapper mapper;
 
     
+    /** 
+     * @return ObjectNode
+     */
     @GetMapping("spring")
     ObjectNode spring() {
         ObjectNode versionObject = mapper.createObjectNode();
@@ -25,6 +28,9 @@ public class VersionController {
         return versionObject;
     }
 
+    /** 
+     * @return ObjectNode
+     */
     @GetMapping("java")
     ObjectNode java() {
         ObjectNode versionObject = mapper.createObjectNode();
@@ -33,6 +39,9 @@ public class VersionController {
         return versionObject;
     }
 
+    /** 
+     * @return String
+     */
     @GetMapping("postgresql")
     String postgresql() {
         return "";

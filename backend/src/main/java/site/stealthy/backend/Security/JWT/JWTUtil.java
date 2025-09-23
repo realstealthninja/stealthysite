@@ -22,6 +22,12 @@ public class JWTUtil {
         secretKey = Jwts.SIG.HS256.key().build();
     }
 
+    /** 
+     * @param user
+     * @return String
+     * @throws IllegalArgumentException
+     * @throws JwtException
+     */
     public String generateToken(User user) throws IllegalArgumentException, JwtException {
         Date issueDate = new Date();
         Date expiryDate = new Date(
@@ -42,10 +48,20 @@ public class JWTUtil {
                    .compact(); 
     }
 
+    /** 
+     * @param token
+     * @return Jws<Claims>
+     * @throws JwtException
+     */
     public Jws<Claims> extractClaims(String token) throws JwtException {
         return Jwts.parser().verifyWith(secretKey).build().parse(token).accept(Jws.CLAIMS);
     }
 
+    /** 
+     * @param token
+     * @param userService
+     * @return Optional<User>
+     */
     public Optional<User> extractUser(String token, UserService userService)  {
         Jws<Claims> claims = null;
 
@@ -62,6 +78,11 @@ public class JWTUtil {
     }
 
 
+    /** 
+     * @param tokenString
+     * @param userService
+     * @return boolean
+     */
     public boolean verifyToken(String tokenString, UserService userService) {
         Jws<Claims> claims = null;
 

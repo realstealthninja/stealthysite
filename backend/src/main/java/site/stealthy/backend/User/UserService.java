@@ -25,19 +25,36 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
+    /** 
+     * @param user
+     * @return User
+     */
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
+    /** 
+     * @param username
+     * @return Optional<User>
+     */
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByusername(username);
     }
     
+    /** 
+     * @param email
+     * @return Optional<User>
+     */
     public Optional<User> findUserbyEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    /** 
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByusername(
@@ -62,6 +79,11 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
+    /** 
+     * @param email
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException{
         User user = userRepository.findByEmail(email).orElseThrow(
             () ->

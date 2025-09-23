@@ -12,11 +12,17 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /** 
+     * @param registry
+     */
     @Override
     public void addViewControllers(@NonNull ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
     }
 
+    /** 
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")

@@ -28,6 +28,10 @@ public class CommandLineStartupRunner implements CommandLineRunner {
     @Value("${PGADMIN_DEFAULT_EMAIL}")
     private String email;
 
+    /** 
+     * @param args
+     * @throws Exception
+     */
     @Override
     public void run(String... args) throws Exception {
         // create roles
