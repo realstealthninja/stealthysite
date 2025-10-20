@@ -1,0 +1,40 @@
+header {
+  padding: 1rem;
+}
+
+main {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs {
+  min-width: 100%;
+}
+
+.markdown-editor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.markdown-editor >
+
+.tabs > ul {
+  padding: 0px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}

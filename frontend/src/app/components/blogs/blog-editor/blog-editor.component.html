@@ -1,0 +1,39 @@
+<header>
+  <h1>Blog editor</h1>
+</header>
+<main>
+  <section class="markdown-editor">
+    <h2>{{ isPreview ? "Markdown preview" : "Markdown editor" }}</h2>
+    <section class="tabs">
+      <ul>
+        <li><button (click)="isPreview = false">Editor</button></li>
+        <li><button (click)="isPreview = true">Preview</button></li>
+      </ul>
+    </section>
+    @if(!this.isPreview){
+    <form>
+      <input
+        placeholder="My latest blog"
+        (change)="this.changeTitle($event)"
+        [value]="this.blog.title"
+      />
+
+      <textarea
+        class="markdown-text"
+        (change)="this.renderMarkdown($event)"
+        [value]="this.blog.content"
+        ng-model="textarea"
+      ></textarea>
+
+      <span>
+        <button class="primary" type="reset">reset</button>
+        <button class="secondary" type="submit">submit</button>
+      </span>
+    </form>
+    } @else {
+    <section class="markdown-preview">
+      <iframe class="preview-window" #iframe (load)="onLoad(iframe)"></iframe>
+    </section>
+    }
+  </section>
+</main>

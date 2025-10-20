@@ -1,0 +1,38 @@
+<header>
+    <h1> Blogs </h1>
+    <p>
+        Some of my latest blogs
+    </p>
+</header>
+
+<main>
+    <nav class="blog-nav">
+        <ul>
+            <li>
+                <a [routerLink]="'editor'">Create</a>
+            </li>
+            <li>
+                <input class="search-bar" type="text" placeholder="titles, tags, authors">
+            </li>
+
+        </ul>
+    </nav>
+    <section class="cards-grid">
+        @for (blog of (blogs$ | async); track $index) {
+            <section class="card">
+                <h3>{{ blog.title }}</h3>
+                <span class="author"><small><img alt="profile picture of {{ blog.author }}" src="images/stealthninja.png" width="32px" height="32px">stealthninja</small> <small>5 min read</small></span>
+                <span class="creation-date">{{ blog.created_on }}</span>
+                <p>{{blog.content.substring(0, 30) + "..."}}</p>
+                <button [routerLink]="['/blogs/' + blog.id]" class="secondary">
+                    go to blog
+                </button>
+            </section>
+        }
+    </section>
+</main>
+
+
+<footer>
+
+</footer>
