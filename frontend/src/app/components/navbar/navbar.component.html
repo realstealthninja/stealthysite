@@ -16,12 +16,12 @@
           </a>
         </li>
         <li>
-          
+
           @if(userAuth.isLoggedIn) {
-            <a routerLink="'profile'">profile</a>
-              
+            <a [routerLink]="['profile']">profile</a>
+
           } @else {
-            <a routerLink="'login'">login</a>
+            <a [routerLink]="['login']">login</a>
           }
         </li>
 
