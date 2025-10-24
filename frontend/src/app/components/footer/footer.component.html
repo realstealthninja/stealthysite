@@ -1,13 +1,13 @@
 <footer>
     <span>
         Content / design &copy; 2024-2025 stealthninja. <br/>
-        StealthyDev V{{project_version}}<br/>
-        Angular V{{angular_version}}<br/>
+        StealthyDev v{{project_version}}<br/>
+        Angular v{{angular_version}}<br/>
         @if (loading) {
             getting backend version...
         }
         @if (!loading && spring_version !== null && java_version !== null) {
-        Spring V{{spring_version}}
+        Spring v{{spring_version}}
         Java {{java_version}}
         }
         @if (!loading && (spring_version === null || java_version === null)) {
