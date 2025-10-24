@@ -13,7 +13,7 @@
     @if(!this.isPreview){
     <form>
       <input
-        placeholder="My latest blog"
+        placeholder="Title your blog"
         (change)="this.changeTitle($event)"
         [value]="this.blog.title"
       />
@@ -21,6 +21,7 @@
       <textarea
         class="markdown-text"
         (change)="this.renderMarkdown($event)"
+        placeholder="# hello world&#10;Write your blog here"
         [value]="this.blog.content"
         ng-model="textarea"
       ></textarea>
