@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
-@RequestMapping("/api/v1/version")
+@RequestMapping("/v1/version")
 public class VersionController {
     @Autowired
     ObjectMapper mapper;

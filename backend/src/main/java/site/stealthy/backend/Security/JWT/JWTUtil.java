@@ -33,9 +33,9 @@ public class JWTUtil {
         Date expiryDate = new Date(
             issueDate.getTime()
             + 1000 // conversion to seconds
-            * 60 // seconds to minutes
-            * 60 // mintues to hours
-            * 24 // hours to days
+            * 60   // seconds to minutes
+            * 60   // minutes to hours
+            * 24   // hours to days
             * 7 
         );
 

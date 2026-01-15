@@ -23,7 +23,7 @@ import site.stealthy.backend.User.User;
 import site.stealthy.backend.User.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1/blogs")
+@RequestMapping("/v1/blogs")
 public class BlogController {
     @Autowired
     ObjectMapper mapper;
