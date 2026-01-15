@@ -11,7 +11,7 @@ export class BloggingService {
   private httpClient: HttpClient = inject(HttpClient);
   private userAuth: UserauthService = inject(UserauthService);
 
-  private apiUrl: string = "/api/v1/blogs"
+  private apiUrl = "/api/v1/blogs"
 
   getBlogs(): Observable<Blog[]> {
     return this.httpClient.get<{ blogs: Blog[]}>(`${this.apiUrl}/`).pipe(
@@ -22,4 +22,4 @@ export class BloggingService {
   getBlog(id: number): Observable<Blog> {
     return this.httpClient.get<Blog>(`${this.apiUrl}/${id}`);
   }
-} 
+}

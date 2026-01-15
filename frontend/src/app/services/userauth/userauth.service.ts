@@ -21,7 +21,6 @@ export class UserauthService {
   }
 
   addJwtAuth(header: HttpHeaders): HttpHeaders {
-    var header: HttpHeaders;
     header.set("Authorization", this.jwtToken === null ? "" : this.jwtToken);
     return header;
   }
