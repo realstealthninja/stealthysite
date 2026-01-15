@@ -6,6 +6,10 @@ services:
       - stealthysite
     build:
       dockerfile: ./frontend/Dockerfile
+    develop:
+      watch:
+        - path: ./frontend/
+          action: rebuild
     ports:
       - "8080:80"
 
@@ -17,6 +21,10 @@ services:
       - .env
     build:
       dockerfile: ./backend/Dockerfile
+    develop:
+      watch:
+        - path: ./backend/
+          action: rebuild
     depends_on:
       - postgres
     ports:
