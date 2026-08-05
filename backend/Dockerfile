@@ -17,15 +17,15 @@ COPY ./backend/ ./
 RUN gradle clean build --parallel --no-daemon -x test
 
 # runtime
-FROM eclipse-temurin:21-jre-alpine AS runtime
-
-WORKDIR /app
+FROM gcr.io/distroless/java21-debian13 AS runtime
 
 # copy over the built jar file for execution
-COPY --from=backend-builder ./backend/build/libs/backend.jar /app/backend.jar
+COPY --from=backend-builder /backend/build/libs/backend.jar /app/backend.jar
+
+WORKDIR /app
 
 # expose our port
 EXPOSE 8080
 
 # run the program
-ENTRYPOINT ["java", "-jar", "/app/backend.jar"]
+CMD ["backend.jar"]

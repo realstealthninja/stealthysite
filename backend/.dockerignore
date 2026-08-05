@@ -5,6 +5,6 @@ build/
 gradle/
 .git/
 
-src/main/resources/static/
+src/main/resources/static/*
 
 HELP.md
