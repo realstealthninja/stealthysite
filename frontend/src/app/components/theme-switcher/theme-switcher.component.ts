@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-theme-switcher',
   imports: [],
   templateUrl: './theme-switcher.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './theme-switcher.component.css',
 })
 export class ThemeSwitcherComponent implements OnInit {

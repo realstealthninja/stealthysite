@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { MarkdownPipe } from 'ngx-markdown';
 import { Blog } from '../../../interfaces/blog';
 
@@ -7,6 +7,7 @@ import { Blog } from '../../../interfaces/blog';
   selector: 'app-blog-markdown-renderer',
   imports: [AsyncPipe, MarkdownPipe],
   templateUrl: './blog-markdown-renderer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-markdown-renderer.component.css'
 })
 export class BlogMarkdownRendererComponent {

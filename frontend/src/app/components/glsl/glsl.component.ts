@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { Webgl } from '../../classes/webgl/webgl';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { parse } from 'marked';
   selector: 'app-glsl',
   standalone: true,
   templateUrl: './glsl.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './glsl.component.css',
 })
 export class GlslComponent implements OnInit {

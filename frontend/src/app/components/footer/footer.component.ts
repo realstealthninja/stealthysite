@@ -1,4 +1,4 @@
-import { Component, VERSION, OnInit, inject } from '@angular/core';
+import { Component, VERSION, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import project from '../../../../package.json';
 import { VersionService } from '../../services/version/version.service';
 import { catchError, EMPTY, forkJoin} from 'rxjs';
@@ -7,6 +7,7 @@ import { catchError, EMPTY, forkJoin} from 'rxjs';
     selector: 'app-footer',
     imports: [],
     templateUrl: './footer.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './footer.component.css'
 })
 export class FooterComponent implements OnInit {

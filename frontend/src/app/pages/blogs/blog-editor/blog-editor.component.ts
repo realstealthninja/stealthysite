@@ -7,6 +7,7 @@ import {
   signal,
   ViewChild,
   ViewContainerRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogMarkdownRendererComponent } from '../blog-markdown-renderer/blog-markdown-renderer.component';
@@ -16,6 +17,7 @@ import { Blog } from '../../../interfaces/blog';
   selector: 'app-blog-editor',
   imports: [],
   templateUrl: './blog-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-editor.component.css',
 })
 export class BlogEditorComponent implements OnInit {

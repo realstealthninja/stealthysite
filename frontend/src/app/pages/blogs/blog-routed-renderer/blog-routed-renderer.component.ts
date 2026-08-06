@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { BloggingService } from '../../../services/blogging/blogging.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Blog } from '../../../interfaces/blog';
@@ -10,6 +10,7 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-blog-routed-renderer',
   imports: [BlogMarkdownRendererComponent, AsyncPipe],
   templateUrl: './blog-routed-renderer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-routed-renderer.component.css'
 })
 export class BlogRoutedRendererComponent {
