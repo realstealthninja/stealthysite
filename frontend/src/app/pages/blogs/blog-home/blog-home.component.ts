@@ -4,15 +4,17 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Blog } from '../../../interfaces/blog';
 import { AsyncPipe } from '@angular/common';
+import { UserauthService } from '../../../services/userauth/userauth.service';
 
 @Component({
   selector: 'app-blog-home',
   imports: [RouterLink, AsyncPipe],
   templateUrl: './blog-home.component.html',
-  styleUrl: './blog-home.component.css'
+  styleUrl: './blog-home.component.css',
 })
 export class BlogHomeComponent {
   private bloggingService: BloggingService = inject(BloggingService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  userAuth: UserauthService = inject(UserauthService);
   blogs$: Observable<Blog[]> = this.bloggingService.getBlogs();
 }
