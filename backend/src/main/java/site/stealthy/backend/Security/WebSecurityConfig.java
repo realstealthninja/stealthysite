@@ -28,7 +28,7 @@ public class WebSecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
-    /** 
+    /**
      * @return PasswordEncoder
      */
     @Bean
@@ -36,7 +36,7 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /** 
+    /**
      * @return AuthenticationManager
      */
     @Bean
@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 
     }
 
-    /** 
+    /**
      * @param httpSecurity
      * @return SecurityFilterChain
      * @throws Exception
@@ -66,12 +66,9 @@ public class WebSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
-                        .requestMatchers("/blog/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN", "BLOGGER")
-                        .requestMatchers("/blog/create/**").hasAnyRole("BLOGGER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/blog/create")
+                        .requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
+                        .requestMatchers("/v1/users/me").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/v1/blog/create")
                         .hasAnyRole("BLOGGER", "ADMIN").anyRequest().authenticated()
 
                 ).httpBasic(Customizer.withDefaults())

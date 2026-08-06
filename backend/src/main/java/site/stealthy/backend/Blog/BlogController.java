@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import jakarta.annotation.Nonnull;
 import site.stealthy.backend.User.User;
 import site.stealthy.backend.User.UserRepository;
 
@@ -34,7 +35,7 @@ public class BlogController {
     @Autowired
     UserRepository userRepository;
 
-    /** 
+    /**
      * @return ResponseEntity<ObjectNode>
      */
     @GetMapping("/")
@@ -54,12 +55,12 @@ public class BlogController {
         return (new ResponseEntity<ObjectNode>(ret, HttpStatus.OK));
     }
 
-    /** 
+    /**
      * @param id
      * @return ResponseEntity<ObjectNode>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ObjectNode> getBlogbyId(@PathVariable("id") Long id) {
+    public ResponseEntity<ObjectNode> getBlogbyId(@Nonnull @PathVariable("id") Long id) {
         ObjectNode respObject = mapper.createObjectNode();
         Optional<Blog> blog = blogRepository.findById(id);
         if (blog.isEmpty()) {
@@ -71,7 +72,7 @@ public class BlogController {
         return (new ResponseEntity<ObjectNode>(respObject, HttpStatus.OK));
     }
 
-    /** 
+    /**
      * @param blog
      * @return ResponseEntity<ObjectNode>
      */
@@ -86,7 +87,7 @@ public class BlogController {
                 HttpStatus.OK));
     }
 
-    /** 
+    /**
      * @return ResponseEntity<ObjectNode>
      */
     @PutMapping("/edit/{id}")

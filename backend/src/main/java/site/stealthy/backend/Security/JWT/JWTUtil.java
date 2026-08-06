@@ -40,7 +40,7 @@ public class JWTUtil {
         );
 
         return Jwts.builder()
-                   .subject(user.getUsername())
+                   .subject(user.getUserid())
                    .issuedAt(issueDate)
                    .expiration(expiryDate)
                    .issuer("stealthy.site")
@@ -72,7 +72,7 @@ public class JWTUtil {
         }
 
         
-        return userService.findUserbyEmail(
+        return userService.findUserbyId(
             claims.getPayload().getSubject()
         );
     }
@@ -103,7 +103,7 @@ public class JWTUtil {
         String issuer = claims.getPayload().getIssuer();
         Date expiryDate = claims.getPayload().getExpiration();
 
-        Optional<User> user = userService.findUserbyEmail(subject);
+        Optional<User> user = userService.findUserbyId(subject);
         
         if (user.isEmpty()) {
             return false;
