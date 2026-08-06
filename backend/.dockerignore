@@ -8,3 +8,6 @@ gradle/
 src/main/resources/static/*
 
 HELP.md
+
+Dockerfile
+.dockerignore
