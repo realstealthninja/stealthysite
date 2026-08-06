@@ -39,8 +39,6 @@ export class BlogEditorComponent implements OnInit {
     author: {
       id: 0,
       username: '',
-      firstname: '',
-      lastname: '',
       blogs: [],
     },
     created_on: new Date(),
@@ -71,6 +69,22 @@ export class BlogEditorComponent implements OnInit {
     });
 
     const doc = iframe.contentDocument;
+    for (const stylesheet of document.styleSheets) {
+      if (stylesheet.href !== null) {
+        const href = document.createElement("link");
+        href.href = stylesheet.href;
+        href.rel = "stylesheet";
+        doc?.head.appendChild(href);
+      } else {
+        const style: HTMLStyleElement = document.createElement("style");
+        for (const rule of stylesheet.cssRules) {
+          style.textContent += rule.cssText;
+        }
+        doc?.head.appendChild(style);
+      }
+
+
+    }
     doc?.body.appendChild(compRef.location.nativeElement);
   }
 }

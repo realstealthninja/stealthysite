@@ -12,6 +12,8 @@ main {
 
 .tabs {
   min-width: 100%;
+  background-color: var(--background);
+  border-radius: 0.75rem;
 }
 
 .markdown-editor {
@@ -21,13 +23,31 @@ main {
   align-items: start;
 }
 
+.submit-span {
+  width: 100%;
+}
+.submit-span > button {
+  width: 100%;
+}
+
 
 .tabs > ul {
   padding: 0px;
   list-style: none;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
+
+
+}
+
+.tab-button {
+  background-color: inherit;
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.tabs > ul> li:first-child {
+  border-right: solid 5px var(--secondary);
 }
 
 form {
@@ -49,7 +69,7 @@ textarea {
   min-width: 20rem;
   background-color: var(--background);
   border-radius: 1.2rem;
-  min-height: 10rem;
+  min-height: 20rem;
   margin-block: 1rem;
   padding: 1rem;
 }

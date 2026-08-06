@@ -1,0 +1,22 @@
+<section class="card">
+  <h3>{{ title() }}</h3>
+  @if ( blog(); as blog) {
+    <span class="author"
+    ><small
+      ><img
+        [alt]="'avatar of' + blog.author.username"
+        src="images/stealthninja.png"
+        width="32px"
+        height="32px"
+      />{{blog.author.username}}</small
+    >
+    <small>{{calculateReadTime(blog.content)}} min read</small></span
+    >
+
+    <p>{{blog.content.substring(0, 48)}}...</p>
+    <a class="button secondary" [href]="'/blogs/' + blog.id">go to blog</a>
+  } @else {
+    <p>{{description()}}</p>
+  }
+
+</section>

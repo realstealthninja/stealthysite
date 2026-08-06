@@ -2,16 +2,16 @@
   <h1>Blog editor</h1>
 </header>
 <main>
-  <section class="markdown-editor">
+  <section>
     <h2>{{ isPreview ? "Markdown preview" : "Markdown editor" }}</h2>
     <section class="tabs">
       <ul>
-        <li><button (click)="isPreview = false">Editor</button></li>
-        <li><button (click)="isPreview = true">Preview</button></li>
+        <li><button class="tab-button" (click)="isPreview = false">Editor</button></li>
+        <li><button class="tab-button" (click)="isPreview = true">Preview</button></li>
       </ul>
     </section>
     @if(!this.isPreview){
-    <form>
+    <form class="markdown-editor">
       <input
         placeholder="Title your blog"
         (change)="this.changeTitle($event)"
@@ -26,8 +26,7 @@
         ng-model="textarea"
       ></textarea>
 
-      <span>
-        <button class="primary" type="reset">reset</button>
+      <span class="submit-span">
         <button class="secondary" type="submit">submit</button>
       </span>
     </form>
