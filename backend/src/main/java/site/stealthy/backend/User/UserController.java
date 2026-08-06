@@ -11,12 +11,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/users")
 public class UserController {
 
     @Autowired
@@ -50,11 +53,25 @@ public class UserController {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    /** 
+    @GetMapping("/{id}")
+    ResponseEntity<ObjectNode> getUser(@PathVariable("id") String id) {
+        ObjectNode respObject = mapper.createObjectNode();
+
+        Optional<User> user = userRepository.findByUserid(id);
+        if (user.isPresent()) {
+            respObject = mapper.convertValue(user.get(), ObjectNode.class);
+        } else {
+            respObject.put("error", "Could not find user");
+        }
+
+        return new ResponseEntity<>(respObject, HttpStatus.OK);
+    }
+
+    /**
      * @param registerDto
      * @return ResponseEntity<?>
      */
-    @PostMapping(path = "/users/register", consumes = "application/json")
+    @PostMapping(path = "/register", consumes = "application/json")
     ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDto) {
         if (userRepository.existsByusername(registerDto.getUsername())) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
@@ -71,11 +88,11 @@ public class UserController {
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
 
-    /** 
+    /**
      * @param loginDTO
      * @return ResponseEntity<ObjectNode>
      */
-    @PostMapping(path = "/users/login", consumes = "application/json")
+    @PostMapping(path = "/login", consumes = "application/json")
     public ResponseEntity<ObjectNode> authenticateUser(@RequestBody LoginDTO loginDTO) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
@@ -92,11 +109,20 @@ public class UserController {
 
         if (authentication.isAuthenticated()) {
             respNode.put("jwt", jwtUtil.generateToken(user.get()));
+            respNode.put("id", user.get().getId());
 
             return new ResponseEntity<ObjectNode>(respNode, HttpStatus.OK);
         }
         respNode.put("error", "Internal Server error");
 
         return new ResponseEntity<>(respNode, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping(path = "/me")
+    public ResponseEntity<ObjectNode> me(@AuthenticationPrincipal User user) {
+
+        ObjectNode respObjectNode = mapper.convertValue(user, ObjectNode.class); 
+        return new ResponseEntity<ObjectNode>(respObjectNode,
+                HttpStatus.OK);
     }
 }

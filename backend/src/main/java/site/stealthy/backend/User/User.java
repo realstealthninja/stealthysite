@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,28 +43,36 @@ import site.stealthy.backend.Role.Role;
         "password",
         "approved",
         "blogger",
-        "roles",
         "authorities",
         "accountNonExpired",
         "enabled",
         "credentialsNonExpired",
-        "accountNonLocked"
+        "accountNonLocked",
+        "firstname",
+        "lastname"
     }
 )
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="userid")
 /* @formatter:on */
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @UuidGenerator()
+    private String userid;
 
     private String username;
 
+
     private String firstname;
 
+
     private String email;
+
     private String lastname;
+
     private String password;
 
     @JsonManagedReference
@@ -99,8 +108,12 @@ public class User implements UserDetails {
     /**
      * @return long
      */
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public String getUserid() {
+        return userid;
     }
 
     /**

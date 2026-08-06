@@ -50,6 +50,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> findUserbyId(String id) {
+        return userRepository.findByUserid(id);
+    }
+    
     /** 
      * @param username
      * @return UserDetails
