@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -121,8 +121,7 @@ public class UserController {
     @GetMapping(path = "/me")
     public ResponseEntity<ObjectNode> me(@AuthenticationPrincipal User user) {
 
-        ObjectNode respObjectNode = mapper.convertValue(user, ObjectNode.class); 
-        return new ResponseEntity<ObjectNode>(respObjectNode,
-                HttpStatus.OK);
+        ObjectNode respObjectNode = mapper.convertValue(user, ObjectNode.class);
+        return new ResponseEntity<ObjectNode>(respObjectNode, HttpStatus.OK);
     }
 }

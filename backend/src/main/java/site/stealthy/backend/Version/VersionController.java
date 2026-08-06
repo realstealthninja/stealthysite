@@ -1,14 +1,13 @@
 package site.stealthy.backend.Version;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 @RestController
 @RequestMapping("/v1/version")
@@ -16,8 +15,7 @@ public class VersionController {
     @Autowired
     ObjectMapper mapper;
 
-    
-    /** 
+    /**
      * @return ObjectNode
      */
     @GetMapping("spring")
@@ -28,7 +26,7 @@ public class VersionController {
         return versionObject;
     }
 
-    /** 
+    /**
      * @return ObjectNode
      */
     @GetMapping("java")
@@ -39,7 +37,7 @@ public class VersionController {
         return versionObject;
     }
 
-    /** 
+    /**
      * @return String
      */
     @GetMapping("postgresql")
