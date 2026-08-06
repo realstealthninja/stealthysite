@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { ProjectsComponent } from './components/projects/projects.component';
-import { BlogsComponent } from './components/blogs/blogs.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { BlogRoutedRendererComponent } from './components/blogs/blog-routed-renderer/blog-routed-renderer.component';
-import { BlogEditorComponent } from './components/blogs/blog-editor/blog-editor.component';
-import { BlogHomeComponent } from './components/blogs/blog-home/blog-home.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { BlogRoutedRendererComponent } from './pages/blogs/blog-routed-renderer/blog-routed-renderer.component';
+import { BlogEditorComponent } from './pages/blogs/blog-editor/blog-editor.component';
+import { BlogHomeComponent } from './pages/blogs/blog-home/blog-home.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
