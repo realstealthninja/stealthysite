@@ -35,7 +35,7 @@
     "@angular/build": "^21.1.0",
     "@angular/cli": "^21.1.0",
     "@angular/compiler-cli": "^21.1.0",
-    "@angular/language-server": "^19.0.3",
+    "@angular/language-server": "^20.3.0",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "20.1.1",
     "eslint": "^9.29.0",
