@@ -1,24 +1,22 @@
 button {
   bottom: 1rem;
-  position: sticky;
-  float: right;
-  
+  right: 1rem;
+  position: fixed;
+
   border-radius: 1rem;
 
   color: var(--text);
+
   background-color: transparent;
 
   width: min-content;
 }
 
-button > img {
+.theme-img {
   width: 32px;
   height: 32px;
-  content: url("/images/sun.svg");
 }
 
-@media (prefers-color-scheme: dark) {
-  button > img {
-    content: url("/images/moon.svg");
-  }
+path {
+  stroke: var(--text);
 }

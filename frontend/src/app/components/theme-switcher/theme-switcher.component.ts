@@ -1,61 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-theme-switcher',
-    imports: [],
-    templateUrl: './theme-switcher.component.html',
-    styleUrl: './theme-switcher.component.css'
+  selector: 'app-theme-switcher',
+  imports: [],
+  templateUrl: './theme-switcher.component.html',
+  styleUrl: './theme-switcher.component.css',
 })
-export class ThemeSwitcherComponent {
-  toggle_theme() {
-    if (localStorage.getItem('theme') === 'light') {
-      localStorage.setItem('theme', 'dark');
+export class ThemeSwitcherComponent implements OnInit {
+  theme = 'dark';
+
+  ngOnInit() {
+    if (window.document.body.style.getPropertyValue('color-scheme') == 'dark') {
+      this.theme = 'dark';
     } else {
-      localStorage.setItem('theme', 'light');
+      this.theme = 'light';
     }
+  }
 
-    const theme = localStorage.getItem('theme');
-    const rules = document.styleSheets[0].cssRules;
-
-    for (let i = 0; i < rules.length - 1; i++) {
-      if (!(rules.item(i) instanceof CSSMediaRule)) {
-        continue;
-      }
-
-      const rule: CSSMediaRule | null = rules.item(i) as CSSMediaRule | null;
-
-      if (rule!.media.mediaText.includes('prefers-color-scheme')) {
-        continue;
-      }
-      
-      const media = rule!.media;
-      switch (theme) {
-        case 'light':
-          media.appendMedium("original-prefers-color-scheme");
-          if (media.mediaText.includes("light")) {
-            media.deleteMedium("(prefers-color-scheme: light)");
-          }
-          if (media.mediaText.includes("dark")) {
-            media.deleteMedium("(prefers-color-scheme: dark");
-          }
-
-          break;
-        case 'dark':
-          media.appendMedium("(prefers-color-scheme: light)");
-          media.appendMedium("(prefers-color-scheme: dark)");
-          if (media.mediaText.includes("original")) {
-            media.deleteMedium("original-prefers-color-scheme");
-          }
-          break;
-        default:
-          media.appendMedium("(prefers-color-scheme: dark");
-          if (media.mediaText.includes("light")) {
-            media.deleteMedium("(prefers-color-scheme: light)");
-          }
-          if (media.mediaText.includes("original")) {
-            media.deleteMedium("original-prefers-color-scheme");
-          }
-      }
+  toggle_theme() {
+    if (window.document.body.style.getPropertyValue('color-scheme') == 'dark') {
+      window.document.body.style.setProperty('color-scheme', 'light');
+      this.theme = 'light';
+    } else {
+      window.document.body.style.setProperty('color-scheme', 'dark');
+      this.theme = 'dark';
     }
   }
 }

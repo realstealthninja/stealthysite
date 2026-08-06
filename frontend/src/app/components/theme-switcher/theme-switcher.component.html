@@ -1,3 +1,30 @@
-<button (click)="toggle_theme();">
-  <img id="theme-img" alt="toggle the theme">
+<button (click)="toggle_theme()">
+  <svg
+    id="theme-icon"
+    fill="none"
+    height="32"
+    viewBox="0 0 24 24"
+    width="32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    @if (this.theme === "dark") {
+      <g stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="m17 12c0 2.7614-2.2386 5-5 5-2.76142 0-5-2.2386-5-5 0-2.76142 2.23858-5 5-5 2.7614 0 5 2.23858 5 5z"
+          stroke-width="1.5"
+        />
+        <path
+          d="m11.9955 3h.009m-.0084 18h.009m6.3537-15.36401h.009m-12.73371 12.72801h.00898m-.00898-12.72753h.00898m12.71513 12.72803h.009m2.6238-6.3639h.009m-18 0h.00898"
+          stroke-width="2"
+        />
+      </g>
+    } @else {
+      <path
+        d="m21.5 14.0784c-1.1997.6405-2.5699 1.0037-4.0249 1.0037-4.726 0-8.55718-3.8312-8.55718-8.55725 0-1.45499.36313-2.82517 1.00371-4.02485-4.25398.99698-7.42163 4.81513-7.42163 9.3731 0 5.3168 4.3101 9.6269 9.6269 9.6269 4.558 0 8.3761-3.1676 9.3731-7.4216z"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      />
+    }
+  </svg>
 </button>
