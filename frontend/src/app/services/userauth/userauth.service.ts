@@ -3,57 +3,55 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { registerDTO } from '../../interfaces/registerDTO';
 import { LoginDTO } from '../../interfaces/LoginDTO';
 import { JwtDTO } from '../../interfaces/jwt-dto';
+import { User } from '../../interfaces/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserauthService {
   private httpClient = inject(HttpClient);
-
-  private apiURL = "/api/v1/users"
+  private apiURL = environment.apiUrlBase + 'users';
 
   get isLoggedIn(): boolean {
     return this.jwtToken !== null;
   }
 
   get jwtToken(): string | null {
-    return localStorage.getItem("jwt");
+    return localStorage.getItem('jwt');
   }
 
   addJwtAuth(header: HttpHeaders): HttpHeaders {
-    header.set("Authorization", this.jwtToken === null ? "" : this.jwtToken);
+    header.set('Authorization', this.jwtToken === null ? '' : this.jwtToken);
     return header;
   }
 
   registerUser(user: registerDTO) {
-    this.httpClient.post<JwtDTO>(`${this.apiURL}/register`, user).subscribe({
-      next: (data: JwtDTO) => {
-        localStorage.setItem("jwt", data.jwt);
-      },
-
+    this.httpClient.post(`${this.apiURL}/register`, user).subscribe({
       error: (error) => {
         console.error(error);
-
-      }
-    }
-    )
+      },
+    });
   }
 
   loginUser(user: LoginDTO) {
     this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
       next: (data: JwtDTO) => {
-        localStorage.setItem("jwt", data.jwt);
+        localStorage.setItem('jwt', data.jwt);
+        localStorage.setItem('id', data.id.toString());
       },
 
       error: (error) => {
-        console.log(error)
-      }
-
+        console.log(error);
+      },
     });
   }
 
-  logoutUser() {
-    localStorage.removeItem("jwt");
+  loggedinUser() {
+    return this.httpClient.get<User>(`${this.apiURL}/me`);
   }
 
+  logoutUser() {
+    localStorage.removeItem('jwt');
+  }
 }
