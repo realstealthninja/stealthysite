@@ -28,7 +28,7 @@ Before deployement make sure you have set your environment variables correctly.
 mv template.env .env
 ```
 
-#### structre of dotenv
+#### Structure of .env
 
 ```
 ...
@@ -37,6 +37,8 @@ SPRING_ADMIN_EMAIL=
 SPRING_ADMIN_USER=
 SPRING_ADMIN_PASSWORD=
 ```
+
+Make sure all the values are set properly.
 
 ### dependencies
 
