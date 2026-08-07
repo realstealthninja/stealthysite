@@ -3,7 +3,11 @@
   <p>Comment on my blogs, Maybe even get a chance to write your own.</p>
 </header>
 <main>
-  <form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <form
+    [formGroup]="loginForm"
+    #formDir="ngForm"
+    (ngSubmit)="onSubmit(loginForm.value)"
+  >
     <section [hidden]="formDir.submitted">
       <h2>Login details</h2>
       <fieldset>
@@ -21,9 +25,9 @@
             name="text"
             type="text"
           />
-          @if(username?.invalid && (username?.dirty || username?.touched)) {
-            @if(username?.hasError("required")) {
-            <span class="form-error">A Username is required</span>
+          @if (username?.invalid && (username.dirty || username.touched)) {
+            @if (username.hasError("required")) {
+              <span class="form-error">A Username is required</span>
             }
           }
         </p>
@@ -36,27 +40,25 @@
           </label>
           <input
             placeholder="********"
-            minlength=8
+            minlength="8"
             id="password"
             name="password"
             formControlName="password"
             type="password"
           />
-          @if(password?.invalid && (password?.dirty || password?.touched)) {
-            @if(password?.hasError("required")) {
-              <span class="form-error">
-                A password is required
-              </span> 
+          @if (password?.invalid && (password?.dirty || password?.touched)) {
+            @if (password?.hasError("required")) {
+              <span class="form-error"> A password is required </span>
             }
-            @if(password?.hasError("minlength")) {
-                <span class="form-error">
-                    A password should be atleast 8 characters long
-                </span>
-            }
-            @if(password?.hasError("pattern")) {
+            @if (password?.hasError("minlength")) {
               <span class="form-error">
-                   Password should contain atleast a lower case character, upper case character,
-                   numbers and a special character
+                A password should be atleast 8 characters long
+              </span>
+            }
+            @if (password?.hasError("pattern")) {
+              <span class="form-error">
+                Password should contain atleast a lower case character, upper
+                case character, numbers and a special character
               </span>
             }
           }
@@ -69,10 +71,14 @@
       </section>
 
       <section class="form-footer">
-        <small><a [routerLink]="'/register'" alt="register">dont have an account?</a></small>
+        <small
+          ><a [routerLink]="'/register'" alt="register"
+            >dont have an account?</a
+          ></small
+        >
       </section>
     </section>
-    
+
     <section [hidden]="!formDir.submitted">
       <div>Login request sent</div>
     </section>
