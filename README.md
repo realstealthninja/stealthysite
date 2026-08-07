@@ -14,6 +14,8 @@ The project has a monorepo struture and is divded into loosely coupled softwares
 ├── backend
 └── frontend
 
+command: tree -dnL 1 --gitignore -o tree.txt
+
 ```
 
 You can find more information about each part in their respective folders.
