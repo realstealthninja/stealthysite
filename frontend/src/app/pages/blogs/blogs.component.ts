@@ -1,13 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-blogs',
-    imports: [RouterOutlet],
-    templateUrl: './blogs.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './blogs.component.css'
+  selector: 'app-blogs',
+  imports: [RouterOutlet],
+  templateUrl: './blogs.component.html',
+  styleUrl: './blogs.component.css',
 })
-export class BlogsComponent {
-
-}
+export class BlogsComponent {}
