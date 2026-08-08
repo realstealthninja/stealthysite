@@ -60,7 +60,7 @@ public class BlogController {
      * @return ResponseEntity<ObjectNode>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ObjectNode> getBlogbyId(@Nonnull @PathVariable("id") Long id) {
+    public ResponseEntity<ObjectNode> getBlogbyId(@Nonnull @PathVariable("id") String id) {
         ObjectNode respObject = mapper.createObjectNode();
         Optional<Blog> blog = blogRepository.findById(id);
         if (blog.isEmpty()) {

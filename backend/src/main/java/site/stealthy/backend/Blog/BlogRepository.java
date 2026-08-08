@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import site.stealthy.backend.User.User;
 
 @Repository
-public interface BlogRepository extends JpaRepository<Blog, Long> {
+public interface BlogRepository extends JpaRepository<Blog, String> {
     Optional<Set<Blog>> findBlogsByAuthor(User user);
 
     Optional<Set<Blog>> findBlogsByTags(Set<String> tags);

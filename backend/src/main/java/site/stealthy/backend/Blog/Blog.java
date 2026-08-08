@@ -22,8 +22,8 @@ import site.stealthy.backend.User.User;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Blog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String title;
 
     @ElementCollection
@@ -45,15 +45,8 @@ public class Blog {
     /**
      * @return long
      */
-    public long getId() {
+    public String getId() {
         return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**
