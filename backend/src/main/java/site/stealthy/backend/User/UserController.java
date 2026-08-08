@@ -57,7 +57,7 @@ public class UserController {
     ResponseEntity<ObjectNode> getUser(@PathVariable("id") String id) {
         ObjectNode respObject = mapper.createObjectNode();
 
-        Optional<User> user = userRepository.findByUserid(id);
+        Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             respObject = mapper.convertValue(user.get(), ObjectNode.class);
         } else {

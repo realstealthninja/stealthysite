@@ -50,7 +50,7 @@ import site.stealthy.backend.Role.Role;
         "accountNonLocked",
     }
 )
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="userid")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 /* @formatter:on */
 public class User implements UserDetails {
 
