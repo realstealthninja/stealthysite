@@ -116,11 +116,4 @@ public class UserController {
 
         return new ResponseEntity<>(respNode, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    @GetMapping(path = "/me")
-    public ResponseEntity<ObjectNode> me(@AuthenticationPrincipal User user) {
-
-        ObjectNode respObjectNode = mapper.convertValue(user, ObjectNode.class);
-        return new ResponseEntity<ObjectNode>(respObjectNode, HttpStatus.OK);
-    }
 }
