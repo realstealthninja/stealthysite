@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { registerDTO } from '../../interfaces/registerDTO';
-import { LoginDTO } from '../../interfaces/LoginDTO';
+import { UserLoginDTO, UserRegisterDTO } from '../../interfaces/user-dtos';
 import { JwtDTO } from '../../interfaces/jwt-dto';
 import { User } from '../../interfaces/user';
 import { environment } from '../../../environments/environment';
@@ -26,7 +25,7 @@ export class UserauthService {
     return header;
   }
 
-  registerUser(user: registerDTO) {
+  registerUser(user: UserRegisterDTO) {
     this.httpClient.post(`${this.apiURL}/register`, user).subscribe({
       error: (error) => {
         console.error(error);
@@ -34,7 +33,7 @@ export class UserauthService {
     });
   }
 
-  loginUser(user: LoginDTO) {
+  loginUser(user: UserLoginDTO) {
     this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
       next: (data: JwtDTO) => {
         localStorage.setItem('jwt', data.jwt);
