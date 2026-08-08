@@ -12,8 +12,10 @@ This project currently uses PostgreSQL as it's database.
 The following is the ER diagram used for the blogging part of the project.
 
 ```mermaid
-erDiagram
+---
 title: ER diagram for blogging
+---
+erDiagram
 User ||--|{ Blog : posts
 User ||--|{ Comment : writes
 
