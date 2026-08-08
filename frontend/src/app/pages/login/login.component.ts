@@ -1,14 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormGroup,
-  FormControl,
   ReactiveFormsModule,
   Validators,
   FormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LoginDTO } from '../../interfaces/LoginDTO';
 import { UserauthService } from '../../services/userauth/userauth.service';
+import { UserLoginDTO } from '../../interfaces/user-dtos';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('username');
   }
   onSubmit(_: FormData) {
-    const user: LoginDTO = {
+    const user: UserLoginDTO = {
       username: this.username?.value,
       password: this.password?.value,
     };

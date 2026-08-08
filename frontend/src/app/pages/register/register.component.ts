@@ -1,15 +1,19 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { registerDTO } from '../../interfaces/registerDTO';
 import { UserauthService } from '../../services/userauth/userauth.service';
+import { UserRegisterDTO } from '../../interfaces/user-dtos';
 
 @Component({
-    selector: 'app-register',
-    imports: [ReactiveFormsModule, RouterLink],
-    templateUrl: './register.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './register.component.css'
+  selector: 'app-register',
+  imports: [ReactiveFormsModule, RouterLink],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
@@ -18,23 +22,20 @@ export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
 
   ngOnInit() {
-
     this.registrationForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern("/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/")]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            '/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=D*d).{8,}$/',
+          ),
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
-    })
-
-  }
-
-  get firstname() {
-    return this.registrationForm.get('firstname');
-  }
-
-  get lastname() {
-    return this.registrationForm.get('lastname');
+    });
   }
 
   get username() {
@@ -46,19 +47,16 @@ export class RegisterComponent implements OnInit {
   }
 
   get email() {
-    return this.registrationForm.get('email')
+    return this.registrationForm.get('email');
   }
 
   onSubmit() {
-    const user: registerDTO = {
-      firstname: this.firstname?.value,
-      lastname: this.lastname?.value,
+    const user: UserRegisterDTO = {
       username: this.username?.value,
       password: this.password?.value,
-      email: this.email?.value
+      email: this.email?.value,
     };
 
-    
     const hello = this.userAuth.registerUser(user);
     console.log(hello);
   }
