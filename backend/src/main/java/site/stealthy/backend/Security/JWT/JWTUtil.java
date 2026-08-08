@@ -22,7 +22,7 @@ public class JWTUtil {
         secretKey = Jwts.SIG.HS256.key().build();
     }
 
-    /** 
+    /**
      * @param user
      * @return String
      * @throws IllegalArgumentException
@@ -30,25 +30,17 @@ public class JWTUtil {
      */
     public String generateToken(User user) throws IllegalArgumentException, JwtException {
         Date issueDate = new Date();
-        Date expiryDate = new Date(
-            issueDate.getTime()
-            + 1000 // conversion to seconds
-            * 60   // seconds to minutes
-            * 60   // minutes to hours
-            * 24   // hours to days
-            * 7 
-        );
+        Date expiryDate = new Date(issueDate.getTime() + 1000 // conversion to seconds
+                * 60 // seconds to minutes
+                * 60 // minutes to hours
+                * 24 // hours to days
+                * 7);
 
-        return Jwts.builder()
-                   .subject(user.getUserid())
-                   .issuedAt(issueDate)
-                   .expiration(expiryDate)
-                   .issuer("stealthy.site")
-                   .signWith(secretKey)
-                   .compact(); 
+        return Jwts.builder().subject(user.getId()).issuedAt(issueDate).expiration(expiryDate)
+                .issuer("stealthy.site").signWith(secretKey).compact();
     }
 
-    /** 
+    /**
      * @param token
      * @return Jws<Claims>
      * @throws JwtException
@@ -57,12 +49,12 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parse(token).accept(Jws.CLAIMS);
     }
 
-    /** 
+    /**
      * @param token
      * @param userService
      * @return Optional<User>
      */
-    public Optional<User> extractUser(String token, UserService userService)  {
+    public Optional<User> extractUser(String token, UserService userService) {
         Jws<Claims> claims = null;
 
         try {
@@ -71,14 +63,10 @@ public class JWTUtil {
             return null;
         }
 
-        
-        return userService.findUserbyId(
-            claims.getPayload().getSubject()
-        );
+        return userService.findUserbyId(claims.getPayload().getSubject());
     }
 
-
-    /** 
+    /**
      * @param tokenString
      * @param userService
      * @return boolean
@@ -98,23 +86,19 @@ public class JWTUtil {
             return false;
         }
 
-
         String subject = claims.getPayload().getSubject();
         String issuer = claims.getPayload().getIssuer();
         Date expiryDate = claims.getPayload().getExpiration();
 
         Optional<User> user = userService.findUserbyId(subject);
-        
+
         if (user.isEmpty()) {
             return false;
         }
 
-        return (
-            (subject.compareTo(user.get().getEmail()) == 0)  // is the same email
-            &&
-            (issuer.compareTo("stealthy.site") == 0) // same issuer
-            &&
-            (expiryDate.before(new Date())) // before expiry date
+        return ((subject.compareTo(user.get().getEmail()) == 0) // is the same email
+                && (issuer.compareTo("stealthy.site") == 0) // same issuer
+                && (expiryDate.before(new Date())) // before expiry date
         );
 
     }

@@ -48,8 +48,6 @@ import site.stealthy.backend.Role.Role;
         "enabled",
         "credentialsNonExpired",
         "accountNonLocked",
-        "firstname",
-        "lastname"
     }
 )
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="userid")
@@ -57,17 +55,16 @@ import site.stealthy.backend.Role.Role;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @UuidGenerator()
-    private String userid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String username;
 
     private String email;
 
     private String password;
+
+    private String bio;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "author")
@@ -99,12 +96,8 @@ public class User implements UserDetails {
     /**
      * @return long
      */
-    public Long getId() {
+    public String getId() {
         return id;
-    }
-
-    public String getUserid() {
-        return userid;
     }
 
     /**
@@ -133,6 +126,22 @@ public class User implements UserDetails {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     /**
