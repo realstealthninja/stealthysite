@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    /** 
+    /**
      * @param user
      * @return User
      */
@@ -34,15 +34,15 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    /** 
+    /**
      * @param username
      * @return Optional<User>
      */
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByusername(username);
     }
-    
-    /** 
+
+    /**
      * @param email
      * @return Optional<User>
      */
@@ -53,59 +53,39 @@ public class UserService implements UserDetailsService {
     public Optional<User> findUserbyId(String id) {
         return userRepository.findByUserid(id);
     }
-    
-    /** 
+
+    /**
      * @param username
      * @return UserDetails
      * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByusername(
-            username
-        ).orElseThrow(
-            () ->  
-            new UsernameNotFoundException("user not found" + username)
-        );
-        
-        Set<GrantedAuthority> authorities = user.getRoles()
-            .stream()
-            .map(
-                (role) -> new SimpleGrantedAuthority(role.getName())
-            ).collect(
-                Collectors.toSet()
-            );
+        User user = userRepository.findByusername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found" + username));
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
-                .password(user.getPassword())
-                .authorities(authorities)
-                .build();
+        Set<GrantedAuthority> authorities = user.getRoles().stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+
+        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
+                .password(user.getPassword()).authorities(authorities).build();
     }
 
-    /** 
+    /**
      * @param email
      * @return UserDetails
      * @throws UsernameNotFoundException
      */
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException{
-        User user = userRepository.findByEmail(email).orElseThrow(
-            () ->
-            new UsernameNotFoundException("Email not found " + email)
-        );
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found " + email));
 
-        Set<GrantedAuthority> authorities = user.getRoles()
-            .stream()
-            .map(
-                (role) -> new SimpleGrantedAuthority(role.getName())
-            ).collect(
-                Collectors.toSet()
-            );
-        
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
-                .password(user.getPassword())
-                .authorities(authorities)
-                .build();
+        Set<GrantedAuthority> authorities = user.getRoles().stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+
+        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
+                .password(user.getPassword()).authorities(authorities).build();
     }
 }
