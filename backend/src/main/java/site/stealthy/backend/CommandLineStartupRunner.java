@@ -28,7 +28,7 @@ public class CommandLineStartupRunner implements CommandLineRunner {
     @Value("${PGADMIN_DEFAULT_EMAIL}")
     private String email;
 
-    /** 
+    /**
      * @param args
      * @throws Exception
      */
@@ -59,7 +59,7 @@ public class CommandLineStartupRunner implements CommandLineRunner {
         String username = "stealthninja";
         if (userService.findUserByUsername(username).isEmpty()) {
 
-            User admin_user = new User(username, null, null, password);
+            User admin_user = new User(username, password);
             admin_user.setEmail(email);
 
             Role adminRole = roleRepository.findByName("ADMIN").get();

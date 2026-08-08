@@ -65,11 +65,7 @@ public class User implements UserDetails {
 
     private String username;
 
-    private String firstname;
-
     private String email;
-
-    private String lastname;
 
     private String password;
 
@@ -86,12 +82,9 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String username, String firstname, String lastname, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-
-        this.firstname = firstname;
-        this.lastname = lastname;
     }
 
     /**
@@ -131,20 +124,6 @@ public class User implements UserDetails {
     /**
      * @return String
      */
-    public String getFirstname() {
-        return firstname;
-    }
-
-    /**
-     * @param firstname
-     */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    /**
-     * @return String
-     */
     public String getEmail() {
         return email;
     }
@@ -154,20 +133,6 @@ public class User implements UserDetails {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * @return String
-     */
-    public String getLastname() {
-        return lastname;
-    }
-
-    /**
-     * @param lastname
-     */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     /**

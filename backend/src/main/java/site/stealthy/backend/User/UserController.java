@@ -3,8 +3,8 @@ package site.stealthy.backend.User;
 import site.stealthy.backend.Role.Role;
 import site.stealthy.backend.Role.RoleRepository;
 import site.stealthy.backend.Security.JWT.JWTUtil;
-import site.stealthy.backend.Utils.LoginDTO;
-import site.stealthy.backend.Utils.RegisterDTO;
+import site.stealthy.backend.Utils.UserCreateDTO;
+import site.stealthy.backend.Utils.UserLoginDTO;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -72,13 +72,13 @@ public class UserController {
      * @return ResponseEntity<?>
      */
     @PostMapping(path = "/register", consumes = "application/json")
-    ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDto) {
-        if (userRepository.existsByusername(registerDto.getUsername())) {
+    ResponseEntity<?> registerUser(@RequestBody UserCreateDTO registerDto) {
+        if (userRepository.existsByusername(registerDto.username())) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
 
-        User user = new User(registerDto.getUsername(), registerDto.getFirstname(),
-                registerDto.getLastname(), passwordEncoder.encode(registerDto.getPassword()));
+        User user = new User(registerDto.username(),
+                passwordEncoder.encode(registerDto.password()));
 
         Role roles = RoleRepository.findByName("USER").get();
         user.setRoles(Collections.singleton(roles));
@@ -93,12 +93,11 @@ public class UserController {
      * @return ResponseEntity<ObjectNode>
      */
     @PostMapping(path = "/login", consumes = "application/json")
-    public ResponseEntity<ObjectNode> authenticateUser(@RequestBody LoginDTO loginDTO) {
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
-                        loginDTO.getPassword()));
+    public ResponseEntity<ObjectNode> authenticateUser(@RequestBody UserLoginDTO loginDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDTO.username(), loginDTO.password()));
 
-        Optional<User> user = userRepository.findByusername(loginDTO.getUsername());
+        Optional<User> user = userRepository.findByusername(loginDTO.username());
 
         ObjectNode respNode = mapper.createObjectNode();
 
