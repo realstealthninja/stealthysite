@@ -1,11 +1,4 @@
 /* small screens */
-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 header > p {
   width: 32ch;
 }
@@ -19,23 +12,4 @@ header > p {
 
 .card > h3 {
   text-align: center;
-}
-
-/* medium screens */
-
-@media only screen and (min-width: 768px) {
-  header {
-    align-items: flex-start;
-    padding-inline: 5rem;
-    padding-block: 3rem;
-  }
-
-  
-
-  .cards-grid {
-    margin-inline: 4rem;
-    grid-template-areas:
-      "a b c"
-      "d e f";
-  }
 }

@@ -15,6 +15,13 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     color-scheme: dark;
@@ -96,11 +103,12 @@ button.secondary:hover {
 .card > button {
   background-color: var(--primary);
 }
+
 /* medium screens */
 
 @media only screen and (min-width: 768px) {
   .cards-grid {
-    margin-inline: 1rem;
+    margin-inline: 4rem;
     grid-template-areas:
       "a b c"
       "d e f";
