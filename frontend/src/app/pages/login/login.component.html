@@ -46,16 +46,16 @@
             formControlName="password"
             type="password"
           />
-          @if (password?.invalid && (password?.dirty || password?.touched)) {
-            @if (password?.hasError("required")) {
+          @if (password?.invalid && (password.dirty || password.touched)) {
+            @if (password.hasError("required")) {
               <span class="form-error"> A password is required </span>
             }
-            @if (password?.hasError("minlength")) {
+            @if (password.hasError("minlength")) {
               <span class="form-error">
                 A password should be atleast 8 characters long
               </span>
             }
-            @if (password?.hasError("pattern")) {
+            @if (password.hasError("pattern")) {
               <span class="form-error">
                 Password should contain atleast a lower case character, upper
                 case character, numbers and a special character
