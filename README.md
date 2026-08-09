@@ -10,12 +10,10 @@ I use this website to publish my blogs and host my portfolio.
 The project has a monorepo struture and is divded into loosely coupled softwares.
 
 ```
+$ tree -dnL 1 --gitignore -o tree.txt
 .
 ├── backend
 └── frontend
-
-command: tree -dnL 1 --gitignore -o tree.txt
-
 ```
 
 You can find more information about each part in their respective folders.
