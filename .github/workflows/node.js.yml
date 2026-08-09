@@ -38,7 +38,7 @@ jobs:
 
       - name: Test frontend
         working-directory: ./frontend
-        run: npm test --code-coverage
+        run: npm test
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v7
