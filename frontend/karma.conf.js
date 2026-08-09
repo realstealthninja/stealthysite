@@ -3,15 +3,14 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    basePath: "",
+    frameworks: ["jasmine", "@angular-devkit/build-angular"],
     plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-firefox-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage'),
-      
+      require("karma-jasmine"),
+      require("karma-chrome-launcher"),
+      require("karma-firefox-launcher"),
+      require("karma-jasmine-html-reporter"),
+      require("karma-coverage"),
     ],
     client: {
       jasmine: {
@@ -22,18 +21,24 @@ module.exports = function (config) {
       },
     },
     jasmineHtmlReporter: {
-      suppressAll: true // removes the duplicated traces
+      suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/frontend'),
-      subdir: '.',
+      dir: require("path").join(__dirname, "./coverage/frontend"),
+      subdir: ".",
       reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
-      ]
+        { type: "html" },
+        { type: "text-summary" },
+        { type: "cobertura" },
+      ],
     },
-    reporters: ['progress', 'kjhtml'],
-    browsers: ['Chrome', 'ChromeHeadless', 'FirefoxDeveloper', 'FirefoxDeveloperHeadless'],
-    restartOnFileChange: true
+    reporters: ["progress", "kjhtml"],
+    browsers: [
+      "Chrome",
+      "ChromeHeadless",
+      "FirefoxDeveloper",
+      "FirefoxDeveloperHeadless",
+    ],
+    restartOnFileChange: true,
   });
 };
