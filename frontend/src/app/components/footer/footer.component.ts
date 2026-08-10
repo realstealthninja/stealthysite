@@ -1,4 +1,4 @@
-import { Component, VERSION, inject, effect } from '@angular/core';
+import { Component, VERSION, inject } from '@angular/core';
 import project from '../../../../package.json';
 import { VersionService } from '../../services/version/version.service';
 
