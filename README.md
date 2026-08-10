@@ -1,5 +1,7 @@
 [![Node.js CI](https://github.com/realstealthninja/stealthysite/actions/workflows/node.js.yml/badge.svg)](https://github.com/realstealthninja/stealthysite/actions/workflows/node.js.yml)
 ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-44%25-critical?style=flat)
+[![CodeQL Advanced](https://github.com/realstealthninja/stealthysite/actions/workflows/codeql.yml/badge.svg)](https://github.com/realstealthninja/stealthysite/actions/workflows/codeql.yml)
+
 # Stealthy site
 
 Welcome to Stealthy site. This is the repository which contains the source code of my personal website.
