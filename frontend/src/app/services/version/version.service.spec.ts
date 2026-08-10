@@ -16,9 +16,7 @@ describe('VersionService', () => {
     });
 
     httpTesting = TestBed.inject(HttpTestingController);
-    TestBed.runInInjectionContext(() => {
-      service = TestBed.inject(VersionService);
-    });
+    service = TestBed.inject(VersionService);
   });
 
   it('should be created', () => {
@@ -26,28 +24,29 @@ describe('VersionService', () => {
   });
 
   it('should get java version', async () => {
-    const body = { name: 'java', version: '21.0.11+10-LTS' };
+    TestBed.runInInjectionContext(async () => {
+      const body = { name: 'java', version: '21.0.11+10-LTS' };
+      const javaVersion = service.getJavaVersion();
+      const req = httpTesting.expectOne('/api/v1/version/java');
 
-    const javaVersion = service.getJavaVersion();
-    TestBed.tick();
-    const req = httpTesting.expectOne('/api/v1/version/java');
+      expect(req.request.method).toBe('GET');
 
-    expect(req.request.method).toBe('GET');
-
-    req.flush(body);
-    expect(javaVersion.hasValue()).toEqual(true);
-    expect(javaVersion.value()).toEqual(body);
+      req.flush(body);
+      expect(await javaVersion.hasValue()).toEqual(true);
+      expect(await javaVersion.value()).toEqual(body);
+    });
   });
 
   it('should get spring version', () => {
-    const body = { name: 'spring', version: '7.0.8' };
-    const springVersion = service.getSpringVersion();
-    TestBed.tick();
+    TestBed.runInInjectionContext(async () => {
+      const body = { name: 'spring', version: '7.0.8' };
+      const springVersion = service.getSpringVersion();
 
-    const req = httpTesting.expectOne('/api/v1/version/spring');
-
-    req.flush(body);
-    expect(springVersion.hasValue()).toBe(true);
-    expect(springVersion.value()).toBe(body);
+      const req = httpTesting.expectOne('/api/v1/version/spring');
+      expect(req.request.method).toBe('GET');
+      req.flush(body);
+      expect(await springVersion.hasValue()).toEqual(true);
+      expect(await springVersion.value()).toEqual(body);
+    });
   });
 });
