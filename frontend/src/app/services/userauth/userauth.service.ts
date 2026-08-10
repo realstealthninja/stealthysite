@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, httpResource } from '@angular/common/http';
 import { UserLoginDTO, UserRegisterDTO } from '../../interfaces/user-dtos';
 import { JwtDTO } from '../../interfaces/jwt-dto';
 import { User } from '../../interfaces/user';
@@ -47,7 +47,7 @@ export class UserauthService {
   }
 
   loggedinUser() {
-    return this.httpClient.get<User>(`${this.apiURL}/me`);
+    return httpResource<User>(() => `${this.apiURL}/me`);
   }
 
   logoutUser() {
