@@ -1,4 +1,4 @@
-export interface Version {
-    name: string;
-    version: string
+export interface VersionResp {
+  name: string;
+  version: string;
 }

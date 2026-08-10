@@ -1,16 +1,16 @@
 <footer>
   <span>
     Content / design &copy; 2024-2026 stealthninja. <br />
-    StealthyDev v{{ project_version }}<br />
-    Angular v{{ angular_version }}<br />
-    @if (loading) {
+    StealthyDev v{{ projectVersion }}<br />
+    Angular v{{ angularVersion }}<br />
+
+    @if (javaVersion.hasValue() && springVersion.hasValue()) {
+      Spring v{{ springVersion.value().version }} Java
+      {{ javaVersion.value().version }}
+    } @else if (javaVersion.isLoading() || springVersion.isLoading()) {
       getting backend version...
-    }
-    @if (!loading && spring_version !== null && java_version !== null) {
-      Spring v{{ spring_version }} Java {{ java_version }}
-    }
-    @if (!loading && (spring_version === null || java_version === null)) {
-      Backend is offline
+    } @else if (javaVersion.error() || springVersion.error()) {
+      backend is offline.
     }
     <br />
   </span>

@@ -1,45 +1,19 @@
-import { Component, VERSION, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, VERSION, inject, effect } from '@angular/core';
 import project from '../../../../package.json';
 import { VersionService } from '../../services/version/version.service';
-import { catchError, EMPTY, forkJoin} from 'rxjs';
 
 @Component({
-    selector: 'app-footer',
-    imports: [],
-    templateUrl: './footer.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './footer.component.css'
+  selector: 'app-footer',
+  imports: [],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.css',
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   private versionService = inject(VersionService);
 
-  angular_version: string = VERSION.full;
-  project_version: string = project.version;
-  spring_version: string | null = null;
-  java_version: string | null = null;
+  angularVersion: string = VERSION.full;
+  projectVersion: string = project.version;
 
-  loading = true;
-
-  ngOnInit(): void {
-    forkJoin(
-      {
-        java: this.versionService.getJavaVersion(),
-        spring: this.versionService.getSpringVersion()
-      }
-    ).pipe(
-      catchError(
-        err => {
-          console.log(err);
-          this.loading = false;
-          return EMPTY;
-        }
-      )
-    ).subscribe(
-      result => {
-        this.java_version = result.java.version;
-        this.spring_version = result.spring.version;
-        this.loading = false;
-      }
-    )
-  }
+  springVersion = this.versionService.getSpringVersion();
+  javaVersion = this.versionService.getJavaVersion();
 }
