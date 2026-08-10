@@ -15,7 +15,9 @@ describe('RegistrationService', () => {
       providers: [provideHttpClientTesting()],
     });
     httpTesting = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(UserauthService);
+    TestBed.runInInjectionContext(() => {
+      service = TestBed.inject(UserauthService);
+    });
   });
 
   it('should be created', () => {

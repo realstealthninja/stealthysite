@@ -16,7 +16,9 @@ describe('VersionService', () => {
     });
 
     httpTesting = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(VersionService);
+    TestBed.runInInjectionContext(() => {
+      service = TestBed.inject(VersionService);
+    });
   });
 
   it('should be created', () => {
