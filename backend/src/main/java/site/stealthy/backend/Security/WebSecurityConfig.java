@@ -60,10 +60,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        return httpSecurity
-                .csrf(csrf -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
+        return httpSecurity.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
                         .requestMatchers("/v1/users/me").authenticated()
