@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: ["main"]
 
+permissions:
+  contents: read
+  pull-requests: write
+  artifact-metadata: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
