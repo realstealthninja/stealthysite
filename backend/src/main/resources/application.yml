@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: backend
+    version: "${project.version}"
+
+  config:
+    import: "optional:file:../.env[.properties]"
+
+  datasource:
+    username: "${POSTGRES_USER}"
+    password: "${POSTGRES_PASSWORD}"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
