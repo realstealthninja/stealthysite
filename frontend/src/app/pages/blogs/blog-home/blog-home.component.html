@@ -24,26 +24,36 @@
     <input class="search-bar" type="text" placeholder="titles, tags, authors" />
   }
   <section class="cards-grid">
-    @for (blog of blogs$ | async; track $index) {
-      <section class="card">
-        <h3>{{ blog.title }}</h3>
-        <span class="author"
-          ><small
-            ><img
-              alt="profile picture of {{ blog.author }}"
-              src="images/stealthninja.png"
-              width="32px"
-              height="32px"
-            />stealthninja</small
-          >
-          <small>5 min read</small></span
-        >
-        <span class="creation-date">{{ blog.created_on }}</span>
-        <p>{{ blog.content.substring(0, 30) + "..." }}</p>
-        <button [routerLink]="['/blogs/' + blog.id]" class="secondary">
-          go to blog
-        </button>
-      </section>
+    @if (blogs.hasValue()) {
+      @if (blogs.value().blogs.length === 0) {
+        No blogs, maybe write one?
+      } @else {
+        @for (blog of blogs.value().blogs; track $index) {
+          <section class="card">
+            <h3>{{ blog.title }}</h3>
+            <span class="author"
+              ><small
+                ><img
+                  alt="profile picture of {{ blog.author }}"
+                  src="images/stealthninja.png"
+                  width="32px"
+                  height="32px"
+                />stealthninja</small
+              >
+              <small>5 min read</small></span
+            >
+            <span class="creation-date">{{ blog.created_on }}</span>
+            <p>{{ blog.content.substring(0, 30) + "..." }}</p>
+            <button [routerLink]="['/blogs/' + blog.id]" class="secondary">
+              go to blog
+            </button>
+          </section>
+        }
+      }
+    } @else if (blogs.isLoading()) {
+      Loading blogs...
+    } @else if (blogs.error()) {
+      Blogs could not be loaded...
     }
   </section>
 </main>

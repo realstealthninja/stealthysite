@@ -1,1 +1,7 @@
-<app-blog-markdown-renderer [blog$]="blog$ | async"/>
+@if (blog.hasValue()) {
+  <app-blog-markdown-renderer [blog$]="blog.value()" />
+} @else if (blog.isLoading()) {
+  Loading blog...
+} @else if (blog.error()) {
+  Could not load blog... D:
+}

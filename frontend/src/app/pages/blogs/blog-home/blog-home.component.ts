@@ -1,20 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { BloggingService } from '../../../services/blogging/blogging.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Blog } from '../../../interfaces/blog';
-import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { UserauthService } from '../../../services/userauth/userauth.service';
 
 @Component({
   selector: 'app-blog-home',
-  imports: [RouterLink, AsyncPipe],
+  imports: [RouterLink],
   templateUrl: './blog-home.component.html',
   styleUrl: './blog-home.component.css',
 })
 export class BlogHomeComponent {
   private bloggingService: BloggingService = inject(BloggingService);
-  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+
   userAuth: UserauthService = inject(UserauthService);
-  blogs$: Observable<Blog[]> = this.bloggingService.getBlogs();
+  blogs = this.bloggingService.getBlogs();
 }

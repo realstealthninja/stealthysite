@@ -13,7 +13,9 @@ describe('BloggingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [provideHttpClientTesting()] });
     httpTesting = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(BloggingService);
+    TestBed.runInInjectionContext(() => {
+      service = TestBed.inject(BloggingService);
+    });
   });
 
   it('should be created', () => {

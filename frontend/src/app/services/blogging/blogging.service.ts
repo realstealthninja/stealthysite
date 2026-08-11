@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UserauthService } from '../userauth/userauth.service';
 import { Blog } from '../../interfaces/blog';
-import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -14,13 +13,11 @@ export class BloggingService {
 
   private apiUrl = environment.apiUrlBase + 'blogs';
 
-  getBlogs(): Observable<Blog[]> {
-    return this.httpClient
-      .get<{ blogs: Blog[] }>(`${this.apiUrl}/`)
-      .pipe(map((data) => data.blogs));
+  getBlogs() {
+    return httpResource<{ blogs: Blog[] }>(() => `${this.apiUrl}/`);
   }
 
-  getBlog(id: number): Observable<Blog> {
-    return this.httpClient.get<Blog>(`${this.apiUrl}/${id}`);
+  getBlog(id: number) {
+    return httpResource<Blog>(() => `${this.apiUrl}/${id}`);
   }
 }
