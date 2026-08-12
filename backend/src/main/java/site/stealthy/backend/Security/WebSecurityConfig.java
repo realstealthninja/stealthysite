@@ -68,7 +68,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/v1/blog/create")
                         .hasAnyRole("BLOGGER", "ADMIN").anyRequest().authenticated()
 
-                ).httpBasic(Customizer.withDefaults())
+                ).httpBasic(http -> http.disable())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
