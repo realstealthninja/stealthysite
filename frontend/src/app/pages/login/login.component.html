@@ -3,12 +3,8 @@
   <p>Comment on my blogs, Maybe even get a chance to write your own.</p>
 </header>
 <main>
-  <form
-    [formGroup]="loginForm"
-    #formDir="ngForm"
-    (ngSubmit)="onSubmit(loginForm.value)"
-  >
-    <section [hidden]="formDir.submitted">
+  <form [formRoot]="loginForm" novalidate>
+    <section>
       <h2>Login details</h2>
       <fieldset>
         <p>
@@ -20,15 +16,17 @@
           </label>
           <input
             id="username"
-            formControlName="username"
+            [formField]="loginForm.username"
             placeholder="jane013"
-            name="text"
+            [class.is-invalid]="
+              loginForm.username().touched() && loginForm.username().invalid()
+            "
             type="text"
           />
-          @if (username?.invalid && (username.dirty || username.touched)) {
-            @if (username.hasError("required")) {
-              <span class="form-error">A Username is required</span>
-            }
+          @if (
+            loginForm.username().invalid() && loginForm.username().touched()
+          ) {
+            <span class="form-error">A Username is required</span>
           }
         </p>
         <p>
@@ -40,33 +38,34 @@
           </label>
           <input
             placeholder="********"
-            minlength="8"
+            [formField]="loginForm.password"
+            [class.is-invalid]="
+              loginForm.password().touched() && loginForm.password().invalid()
+            "
             id="password"
-            name="password"
-            formControlName="password"
             type="password"
           />
-          @if (password?.invalid && (password.dirty || password.touched)) {
-            @if (password.hasError("required")) {
-              <span class="form-error"> A password is required </span>
-            }
-            @if (password.hasError("minlength")) {
-              <span class="form-error">
-                A password should be atleast 8 characters long
-              </span>
-            }
-            @if (password.hasError("pattern")) {
-              <span class="form-error">
-                Password should contain atleast a lower case character, upper
-                case character, numbers and a special character
-              </span>
+          @if (
+            loginForm.password().touched() && loginForm.password().invalid()
+          ) {
+            @for (error of loginForm.password().errors(); track error) {
+              <span class="form-error">{{ error.message }}</span>
             }
           }
         </p>
       </fieldset>
 
       <section class="form-controls">
-        <button [disabled]="formDir.invalid" type="submit">Submit</button>
+        <button
+          type="submit"
+          [disabled]="!loginForm().valid() || loginForm().submitting()"
+        >
+          @if (loginForm().submitting()) {
+            Sending your login...
+          } @else {
+            Submit
+          }
+        </button>
         <button type="reset" class="secondary">Clear</button>
       </section>
 
@@ -77,10 +76,6 @@
           ></small
         >
       </section>
-    </section>
-
-    <section [hidden]="!formDir.submitted">
-      <div>Login request sent</div>
     </section>
   </form>
 </main>

@@ -4,6 +4,7 @@ import { UserLoginDTO, UserRegisterDTO } from '../../interfaces/user-dtos';
 import { JwtDTO } from '../../interfaces/jwt-dto';
 import { User } from '../../interfaces/user';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,16 +34,24 @@ export class UserauthService {
     });
   }
 
-  loginUser(user: UserLoginDTO) {
-    this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
-      next: (data: JwtDTO) => {
-        localStorage.setItem('jwt', data.jwt);
-        localStorage.setItem('id', data.id.toString());
-      },
+  loginUser(user: UserLoginDTO): Observable<User> {
+    return new Observable<User>((subscriber) => {
+      this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
+        next: (data: JwtDTO) => {
+          localStorage.setItem('jwt', data.jwt);
+          localStorage.setItem('id', data.id);
 
-      error: (error) => {
-        console.log(error);
-      },
+          subscriber.next({
+            id: data.id,
+            username: '',
+            blogs: [],
+          });
+        },
+
+        error: (err) => {
+          subscriber.error(err);
+        },
+      });
     });
   }
 

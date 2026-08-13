@@ -7,7 +7,6 @@ import {
   signal,
   ViewChild,
   ViewContainerRef,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogMarkdownRendererComponent } from '../blog-markdown-renderer/blog-markdown-renderer.component';
@@ -17,7 +16,6 @@ import { Blog } from '../../../interfaces/blog';
   selector: 'app-blog-editor',
   imports: [],
   templateUrl: './blog-editor.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-editor.component.css',
 })
 export class BlogEditorComponent implements OnInit {
@@ -39,7 +37,7 @@ export class BlogEditorComponent implements OnInit {
     content: '',
     comments: [],
     author: {
-      id: 0,
+      id: '',
       username: '',
       blogs: [],
     },
@@ -73,19 +71,17 @@ export class BlogEditorComponent implements OnInit {
     const doc = iframe.contentDocument;
     for (const stylesheet of document.styleSheets) {
       if (stylesheet.href !== null) {
-        const href = document.createElement("link");
+        const href = document.createElement('link');
         href.href = stylesheet.href;
-        href.rel = "stylesheet";
+        href.rel = 'stylesheet';
         doc?.head.appendChild(href);
       } else {
-        const style: HTMLStyleElement = document.createElement("style");
+        const style: HTMLStyleElement = document.createElement('style');
         for (const rule of stylesheet.cssRules) {
           style.textContent += rule.cssText;
         }
         doc?.head.appendChild(style);
       }
-
-
     }
     doc?.body.appendChild(compRef.location.nativeElement);
   }
