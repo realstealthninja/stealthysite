@@ -1,12 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
-    selector: 'app-profile',
-    imports: [],
-    templateUrl: './profile.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './profile.component.css'
+  selector: 'app-profile',
+  imports: [CardComponent],
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.css',
 })
-export class ProfileComponent {
-
-}
+export class ProfileComponent {}
