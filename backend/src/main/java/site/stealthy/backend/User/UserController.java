@@ -7,11 +7,11 @@ import site.stealthy.backend.Utils.UserCreateDTO;
 import site.stealthy.backend.Utils.UserLoginDTO;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.ArrayNode;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -67,6 +69,23 @@ public class UserController {
         return new ResponseEntity<>(respObject, HttpStatus.OK);
     }
 
+    @GetMapping("/")
+    ResponseEntity<ObjectNode> findUsers(@RequestParam("username") String username) {
+        Optional<User> user = userRepository.findByusername(username);
+        ObjectNode respObjectNode = mapper.createObjectNode();
+        ArrayNode userslist = respObjectNode.putArray("users");
+
+        if (user.isPresent()) {
+            respObjectNode.put("total", 1);
+            userslist.add(mapper.convertValue(user.get(), ObjectNode.class));
+        } else {
+            List<User> users = userRepository.findByUsernameContaining(username);
+            respObjectNode.put("total", users.size());
+            users.forEach(usr -> userslist.add(mapper.convertValue(usr, ObjectNode.class)));
+        }
+        return new ResponseEntity<>(respObjectNode, HttpStatus.OK);
+    }
+
     /**
      * @param registerDto
      * @return ResponseEntity<?>
@@ -85,7 +104,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
 
     /**

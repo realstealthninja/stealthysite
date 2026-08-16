@@ -1,12 +1,7 @@
 <header>
-  <img
-    src="images/stealthninja.png"
-    width="256"
-    height="256"
-    alt="profile picture"
-  />
+  <img [src]="user().avatar" width="256" height="256" alt="profile picture" />
   <section class="profile">
-    <h1>Stealthninja</h1>
+    <h1>{{ user().username }}</h1>
     <section class="stats">
       <span> 20 &lt;3</span>
       <span> 30 rts </span>

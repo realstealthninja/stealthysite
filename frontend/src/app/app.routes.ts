@@ -8,6 +8,7 @@ import { BlogRoutedRendererComponent } from './pages/blogs/blog-routed-renderer/
 import { BlogEditorComponent } from './pages/blogs/blog-editor/blog-editor.component';
 import { BlogHomeComponent } from './pages/blogs/blog-home/blog-home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { profileResolver } from './resolvers/profile.resolver';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,5 +25,11 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent,
+    resolve: {
+      user: profileResolver,
+    },
+  },
 ];
