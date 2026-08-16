@@ -60,7 +60,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        return httpSecurity
+        return httpSecurity.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
@@ -70,7 +70,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/v1/blog/create")
                         .hasAnyRole("BLOGGER", "ADMIN").anyRequest().authenticated()
 
-                ).httpBasic(Customizer.withDefaults())
+                ).httpBasic(http -> http.disable())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 

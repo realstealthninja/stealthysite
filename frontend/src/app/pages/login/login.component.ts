@@ -1,55 +1,67 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+  form,
+  minLength,
+  required,
+  FormField,
+  pattern,
+  FormRoot,
+} from '@angular/forms/signals';
+import { Router, RouterLink } from '@angular/router';
 import { UserauthService } from '../../services/userauth/userauth.service';
 import { UserLoginDTO } from '../../interfaces/user-dtos';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [FormField, RouterLink, FormRoot],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
-  private formBuilder = inject(FormBuilder);
+export class LoginComponent {
   private userAuth = inject(UserauthService);
+  private router = inject(Router);
 
-  loginForm!: FormGroup;
+  loginModel = signal<UserLoginDTO>({
+    username: '',
+    password: '',
+  });
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/,
-          ),
-        ],
-      ],
-      username: ['', [Validators.required]],
-    });
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
-
-  get username() {
-    return this.loginForm.get('username');
-  }
-  onSubmit(_: FormData) {
-    const user: UserLoginDTO = {
-      username: this.username?.value,
-      password: this.password?.value,
-    };
-
-    this.userAuth.loginUser(user);
-  }
+  loginForm = form(
+    this.loginModel,
+    (fieldPath) => {
+      required(fieldPath.username, { message: 'Username is required' });
+      required(fieldPath.password, { message: 'Password is required' });
+      pattern(fieldPath.password, /^(?=\D*\d).*$/, {
+        message: 'Password must contain atleast one number',
+      });
+      pattern(fieldPath.password, /(?=[^A-Z]*[A-Z]).*/, {
+        message: 'password must contain atleast one uppercase character',
+      });
+      pattern(fieldPath.password, /^(?=[^a-z]*[a-z]).*$/, {
+        message: 'Password should contain atleast one lowercase character',
+      });
+      pattern(
+        fieldPath.password,
+        /^(?=[^!$%^&*()_+|~=`{}[\]:";'<>?,./-]*[!$%^&*()_+|~=`{}[\]:";'<>?,./-]).*$/,
+        { message: 'password should contain atleast one special symbol' },
+      );
+      minLength(fieldPath.password, 8, {
+        message: 'Passwords should be atleast 8 characters long',
+      });
+    },
+    {
+      submission: {
+        action: async (field) => {
+          this.userAuth.loginUser(field().value()).subscribe({
+            next: async () => {
+              await this.router.navigate(['/profile']);
+            },
+            error: async () => {
+              return { kind: 'servererror', message: 'failed to submit form' };
+            },
+          });
+        },
+      },
+    },
+  );
 }
