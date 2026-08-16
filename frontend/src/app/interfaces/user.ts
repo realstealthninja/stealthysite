@@ -1,7 +1,7 @@
 import { Blog } from './blog';
 
 export interface User {
-  id: number;
+  id: string;
   username: string;
   avatar: string;
   blogs: Blog[] | number[];
