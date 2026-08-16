@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -65,6 +65,9 @@ public class User implements UserDetails {
     private String password;
 
     private String bio;
+
+    @Lob
+    private String avatar;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "author")
@@ -184,6 +187,14 @@ public class User implements UserDetails {
      */
     public void setBlogs(Set<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
 }

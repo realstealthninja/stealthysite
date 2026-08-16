@@ -39,6 +39,7 @@ export class BlogEditorComponent implements OnInit {
     author: {
       id: '',
       username: '',
+      avatar: '',
       blogs: [],
     },
     created_on: new Date(),
