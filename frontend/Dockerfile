@@ -7,13 +7,11 @@ WORKDIR /frontend
 COPY ./frontend/package.json ./frontend/package-lock.json ./
 
 RUN npm ci
-RUN npm install -g @angular/cli
-
 
 # build frontend
 COPY ./frontend/ ./
 
-RUN ng build --configuration=production
+RUN npm run build
 
 FROM nginx:alpine AS frontend-server
 COPY ./frontend/config/nginx.conf /etc/nginx/conf.d/default.conf
