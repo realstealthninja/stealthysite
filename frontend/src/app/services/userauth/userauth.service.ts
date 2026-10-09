@@ -45,6 +45,7 @@ export class UserauthService {
             id: data.id,
             username: '',
             blogs: [],
+            avatar: '',
           });
         },
 
