@@ -58,7 +58,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "5050:5050"
+      - "5050:80"
     networks:
       - stealthysite
     env_file:
