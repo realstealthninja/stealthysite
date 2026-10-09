@@ -1,7 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
-import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { User } from '../../interfaces/user';
 
 @Component({
@@ -11,8 +9,5 @@ import { User } from '../../interfaces/user';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
-  private route = inject(ActivatedRoute);
-  private data = toSignal(this.route.data);
-
-  user = computed(() => this.data()! as User);
+  user = input.required<User>();
 }
