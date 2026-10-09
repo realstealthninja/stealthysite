@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders, httpResource } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserLoginDTO, UserRegisterDTO } from '../../interfaces/user-dtos';
 import { JwtDTO } from '../../interfaces/jwt-dto';
 import { User } from '../../interfaces/user';
@@ -57,8 +57,13 @@ export class UserauthService {
   }
 
   loggedinUser() {
-    return httpResource<User>(
-      () => `${this.apiURL}/${localStorage.getItem('id')}`,
+    return fetch(`${this.apiURL}/${localStorage.getItem('id')}`).then(
+      (user) => {
+        if (!user.ok) {
+          return null;
+        }
+        return user.json() as Promise<User>;
+      },
     );
   }
 
