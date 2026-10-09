@@ -57,7 +57,9 @@ export class UserauthService {
   }
 
   loggedinUser() {
-    return httpResource<User>(() => `${this.apiURL}/me`);
+    return httpResource<User>(
+      () => `${this.apiURL}/${localStorage.getItem('id')}`,
+    );
   }
 
   logoutUser() {
