@@ -1,0 +1,32 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--secondary);
+  border-radius: 1rem;
+
+  max-width: 16rem;
+}
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-header {
+  min-height: 3rem;
+}
+
+hr {
+  margin-inline: 0px;
+  color: var(--text);
+}
+
+button {
+  justify-self: center;
+  background-color: var(--primary);
+}
