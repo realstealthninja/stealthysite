@@ -42,7 +42,6 @@ import site.stealthy.backend.Role.Role;
         "email",
         "password",
         "approved",
-        "blogger",
         "authorities",
         "accountNonExpired",
         "enabled",
