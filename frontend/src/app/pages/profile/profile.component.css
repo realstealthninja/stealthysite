@@ -2,13 +2,23 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 header > img {
   border-radius: 2rem;
 }
 
+.bio {
+  text-align: justify;
+}
+
 main {
   margin-inline: 5rem;
+}
+
+.role {
+  background-color: var(--accent);
+  padding-inline: 0.5rem;
+  border-radius: 0.5rem;
 }

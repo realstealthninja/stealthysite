@@ -1,34 +1,54 @@
 <header>
-  <img [src]="user().avatar" width="256" height="256" alt="profile picture" />
-  <section class="profile">
+  <img
+    src="{{ user().avatar ? user().avatar : 'images/placeholder-avatar.png' }}"
+    width="256"
+    height="256"
+    alt="profile picture"
+  />
+  <section class="profile-header">
     <h1>{{ user().username }}</h1>
-    <section class="stats">
-      <span> 20 &lt;3</span>
-      <span> 30 rts </span>
+    <section class="statistics">
+      @for (role of user().roles; track $index) {
+        <span class="role"
+          ><b
+            ><em>{{ role.name }}</em></b
+          ></span
+        >
+      }
     </section>
     <section class="bio">
-      <h3>Bio</h3>
-      <p>Lorem ipsum dore amen</p>
+      <h3>Biography</h3>
+      <p>
+        {{ user().bio ? user().bio : "User has not provided a bio." }}
+      </p>
     </section>
   </section>
 </header>
-<main>
-  <section class="bio"></section>
 
+<main>
   <section class="blogs">
     <h2>Blogs</h2>
-    <section class="cards-grid">
-      <app-card title="Blog1" description="this blogs talks about x, y and z">
-      </app-card>
-
-      <app-card title="Blog2" description="this blogs talks about a, b and c">
-      </app-card>
-      C
-      <app-card title="Blog3" description="this blogs talks about p, r and q">
-      </app-card>
-    </section>
+    @if (user().blogs.length !== 0) {
+      <section class="cards-grid">
+        @for (blog of user().blogs; track $index) {
+          <app-card [title]="blog.title" [blog]="blog"></app-card>
+        }
+      </section>
+    } @else {
+      <p>User has no blogs..</p>
+    }
   </section>
+
   <section class="comments">
     <h2>Comments</h2>
+    @if (user().comments.length === 0) {
+      No comments yet...
+    } @else {
+      @for (comment of user().comments; track $index) {
+        <article class="comment">
+          <p>{{ comment }}</p>
+        </article>
+      }
+    }
   </section>
 </main>

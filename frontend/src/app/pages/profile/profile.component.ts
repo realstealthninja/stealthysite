@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
 import { User } from '../../interfaces/user';
+import { Blog } from '../../interfaces/blog';
 
 @Component({
   selector: 'app-profile',
