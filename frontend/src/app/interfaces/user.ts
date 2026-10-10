@@ -5,7 +5,7 @@ export interface User {
   username: string;
   avatar: string;
   bio: string;
-  blogs: Blog[] | string[];
+  blogs: Blog[];
   comments: Comment[] | string[];
   roles: {
     name: string;
