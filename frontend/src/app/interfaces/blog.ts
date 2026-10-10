@@ -7,7 +7,7 @@ export interface Blog {
   tags: string[];
   content: string;
   comments: Comment[];
-  author: User;
+  author: User | string;
   created_on: Date;
   edited_on: Date;
 }
