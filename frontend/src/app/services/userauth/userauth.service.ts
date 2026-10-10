@@ -34,19 +34,14 @@ export class UserauthService {
     });
   }
 
-  loginUser(user: UserLoginDTO): Observable<User> {
-    return new Observable<User>((subscriber) => {
+  loginUser(user: UserLoginDTO): Observable<string> {
+    return new Observable<string>((subscriber) => {
       this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
         next: (data: JwtDTO) => {
           localStorage.setItem('jwt', data.jwt);
           localStorage.setItem('id', data.id);
 
-          subscriber.next({
-            id: data.id,
-            username: '',
-            blogs: [],
-            avatar: '',
-          });
+          subscriber.next(data.id);
         },
 
         error: (err) => {
