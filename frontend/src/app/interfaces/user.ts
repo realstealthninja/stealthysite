@@ -5,8 +5,8 @@ export interface User {
   username: string;
   avatar: string;
   bio: string;
-  blogs: Blog[] | number[];
-  comments: Comment[] | number[];
+  blogs: Blog[] | string[];
+  comments: Comment[] | string[];
   roles: {
     name: string;
   };
