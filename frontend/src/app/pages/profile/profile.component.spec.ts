@@ -20,18 +20,7 @@ describe('ProfileComponent', () => {
       username: 'John Doe',
       avatar: '',
       bio: 'Hello world my name is John doe',
-      blogs: [
-        {
-          id: 'lmno-hijk-efgh-abcd',
-          title: 'My first blog',
-          tags: ['admin', 'new'],
-          content: 'Hello world this is my blog and its contents',
-          comments: [],
-          author: 'abcd-efgh-hijk-lmnao',
-          created_on: new Date(),
-          edited_on: new Date(),
-        },
-      ],
+      blogs: [],
       comments: [],
       roles: [],
     };
