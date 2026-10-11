@@ -7,7 +7,7 @@ plugins {
 
 group = "site.stealthy"
 description = "Backend for stealthy.site"
-version = "0.1.0"
+
 
 java {
 	toolchain {
