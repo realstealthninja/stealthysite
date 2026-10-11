@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders, httpResource } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserLoginDTO, UserRegisterDTO } from '../../interfaces/user-dtos';
 import { JwtDTO } from '../../interfaces/jwt-dto';
 import { User } from '../../interfaces/user';
@@ -34,18 +34,14 @@ export class UserauthService {
     });
   }
 
-  loginUser(user: UserLoginDTO): Observable<User> {
-    return new Observable<User>((subscriber) => {
+  loginUser(user: UserLoginDTO): Observable<string> {
+    return new Observable<string>((subscriber) => {
       this.httpClient.post<JwtDTO>(`${this.apiURL}/login`, user).subscribe({
         next: (data: JwtDTO) => {
           localStorage.setItem('jwt', data.jwt);
           localStorage.setItem('id', data.id);
 
-          subscriber.next({
-            id: data.id,
-            username: '',
-            blogs: [],
-          });
+          subscriber.next(data.id);
         },
 
         error: (err) => {
@@ -56,7 +52,14 @@ export class UserauthService {
   }
 
   loggedinUser() {
-    return httpResource<User>(() => `${this.apiURL}/me`);
+    return fetch(`${this.apiURL}/${localStorage.getItem('id')}`).then(
+      (user) => {
+        if (!user.ok) {
+          return null;
+        }
+        return user.json() as Promise<User>;
+      },
+    );
   }
 
   logoutUser() {

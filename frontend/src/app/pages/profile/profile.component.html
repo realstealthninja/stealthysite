@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<header>
+  <img
+    src="{{ user().avatar ? user().avatar : 'images/placeholder-avatar.png' }}"
+    width="256"
+    height="256"
+    alt="profile picture"
+  />
+  <section class="profile-header">
+    <h1>{{ user().username }}</h1>
+    <section class="statistics">
+      @for (role of user().roles; track $index) {
+        <span class="role"
+          ><b
+            ><em>{{ role.name }}</em></b
+          ></span
+        >
+      }
+    </section>
+    <section class="bio">
+      <h3>Biography</h3>
+      <p>
+        {{ user().bio ? user().bio : "User has not provided a bio." }}
+      </p>
+    </section>
+  </section>
+</header>
+
+<main>
+  <section class="blogs">
+    <h2>Blogs</h2>
+    @if (user().blogs.length !== 0) {
+      <section class="cards-grid">
+        @for (blog of user().blogs; track $index) {
+          <app-card [title]="blog.title" [blog]="blog"></app-card>
+        }
+      </section>
+    } @else {
+      <p>User has no blogs..</p>
+    }
+  </section>
+
+  <section class="comments">
+    <h2>Comments</h2>
+    @if (user().comments.length === 0) {
+      No comments yet...
+    } @else {
+      @for (comment of user().comments; track $index) {
+        <article class="comment">
+          <p>{{ comment }}</p>
+        </article>
+      }
+    }
+  </section>
+</main>

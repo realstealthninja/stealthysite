@@ -1,11 +1,10 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Blog } from '../../interfaces/blog';
 
 @Component({
   selector: 'app-card',
   imports: [],
   templateUrl: './card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './card.component.css',
 })
 export class CardComponent {
@@ -13,8 +12,7 @@ export class CardComponent {
   blog = input<Blog>();
   description = input<string>();
 
-
   calculateReadTime(content: string): number {
-    return Math.ceil(content.split(" ").length / 260)
+    return Math.ceil(content.split(' ').length / 260);
   }
 }

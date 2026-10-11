@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogMarkdownRendererComponent } from '../blog-markdown-renderer/blog-markdown-renderer.component';
-import { Blog } from '../../../interfaces/blog';
+import { BlogDTO } from '../../../interfaces/blog-dto';
 
 @Component({
   selector: 'app-blog-editor',
@@ -30,19 +30,9 @@ export class BlogEditorComponent implements OnInit {
   markdownText = '';
   blogTitle = '';
 
-  blog: Blog = {
-    id: 99999,
+  blog: BlogDTO = {
     title: '',
-    tags: [],
     content: '',
-    comments: [],
-    author: {
-      id: '',
-      username: '',
-      blogs: [],
-    },
-    created_on: new Date(),
-    edited_on: new Date(),
   };
 
   blog$ = signal(this.blog);

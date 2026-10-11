@@ -17,7 +17,7 @@ export class BloggingService {
     return httpResource<{ blogs: Blog[] }>(() => `${this.apiUrl}/`);
   }
 
-  getBlog(id: number) {
+  getBlog(id: string) {
     return httpResource<Blog>(() => `${this.apiUrl}/${id}`);
   }
 }

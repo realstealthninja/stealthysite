@@ -91,6 +91,7 @@ button.secondary:hover {
   display: grid;
   padding: 1rem;
   gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .card {
@@ -100,6 +101,7 @@ button.secondary:hover {
   background-color: var(--secondary);
   border-radius: 1rem;
 }
+
 .card > button {
   background-color: var(--primary);
 }

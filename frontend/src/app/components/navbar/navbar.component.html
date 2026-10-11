@@ -11,7 +11,7 @@
     </li>
     <li>
       @if (userAuth.isLoggedIn) {
-        <a [routerLink]="['profile']">profile</a>
+        <a [routerLink]="['profile/me']">profile</a>
       } @else {
         <a [routerLink]="['login']">login</a>
       }

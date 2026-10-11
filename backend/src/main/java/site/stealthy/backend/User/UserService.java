@@ -35,6 +35,18 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * @param id
+     * @return
+     */
+    public Optional<String> getUserAvatar(String id) {
+        var user = findUserbyId(id);
+        if (user.isPresent()) {
+            return Optional.of(user.get().getAvatar());
+        }
+        return Optional.empty();
+    }
+
+    /**
      * @param username
      * @return Optional<User>
      */

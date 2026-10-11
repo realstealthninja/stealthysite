@@ -54,7 +54,7 @@ export class LoginComponent {
         action: async (field) => {
           this.userAuth.loginUser(field().value()).subscribe({
             next: async () => {
-              await this.router.navigate(['/profile']);
+              await this.router.navigate(['profile/', 'me']);
             },
             error: async () => {
               return { kind: 'servererror', message: 'failed to submit form' };

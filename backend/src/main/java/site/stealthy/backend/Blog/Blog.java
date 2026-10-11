@@ -3,6 +3,7 @@ package site.stealthy.backend.Blog;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
@@ -36,6 +37,7 @@ public class Blog {
     private LocalDateTime editedOn;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
