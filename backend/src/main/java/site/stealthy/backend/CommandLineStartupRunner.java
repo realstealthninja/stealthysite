@@ -22,11 +22,14 @@ public class CommandLineStartupRunner implements CommandLineRunner {
     @Autowired
     UserService userService;
 
-    @Value("${PGADMIN_DEFAULT_PASSWORD}")
-    private String password;
-
-    @Value("${PGADMIN_DEFAULT_EMAIL}")
+    @Value("${SPRING_ADMIN_EMAIL}")
     private String email;
+
+    @Value("${SPRING_ADMIN_USER}")
+    private String username;
+
+    @Value("${SPRING_ADMIN_PASSWORD}")
+    private String password;
 
     /**
      * @param args
@@ -56,7 +59,6 @@ public class CommandLineStartupRunner implements CommandLineRunner {
 
         roleRepository.flush();
 
-        String username = "stealthninja";
         if (userService.findUserByUsername(username).isEmpty()) {
 
             User admin_user = new User(username, password);
