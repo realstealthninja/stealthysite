@@ -4,22 +4,36 @@ import java.util.Date;
 import java.util.Optional;
 
 import javax.crypto.SecretKey;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import site.stealthy.backend.Security.KeyStore.KeyStore;
+import site.stealthy.backend.Security.KeyStore.KeyStoreRepository;
 import site.stealthy.backend.User.User;
 import site.stealthy.backend.User.UserService;
 
 @Component
 public class JWTUtil {
-
+    private Log logger = LogFactory.getLog(JWTUtil.class.getName());
     private SecretKey secretKey;
 
-    JWTUtil() {
-        secretKey = Jwts.SIG.HS256.key().build();
+    @Autowired
+    JWTUtil(KeyStoreRepository keyStoreRepository) {
+        var key = keyStoreRepository.findByName("JWT Signing Key");
+
+        if (key.isEmpty()) {
+            secretKey = Jwts.SIG.HS256.key().build();
+            KeyStore keyStore = new KeyStore("JWT Signing Key", secretKey);
+            keyStoreRepository.save(keyStore);
+        } else {
+            secretKey = key.get().asSecretKey();
+        }
     }
 
     /**
@@ -60,7 +74,8 @@ public class JWTUtil {
         try {
             claims = extractClaims(token);
         } catch (JwtException e) {
-            return null;
+            logger.error(e.getMessage());
+            return Optional.empty();
         }
 
         return userService.findUserbyId(claims.getPayload().getSubject());
@@ -73,11 +88,11 @@ public class JWTUtil {
      */
     public boolean verifyToken(String tokenString, UserService userService) {
         Jws<Claims> claims = null;
-
         try {
             claims = extractClaims(tokenString);
         } catch (JwtException e) {
             // if it throws an error just discard
+            logger.error(e.getMessage());
             return false;
         }
 
@@ -96,9 +111,9 @@ public class JWTUtil {
             return false;
         }
 
-        return ((subject.compareTo(user.get().getEmail()) == 0) // is the same email
+        return ((subject.compareTo(user.get().getId()) == 0) // is the same email
                 && (issuer.compareTo("stealthy.site") == 0) // same issuer
-                && (expiryDate.before(new Date())) // before expiry date
+                && (expiryDate.after(new Date())) // before expiry date
         );
 
     }
