@@ -2,6 +2,7 @@ package site.stealthy.backend.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,9 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
 import site.stealthy.backend.Security.JWT.JwtAuthFilter;
 import site.stealthy.backend.User.UserService;
 
@@ -64,14 +64,15 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
-                        .requestMatchers("/v1/users/me").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/v1/blog/create")
-                        .hasAnyRole("BLOGGER", "ADMIN").anyRequest().authenticated()
+                .authorizeHttpRequests(
+                        auth -> auth.requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/v1/users/avatar").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/v1/users/me").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/v1/blog/create")
+                                .hasAnyRole("BLOGGER", "ADMIN").requestMatchers("/**").permitAll()
 
                 ).httpBasic(http -> http.disable())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
+                .addFilterAfter(jwtAuthFilter, LogoutFilter.class).build();
     }
 
 }
