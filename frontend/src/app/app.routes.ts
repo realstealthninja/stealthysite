@@ -50,6 +50,12 @@ export const routes: Routes = [
             return user;
           },
         }),
+        me: resource({
+          params: () => ctx.params()['username'],
+          loader: async ({ params: username }) => {
+            return username === 'me';
+          },
+        }),
       };
     },
   },
