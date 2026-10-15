@@ -51,15 +51,12 @@ export class UserauthService {
     });
   }
 
-  loggedinUser() {
-    return fetch(`${this.apiURL}/${localStorage.getItem('id')}`).then(
-      (user) => {
-        if (!user.ok) {
-          return null;
-        }
-        return user.json() as Promise<User>;
-      },
-    );
+  async loggedinUser() {
+    const user = await fetch(`${this.apiURL}/${localStorage.getItem('id')}`);
+    if (!user.ok) {
+      return null;
+    }
+    return user.json() as Promise<User>;
   }
 
   logoutUser() {
