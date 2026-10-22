@@ -1,5 +1,7 @@
 package site.stealthy.backend.Role;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -18,20 +20,33 @@ public class Role {
     @JsonIgnore
     private long id;
 
-    @Column(length = 60)
+    @Column(length = 60, unique = true)
     private String name;
 
-    /** 
+    /**
      * @return String
      */
     public String getName() {
         return this.name;
     }
 
-    /** 
+    /**
      * @param name
      */
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean equals(final Object that) {
+        return that instanceof Role && (((Role) that).getId() == this.getId());
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int hashcode() {
+        return Objects.hash(id, name);
+    }
+
 }
