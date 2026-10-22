@@ -1,27 +1,34 @@
 package site.stealthy.backend.Blog;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
 import jakarta.annotation.Nonnull;
+import site.stealthy.backend.Role.Role;
+import site.stealthy.backend.Role.RoleRepository;
 import site.stealthy.backend.User.User;
 import site.stealthy.backend.User.UserRepository;
+import site.stealthy.backend.Utils.BlogCreateDTO;
 
 @RestController
 @RequestMapping("/v1/blogs")
@@ -34,6 +41,11 @@ public class BlogController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    private Log logger = LogFactory.getLog(BlogController.class.getName());
 
     /**
      * @return ResponseEntity<ObjectNode>
@@ -74,25 +86,45 @@ public class BlogController {
 
     /**
      * @param blog
-     * @return ResponseEntity<ObjectNode>
+     * @return ResponseEntity<?>
      */
-    @PostMapping("/create/")
-    public ResponseEntity<ObjectNode> createBlog(@RequestBody ObjectNode blog) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Blog resBlog = mapper.convertValue(blog, Blog.class);
-        resBlog.setAuthor(user);
-        blogRepository.save(resBlog);
-        blogRepository.flush();
-        return (new ResponseEntity<ObjectNode>(mapper.convertValue(resBlog, ObjectNode.class),
-                HttpStatus.OK));
-    }
+    @PostMapping("/create")
+    public ResponseEntity<?> createBlog(@RequestParam("header") BlogCreateDTO header,
+            @RequestParam("body") MultipartFile body) {
+        org.springframework.security.core.userdetails.User userdet = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        Optional<User> useropt = userRepository.findByusername(userdet.getUsername());
+        User user = useropt.get();
 
-    /**
-     * @return ResponseEntity<ObjectNode>
-     */
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<ObjectNode> editBlog() {
-        return null;
-    }
+        Optional<Role> blogger = roleRepository.findByName("blogger");
+        Optional<Role> admin = roleRepository.findByName("admin");
 
+        if (blogger.isEmpty() || admin.isEmpty()) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        if (!user.getRoles().contains(blogger.get()) && !user.getRoles().contains(admin.get())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (body.getContentType() != MediaType.TEXT_MARKDOWN_VALUE) {
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).build();
+        }
+
+        Blog blog = new Blog();
+        blog.setTitle(header.title());
+        blog.setTags(header.tags());
+        blog.setAuthor(user);
+
+        try {
+            blog.setContent(body.getInputStream().readAllBytes().toString());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+
+        blogRepository.save(blog);
+
+        return ResponseEntity.ok(blog);
+    }
 }
