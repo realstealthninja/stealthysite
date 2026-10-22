@@ -9,12 +9,18 @@
     <li>
       <a [routerLink]="['blogs']">blogs</a>
     </li>
-    <li>
-      @if (userAuth.isLoggedIn) {
+
+    @if (userAuth.isLoggedIn) {
+      <li>
         <a [routerLink]="['profile/me']">profile</a>
-      } @else {
+      </li>
+      <li>
+        <a role="button" tabindex="0" (click)="logout()">logout</a>
+      </li>
+    } @else {
+      <li>
         <a [routerLink]="['login']">login</a>
-      }
-    </li>
+      </li>
+    }
   </ul>
 </nav>

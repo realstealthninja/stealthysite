@@ -60,6 +60,7 @@ export class UserauthService {
   }
 
   logoutUser() {
+    this.httpClient.post(`${this.apiURL}/logout`, null).subscribe();
     localStorage.removeItem('jwt');
   }
 }

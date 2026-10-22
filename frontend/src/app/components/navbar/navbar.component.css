@@ -1,38 +1,33 @@
 nav {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 nav > ul {
-
-    display: flex;
-    list-style: none;
-    align-items: center;
-    justify-content: center;
-    padding: 0px;
-
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
 }
 
 li {
-    display: block;
-    padding: 1rem;
+  display: block;
+  padding: 1rem;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* medium screens */
 
 @media only screen and (min-width: 768px) {
-
-    nav > ul {
-        min-width: 768px;
-        justify-content: space-around;
-    }
-
-
+  nav > ul {
+    min-width: 768px;
+    justify-content: space-around;
+  }
 }
