@@ -3,6 +3,9 @@ package site.stealthy.backend.Blog;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -33,7 +36,10 @@ public class Blog {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @CreationTimestamp
     private LocalDateTime createdOn;
+
+    @UpdateTimestamp
     private LocalDateTime editedOn;
 
     @ManyToOne
