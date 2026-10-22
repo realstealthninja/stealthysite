@@ -1,9 +1,12 @@
 package site.stealthy.backend.User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +24,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -64,6 +66,7 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Column(columnDefinition = "TEXT")
     private String bio;
 
     @Column(columnDefinition = "BYTEA")
@@ -79,6 +82,12 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    @CreationTimestamp
+    private LocalDateTime createdOn;
+
+    @UpdateTimestamp
+    private LocalDateTime editedOn;
 
     public User() {}
 
@@ -97,7 +106,7 @@ public class User implements UserDetails {
     }
 
     /**
-     * @return long
+     * @return string
      */
     public String getId() {
         return id;
@@ -195,6 +204,14 @@ public class User implements UserDetails {
 
     public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public LocalDateTime getEditedOn() {
+        return editedOn;
     }
 
 }

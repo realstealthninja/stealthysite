@@ -2,7 +2,6 @@ package site.stealthy.backend.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import site.stealthy.backend.Security.JWT.JwtAuthFilter;
@@ -66,12 +66,16 @@ public class WebSecurityConfig {
                         .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/v1/users/avatar").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/v1/users/me").authenticated()
-                                .requestMatchers(HttpMethod.POST, "/v1/blog/create")
+                                .requestMatchers(HttpMethod.PATCH, "/v1/users/{id}/avatar")
+                                .authenticated().requestMatchers(HttpMethod.PATCH, "/v1/users/{id}")
+                                .authenticated().requestMatchers(HttpMethod.PUT, "/v1/users/bio")
+                                .authenticated().requestMatchers(HttpMethod.GET, "/v1/users/me")
+                                .authenticated().requestMatchers(HttpMethod.POST, "/v1/blog/create")
                                 .hasAnyRole("BLOGGER", "ADMIN").requestMatchers("/**").permitAll()
 
                 ).httpBasic(http -> http.disable())
+                .logout((logout) -> logout.logoutUrl("/v1/users/logout")
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()))
                 .addFilterAfter(jwtAuthFilter, LogoutFilter.class).build();
     }
 

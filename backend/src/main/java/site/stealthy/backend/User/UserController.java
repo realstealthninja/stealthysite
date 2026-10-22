@@ -3,7 +3,9 @@ package site.stealthy.backend.User;
 import site.stealthy.backend.Role.Role;
 import site.stealthy.backend.Role.RoleRepository;
 import site.stealthy.backend.Security.JWT.JWTUtil;
+import site.stealthy.backend.Utils.BioDTO;
 import site.stealthy.backend.Utils.UserCreateDTO;
+import site.stealthy.backend.Utils.UserDTO;
 import site.stealthy.backend.Utils.UserLoginDTO;
 
 import java.io.IOException;
@@ -23,9 +25,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,7 +108,32 @@ public class UserController {
         return ResponseEntity.ok(respObjectNode);
     }
 
-    @PutMapping(path = "/avatar")
+    @PatchMapping(path = "/{id}")
+    ResponseEntity<?> patchUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        org.springframework.security.core.userdetails.User userdet = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        Optional<User> useropt = userRepository.findByusername(userdet.getUsername());
+        User user = useropt.get();
+
+        if (!user.getId().contentEquals(id)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (userDTO.username() != null) {
+            user.setUsername(userDTO.username());
+        }
+        if (userDTO.password() != null) {
+            user.setPassword(passwordEncoder.encode(userDTO.password()));
+        }
+        if (userDTO.bio() != null) {
+            user.setBio(userDTO.bio());
+        }
+
+        userRepository.save(user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(path = "/{id}/avatar")
     ResponseEntity<?> setAvatar(@RequestParam("avatar") MultipartFile file) {
         org.springframework.security.core.userdetails.User userdet = (org.springframework.security.core.userdetails.User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
@@ -135,7 +162,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 
