@@ -3,7 +3,6 @@ package site.stealthy.backend.User;
 import site.stealthy.backend.Role.Role;
 import site.stealthy.backend.Role.RoleRepository;
 import site.stealthy.backend.Security.JWT.JWTUtil;
-import site.stealthy.backend.Utils.BioDTO;
 import site.stealthy.backend.Utils.UserCreateDTO;
 import site.stealthy.backend.Utils.UserDTO;
 import site.stealthy.backend.Utils.UserLoginDTO;
