@@ -38,7 +38,13 @@ public class Role {
     }
 
     public boolean equals(final Object that) {
-        return that instanceof Role && (((Role) that).getId() == this.getId());
+        if (this == that)
+            return true;
+
+        if (that == null || that.getClass() != this.getClass())
+            return false;
+
+        return ((Role) that).getId() == this.getId();
     }
 
     public long getId() {
