@@ -4,11 +4,11 @@ import { MarkdownPipe } from 'ngx-markdown';
 import { Blog } from '../../../interfaces/blog';
 
 @Component({
-  selector: 'app-blog-markdown-renderer',
+  selector: 'app-blog-renderer',
   imports: [AsyncPipe, MarkdownPipe],
-  templateUrl: './blog-markdown-renderer.component.html',
-  styleUrl: './blog-markdown-renderer.component.css',
+  templateUrl: './blog-renderer.component.html',
+  styleUrl: './blog-renderer.component.css',
 })
-export class BlogMarkdownRendererComponent {
+export class BlogRendererComponent {
   blog$ = input<Blog | null>();
 }
