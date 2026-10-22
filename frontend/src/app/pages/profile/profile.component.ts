@@ -2,16 +2,18 @@ import { Component, inject, input } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user/user.service';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-profile',
-  imports: [CardComponent],
+  imports: [CardComponent, MarkdownComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
   user = input.required<User>();
   me = input.required<boolean>();
+  edit_bio = false;
 
   userService = inject(UserService);
 
@@ -31,6 +33,14 @@ export class ProfileComponent {
     }
 
     this.userService.uploadAvatar(file);
-    location.reload();
+  }
+
+  changeBio() {
+    const textarea = document.getElementById(
+      'bio-textarea',
+    ) as HTMLTextAreaElement;
+
+    this.userService.updateUser({ bio: textarea.value });
+    this.edit_bio = !this.edit_bio;
   }
 }

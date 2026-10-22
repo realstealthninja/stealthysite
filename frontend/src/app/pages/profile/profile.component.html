@@ -42,9 +42,27 @@
     </section>
     <section class="bio">
       <h3>Biography</h3>
-      <p>
-        {{ user().bio ? user().bio : "User has not provided a bio." }}
-      </p>
+      @if (me() && edit_bio) {
+        <textarea
+          id="bio-textarea"
+          class="bio-textarea"
+          name="bio-textarea"
+          rows="3"
+          cols="64"
+          [value]="user().bio ? user().bio : 'Write a bio...'"
+        ></textarea>
+        <button class="secondary" (click)="changeBio()">Change bio</button>
+      } @else {
+        <markdown>
+          {{ user().bio ? user().bio : "User has not provided a bio." }}
+        </markdown>
+
+        @if (me() && !edit_bio) {
+          <button class="secondary" (click)="edit_bio = !edit_bio">
+            edit bio
+          </button>
+        }
+      }
     </section>
   </section>
 </header>
