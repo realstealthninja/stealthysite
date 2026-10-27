@@ -1,16 +1,90 @@
-<header>
-  <h1>
-    {{ blog$()?.title }}
-  </h1>
-  <span> {{ blog$()?.author?.username }} </span>
-</header>
+@if (blog$ | async; as blog) {
+  <header>
+    @if (!is_editting) {
+      <h1>{{ blog.title | titlecase }}</h1>
+    } @else {
+      <input
+        id="blog-title-input"
+        class="blog-title-input"
+        type="text"
+        [formField]="blogForm.title"
+      />
+    }
+    <span class="meta-data">
+      @if (blog | author | async; as author) {
+        <small class="author" [routerLink]="'/profile/' + author.username"
+          ><img
+            [alt]="'avatar of' + author.username"
+            src="images/stealthninja.png"
+            width="32px"
+            height="32px"
+          />{{ author?.username }}</small
+        >
+        @if (userAuthService.id === author.id) {
+          <section class="blog-controls">
+            <small>blog actions</small>
+            <section class="blog-control-btns">
+              <button class="secondary" (click)="is_editting = !is_editting">
+                edit
+              </button>
+              <button class="primary" (click)="deleteBlog()">delete</button>
+            </section>
+          </section>
+        }
+      }
 
-<main>
-  <section
-    class="markdown"
-    [innerHTML]="(blog$()?.content ?? '') | markdown | async"
-  ></section>
-  <section class="comment-section">
-    <form></form>
-  </section>
-</main>
+      <small class="reading-time"
+        >{{ calculateReadTime(blog.content) }} min read</small
+      >
+
+      <small class="published-on"
+        >Published on the {{ ordinal(blog.createdOn.getDate()) }} of
+        {{ blog.createdOn | date: "MMMM y','  hh':'mma" }}</small
+      >
+      @if (!almostSame(blog.createdOn, blog.editedOn)) {
+        <small class="edited-on"
+          >Edited on the {{ ordinal(blog.editedOn.getDate()) }} of
+          {{ blog.editedOn | date: "MMMM y','  hh':'mma" }}</small
+        >
+      }
+      @if (!is_editting) {
+        <ul class="tag-list">
+          @for (tag of blog.tags; track $index) {
+            <li class="tag-item">
+              <a
+                class="tag-item-box"
+                [routerLink]="['/blogs']"
+                [queryParams]="{ tag: tag }"
+                >{{ tag }}</a
+              >
+            </li>
+          }
+        </ul>
+      } @else {
+        <app-tag-field [formField]="blogForm.tags"></app-tag-field>
+      }
+    </span>
+  </header>
+  <main>
+    <article class="blog-content">
+      @if (!is_editting) {
+        <markdown [data]="blog.content"> </markdown>
+      } @else {
+        <form [formRoot]="blogForm">
+          <textarea
+            id="blog-content-textarea"
+            class="blog-textarea"
+            autocorrect="on"
+            autocapitalize="on"
+            spellcheck="true"
+            [formField]="blogForm.content"
+          ></textarea>
+          <button class="secondary" type="submit">update</button>
+        </form>
+      }
+    </article>
+    <section class="comment-section">
+      <form></form>
+    </section>
+  </main>
+}
