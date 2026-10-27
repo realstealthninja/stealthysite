@@ -21,6 +21,10 @@ export class UserauthService {
     return localStorage.getItem('jwt');
   }
 
+  get id(): string | null {
+    return localStorage.getItem('id');
+  }
+
   addJwtAuth(header: HttpHeaders): HttpHeaders {
     header.set('Authorization', this.jwtToken === null ? '' : this.jwtToken);
     return header;
@@ -62,5 +66,6 @@ export class UserauthService {
   logoutUser() {
     this.httpClient.post(`${this.apiURL}/logout`, null).subscribe();
     localStorage.removeItem('jwt');
+    localStorage.removeItem('id');
   }
 }
