@@ -62,31 +62,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<ObjectNode> getUser(@PathVariable("id") String id) {
-        ObjectNode respObject = mapper.createObjectNode();
-
+    ResponseEntity<?> getUser(@PathVariable("id") String id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            respObject = mapper.convertValue(user.get(), ObjectNode.class);
-        } else {
-            respObject.put("error", "Could not find user");
-        }
-
-        return new ResponseEntity<>(respObject, HttpStatus.OK);
+        return ResponseEntity.ok(user.get());
     }
 
     @GetMapping("/")
-    ResponseEntity<ObjectNode> findUser(@RequestParam("username") String username) {
+    ResponseEntity<?> findUser(@RequestParam("username") String username) {
         Optional<User> user = userRepository.findByusername(username);
-        ObjectNode respObjectNode = mapper.createObjectNode();
-
-        if (user.isPresent()) {
-            respObjectNode = mapper.convertValue(user.get(), ObjectNode.class);
-        } else {
-            respObjectNode.put("error", "Could not find user.");
-            return new ResponseEntity<>(respObjectNode, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(respObjectNode, HttpStatus.OK);
+        return ResponseEntity.ok(user.get());
     }
 
     @GetMapping("/{id}/avatar")
@@ -178,7 +162,7 @@ public class UserController {
         User user = new User(registerDto.username(),
                 passwordEncoder.encode(registerDto.password()));
 
-        Role roles = RoleRepository.findByName("USER").get();
+        Role roles = RoleRepository.findByName("ROLE_USER").get();
         user.setRoles(Collections.singleton(roles));
 
         userRepository.save(user);

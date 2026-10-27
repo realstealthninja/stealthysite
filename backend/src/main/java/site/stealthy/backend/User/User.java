@@ -12,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -70,10 +72,12 @@ public class User implements UserDetails {
     private String bio;
 
     @Column(columnDefinition = "BYTEA")
+    @JsonIgnore
     private byte[] avatar;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "author")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Blog> blogs;
 
     @OneToMany(mappedBy = "author")
