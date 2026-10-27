@@ -20,6 +20,6 @@ export class CardComponent {
   link_text = input<string>();
 
   calculateReadTime(content: string): number {
-    return Math.ceil(content.split(' ').length / 260);
+    return Math.floor(content.split(' ').length / 230);
   }
 }

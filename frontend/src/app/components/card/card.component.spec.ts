@@ -20,4 +20,13 @@ describe('CardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should calculate read time', () => {
+    expect(component.calculateReadTime('hello world')).toBeCloseTo(0);
+    expect(
+      component.calculateReadTime(
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, cum nulla. Vel quidem adipisci cum in consequuntur repellendus exercitationem nostrum ipsa quia optio aperiam, aut, officiis expedita possimus excepturi ab?',
+      ),
+    ).toBeCloseTo(0);
+  });
 });
