@@ -6,21 +6,36 @@
 
   <section class="card-body">
     @if (blog(); as blog) {
-      <span class="author"
-        ><small
-          ><img
-            [alt]="'avatar of' + blog.author.username"
-            src="images/stealthninja.png"
-            width="32px"
-            height="32px"
-          />{{ blog.author.username }}</small
-        >
+      <span class="author">
+        @if (author(); as author) {
+          <small
+            ><img
+              [alt]="'avatar of' + author.username"
+              src="images/stealthninja.png"
+              width="32px"
+              height="32px"
+            />{{ author?.username }}</small
+          >
+        }
+
         <small>{{ calculateReadTime(blog.content) }} min read</small></span
       >
-      <p>{{ blog.content.substring(0, 48) }}...</p>
-      <button class="button secondary" onclick="">go to blog</button>
+      <p>
+        {{
+          blog.content
+            .match(/^[A-Za-z].*(?:\n[A-Za-z].*)*/gm)![0]
+            .substring(0, 48)
+        }}...
+      </p>
+      <button class="button secondary" [routerLink]="['/blogs', blog.id]">
+        go to blog
+      </button>
     } @else {
       <p>{{ description() }}</p>
+    }
+
+    @if (link()) {
+      <button [routerLink]="link()">{{ link_text() }}</button>
     }
   </section>
 </article>
