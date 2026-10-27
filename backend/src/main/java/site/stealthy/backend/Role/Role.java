@@ -1,5 +1,6 @@
 package site.stealthy.backend.Role;
 
+import java.util.Collection;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,8 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import site.stealthy.backend.User.User;
 
 @Entity
 @Table(name = "roles", uniqueConstraints = { @UniqueConstraint(columnNames = "name") })
@@ -22,6 +25,9 @@ public class Role {
 
     @Column(length = 60, unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users;
 
     /**
      * @return String
