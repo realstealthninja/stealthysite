@@ -3,7 +3,7 @@
     <img
       class="prfoile-picture"
       src="{{
-        user().avatar
+        userService.avatarUrl(user().id)
           ? userService.avatarUrl(user().id)
           : 'images/placeholder-avatar.png'
       }}"
@@ -35,7 +35,7 @@
       @for (role of user().roles; track $index) {
         <span class="role"
           ><b
-            ><em>{{ role.name }}</em></b
+            ><em>{{ role.name.replace("ROLE_", "") }}</em></b
           ></span
         >
       }
@@ -70,15 +70,17 @@
 <main>
   <section class="blogs">
     <h2>Blogs</h2>
-    @if (user().blogs.length !== 0) {
-      <section class="cards-grid">
-        @for (blog of user().blogs; track $index) {
-          <app-card [title]="blog.title" [blog]="blog"></app-card>
-        }
-      </section>
-    } @else {
-      <p>User has no blogs..</p>
-    }
+    <section class="cards-grid">
+      @for (blog of blogs(); track $index) {
+        <app-card
+          [title]="blog.title"
+          [blog]="blog"
+          [author]="user()"
+        ></app-card>
+      } @empty {
+        <p>User has no blogs..</p>
+      }
+    </section>
   </section>
 
   <section class="comments">

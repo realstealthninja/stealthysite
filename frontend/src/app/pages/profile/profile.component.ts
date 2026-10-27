@@ -1,21 +1,25 @@
 import { Component, inject, input } from '@angular/core';
-import { CardComponent } from '../../components/card/card.component';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user/user.service';
 import { MarkdownComponent } from 'ngx-markdown';
+import { BloggingService } from '../../services/blogging/blogging.service';
+import { BlogDTO } from '../../interfaces/blog';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [CardComponent, MarkdownComponent],
+  imports: [MarkdownComponent, CardComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
+  userService = inject(UserService);
+  bloggingService = inject(BloggingService);
+
   user = input.required<User>();
+  blogs = input.required<BlogDTO[]>();
   me = input.required<boolean>();
   edit_bio = false;
-
-  userService = inject(UserService);
 
   async upload(event: Event) {
     const fileupload = event.target as HTMLInputElement;
