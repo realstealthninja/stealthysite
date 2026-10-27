@@ -1,9 +1,15 @@
 package site.stealthy.backend.Security;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatterBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,6 +24,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import site.stealthy.backend.Security.JWT.JwtAuthFilter;
 import site.stealthy.backend.User.UserService;
+import tools.jackson.databind.ext.javatime.deser.LocalDateTimeDeserializer;
 
 @Configuration
 @EnableWebSecurity
@@ -52,6 +59,12 @@ public class WebSecurityConfig {
 
     }
 
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        String hierarchy = "ROLE_ADMIN > ROLE_BLOGGER \n ROLE_BLOGGER > ROLE_USER";
+        return RoleHierarchyImpl.fromHierarchy(hierarchy);
+    }
+
     /**
      * @param httpSecurity
      * @return SecurityFilterChain
@@ -64,14 +77,19 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(new AngularCsrfTokenRequestHandler()))
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
-                                .requestMatchers(HttpMethod.PATCH, "/v1/users/{id}/avatar")
-                                .authenticated().requestMatchers(HttpMethod.PATCH, "/v1/users/{id}")
-                                .authenticated().requestMatchers(HttpMethod.PUT, "/v1/users/bio")
-                                .authenticated().requestMatchers(HttpMethod.GET, "/v1/users/me")
-                                .authenticated().requestMatchers(HttpMethod.POST, "/v1/blog/create")
-                                .hasAnyRole("BLOGGER", "ADMIN").requestMatchers("/**").permitAll()
+
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/v1/users/login").permitAll()
+
+                        .requestMatchers(HttpMethod.PATCH, "/v1/users/{id}/avatar").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/v1/users/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/v1/users/bio").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/v1/users/me").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/v1/blogs/new").hasRole("BLOGGER")
+                        .requestMatchers(HttpMethod.PUT, "/v1/blogs/{id}").hasRole("BLOGGER")
+                        .requestMatchers(HttpMethod.DELETE, "/v1/blogs/{id}").hasRole("BLOGGER")
+
+                        .requestMatchers("/**").permitAll()
 
                 ).httpBasic(http -> http.disable())
                 .logout((logout) -> logout.logoutUrl("/v1/users/logout")
