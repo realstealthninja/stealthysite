@@ -1,7 +1,7 @@
 import { inject, Service } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { User } from '../../interfaces/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { UserauthService } from '../userauth/userauth.service';
 
 @Service()
@@ -29,6 +29,14 @@ export class UserService {
     this.httpClient
       .patch(`${this.apiUrl}/${loggedinUser.id}`, user)
       .subscribe();
+  }
+
+  async getUser(id: string) {
+    const user = await fetch(`${this.apiUrl}/${id}`);
+    if (!user.ok) {
+      return null;
+    }
+    return user.json() as Promise<User>;
   }
 
   async uploadAvatar(image: File) {
