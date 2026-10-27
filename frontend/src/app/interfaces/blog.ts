@@ -1,13 +1,18 @@
-import { User } from './user';
 import { Comment } from './comment';
 
-export interface Blog {
+export interface BlogDTO {
   id: string;
   title: string;
   tags: string[];
   content: string;
   comments: Comment[];
-  author: User;
-  created_on: Date;
-  edited_on: Date;
+  author: string;
+  createdOn: string;
+  editedOn: string;
+}
+
+export interface BlogModel {
+  title: string;
+  tags: string[];
+  content: File;
 }
