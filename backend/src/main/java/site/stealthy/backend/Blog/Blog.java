@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -43,7 +44,7 @@ public class Blog {
     private LocalDateTime editedOn;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
@@ -154,5 +155,4 @@ public class Blog {
     public void setTags(Set<String> tags) {
         this.tags = tags;
     }
-
 }
