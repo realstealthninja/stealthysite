@@ -8,7 +8,7 @@ import { FormValueControl } from '@angular/forms/signals';
   templateUrl: './tag-field.component.html',
 })
 export class TagFieldComponent implements FormValueControl<string[]> {
-  public value: ModelSignal<string[]> = model(['']);
+  public value: ModelSignal<string[]> = model<string[]>([]);
 
   onInput(event: InputEvent) {
     const inputElement = event.target as HTMLInputElement;
