@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
-import { computed } from '@angular/core';
 import { User } from '../../interfaces/user';
+import { provideMarkdown } from 'ngx-markdown';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -12,6 +12,7 @@ describe('ProfileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProfileComponent, RouterModule.forRoot([])],
+      providers: [provideMarkdown()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
@@ -24,9 +25,9 @@ describe('ProfileComponent', () => {
       comments: [],
       roles: [],
     };
-    fixture.componentInstance.user = computed(
-      () => test_user,
-    ) as unknown as typeof fixture.componentInstance.user;
+    fixture.componentRef.setInput('user', test_user);
+    fixture.componentRef.setInput('blogs', []);
+    fixture.componentRef.setInput('me', false);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

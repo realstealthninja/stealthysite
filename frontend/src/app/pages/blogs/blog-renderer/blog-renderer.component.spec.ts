@@ -15,6 +15,7 @@ describe('BlogRendererComponent', () => {
 
     fixture = TestBed.createComponent(BlogRendererComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('blogId', 'ffff-ffff-ffff-ffff');
     fixture.detectChanges();
   });
 

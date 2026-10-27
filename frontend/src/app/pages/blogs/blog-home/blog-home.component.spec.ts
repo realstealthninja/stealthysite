@@ -17,6 +17,8 @@ describe('BlogHomeComponent', () => {
 
     fixture = TestBed.createComponent(BlogHomeComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('blogs', []);
+    fixture.componentRef.setInput('authors', []);
     fixture.detectChanges();
   });
 

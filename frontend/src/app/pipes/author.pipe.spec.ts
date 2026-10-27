@@ -1,8 +1,11 @@
+import { TestBed } from '@angular/core/testing';
 import { AuthorPipe } from './author.pipe';
 
 describe('AuthorPipe', () => {
   it('create an instance', () => {
-    const pipe = new AuthorPipe();
-    expect(pipe).toBeTruthy();
+    TestBed.runInInjectionContext(() => {
+      const pipe = new AuthorPipe();
+      expect(pipe).toBeTruthy();
+    });
   });
 });

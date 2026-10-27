@@ -9,6 +9,7 @@ import { Blog } from '../classes/blog/blog';
 })
 export class AuthorPipe implements PipeTransform {
   userService = inject(UserService);
+
   async transform(value: BlogDTO | Blog): Promise<User> {
     return (await this.userService.getUser(value.author))!;
   }
