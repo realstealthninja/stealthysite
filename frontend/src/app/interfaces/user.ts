@@ -1,4 +1,3 @@
-import { Blog } from './blog';
 import { Comment } from './comment';
 
 export interface User {
@@ -6,7 +5,7 @@ export interface User {
   username: string;
   avatar: string;
   bio: string;
-  blogs: Blog[];
+  blogs: string[];
   comments: Comment[] | string[];
   roles: { name: string }[];
 }
