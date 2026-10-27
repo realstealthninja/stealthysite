@@ -1,0 +1,41 @@
+<header>
+  <h1>Upload your blog</h1>
+</header>
+<main>
+  <form [formRoot]="blogForm">
+    <label for="title">Blog title</label>
+    <input
+      id="title"
+      type="text"
+      placeholder="My Blog"
+      [formField]="blogForm.title"
+    />
+    @if (blogForm.title().touched() && blogForm.title().invalid()) {
+      <p class="error">{{ blogForm.title().errors()[0].message }}</p>
+    }
+
+    <label for="tags">Tags</label>
+    <app-tag-field [formField]="blogForm.tags"></app-tag-field>
+
+    @if (blogForm.tags().touched() && blogForm.tags().invalid()) {
+      <p class="error">{{ blogForm.tags().errors()[0].message }}</p>
+    }
+
+    <label for="content">Markdown Content</label>
+    <app-file-field
+      accept="text/markdown"
+      [formField]="blogForm.content"
+    ></app-file-field>
+    @if (blogForm.content().touched() && blogForm.content().invalid()) {
+      <p class="error">{{ blogForm.content().errors()[0].message }}</p>
+    }
+    <button
+      type="submit"
+      [className]="
+        blogForm().invalid() || !blogForm().dirty() ? 'disabled' : ''
+      "
+    >
+      submit
+    </button>
+  </form>
+</main>
