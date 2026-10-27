@@ -1,0 +1,21 @@
+<div class="tag-field">
+  <ul class="tag-list">
+    @for (tag of value(); track $index) {
+      <li class="tag-item">
+        <div class="tag-item-box">
+          {{ tag }}
+          <button class="tag-remove-btn" type="button" (click)="removeTag(tag)">
+            x
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+  <input
+    id="tags"
+    name="tags"
+    placeholder="add a tag"
+    type="text"
+    (input)="onInput($event)"
+  />
+</div>
