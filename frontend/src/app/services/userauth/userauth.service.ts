@@ -21,6 +21,10 @@ export class UserauthService {
     return localStorage.getItem('jwt');
   }
 
+  get id(): string | null {
+    return localStorage.getItem('id');
+  }
+
   addJwtAuth(header: HttpHeaders): HttpHeaders {
     header.set('Authorization', this.jwtToken === null ? '' : this.jwtToken);
     return header;
@@ -51,18 +55,17 @@ export class UserauthService {
     });
   }
 
-  loggedinUser() {
-    return fetch(`${this.apiURL}/${localStorage.getItem('id')}`).then(
-      (user) => {
-        if (!user.ok) {
-          return null;
-        }
-        return user.json() as Promise<User>;
-      },
-    );
+  async loggedinUser() {
+    const user = await fetch(`${this.apiURL}/${localStorage.getItem('id')}`);
+    if (!user.ok) {
+      return null;
+    }
+    return user.json() as Promise<User>;
   }
 
   logoutUser() {
+    this.httpClient.post(`${this.apiURL}/logout`, null).subscribe();
     localStorage.removeItem('jwt');
+    localStorage.removeItem('id');
   }
 }

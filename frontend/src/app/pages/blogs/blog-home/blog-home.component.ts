@@ -1,17 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { BloggingService } from '../../../services/blogging/blogging.service';
+import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserauthService } from '../../../services/userauth/userauth.service';
+import { BlogDTO } from '../../../interfaces/blog';
+import { UserService } from '../../../services/user/user.service';
+import { CardComponent } from '../../../components/card/card.component';
+import { User } from '../../../interfaces/user';
+import { AuthorPipe } from '../../../pipes/author.pipe';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-blog-home',
-  imports: [RouterLink],
+  imports: [RouterLink, CardComponent, AuthorPipe, AsyncPipe],
   templateUrl: './blog-home.component.html',
   styleUrl: './blog-home.component.css',
 })
 export class BlogHomeComponent {
-  private bloggingService: BloggingService = inject(BloggingService);
-
   userAuth: UserauthService = inject(UserauthService);
-  blogs = this.bloggingService.getBlogs();
+  userService: UserService = inject(UserService);
+  blogs = input.required<BlogDTO[]>();
+  authors = input.required<User[]>();
 }

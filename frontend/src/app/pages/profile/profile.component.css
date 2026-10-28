@@ -22,3 +22,40 @@ main {
   padding-inline: 0.5rem;
   border-radius: 0.5rem;
 }
+
+.profile-figure {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.profile-upload-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-upload {
+  display: none;
+}
+
+.profile-upload-label {
+  padding: 0.25rem;
+  width: 16ch;
+  font-size: 0.5rem;
+  font-family: "Noto Sans";
+  color: inherit;
+  background-color: var(--secondary);
+  text-align: center;
+  border-radius: 0.2rem;
+  border: none;
+}
+
+.profile-upload-label:hover {
+  box-shadow: rgb(from var(--secondary) r g b / 0.35) 0px 5px 15px;
+}
+
+.bio-textarea {
+  display: block;
+}

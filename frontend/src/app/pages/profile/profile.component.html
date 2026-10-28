@@ -1,26 +1,68 @@
 <header>
-  <img
-    src="{{ user().avatar ? user().avatar : 'images/placeholder-avatar.png' }}"
-    width="256"
-    height="256"
-    alt="profile picture"
-  />
+  <figure class="profile-figure">
+    <img
+      class="prfoile-picture"
+      src="{{
+        userService.avatarUrl(user().id)
+          ? userService.avatarUrl(user().id)
+          : 'images/placeholder-avatar.png'
+      }}"
+      width="256"
+      height="256"
+      alt="profile picture"
+    />
+
+    @if (me()) {
+      <section class="profile-upload-container">
+        <label for="profile-upload" class="profile-upload-label"
+          >Change pfp</label
+        >
+        <input
+          type="file"
+          id="profile-upload"
+          name="profile-upload"
+          class="profile-upload"
+          placeholder="select an image file"
+          (change)="upload($event)"
+          accept="image/png"
+        />
+      </section>
+    }
+  </figure>
   <section class="profile-header">
     <h1>{{ user().username }}</h1>
     <section class="statistics">
       @for (role of user().roles; track $index) {
         <span class="role"
           ><b
-            ><em>{{ role.name }}</em></b
+            ><em>{{ role.name.replace("ROLE_", "") }}</em></b
           ></span
         >
       }
     </section>
     <section class="bio">
       <h3>Biography</h3>
-      <p>
-        {{ user().bio ? user().bio : "User has not provided a bio." }}
-      </p>
+      @if (me() && edit_bio) {
+        <textarea
+          id="bio-textarea"
+          class="bio-textarea"
+          name="bio-textarea"
+          rows="3"
+          cols="64"
+          [value]="user().bio ? user().bio : 'Write a bio...'"
+        ></textarea>
+        <button class="secondary" (click)="changeBio()">Change bio</button>
+      } @else {
+        <markdown>
+          {{ user().bio ? user().bio : "User has not provided a bio." }}
+        </markdown>
+
+        @if (me() && !edit_bio) {
+          <button class="secondary" (click)="edit_bio = !edit_bio">
+            edit bio
+          </button>
+        }
+      }
     </section>
   </section>
 </header>
@@ -28,15 +70,17 @@
 <main>
   <section class="blogs">
     <h2>Blogs</h2>
-    @if (user().blogs.length !== 0) {
-      <section class="cards-grid">
-        @for (blog of user().blogs; track $index) {
-          <app-card [title]="blog.title" [blog]="blog"></app-card>
-        }
-      </section>
-    } @else {
-      <p>User has no blogs..</p>
-    }
+    <section class="cards-grid">
+      @for (blog of blogs(); track $index) {
+        <app-card
+          [title]="blog.title"
+          [blog]="blog"
+          [author]="user()"
+        ></app-card>
+      } @empty {
+        <p>User has no blogs..</p>
+      }
+    </section>
   </section>
 
   <section class="comments">

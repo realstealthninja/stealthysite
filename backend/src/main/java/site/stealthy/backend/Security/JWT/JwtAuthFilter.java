@@ -40,19 +40,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
+        logger.trace("Performing JWT filter");
         String authstring = request.getHeader("Authorization");
         String token = null;
         Optional<User> user = Optional.empty();
 
         if (authstring != null && authstring.startsWith("Bearer ")) {
+            logger.trace("User has authorization header");
             token = authstring.substring(7);
             user = jwtUtil.extractUser(token, userService);
         }
-
         if (user.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByEmail(user.get().getEmail());
+            logger.trace("User is present, loading user details");
+            UserDetails userDetails = userService.loadUserByUsername(user.get().getUsername());
 
             if (jwtUtil.verifyToken(token, userService)) {
+                logger.trace("User JWT Verified, Changing security context");
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

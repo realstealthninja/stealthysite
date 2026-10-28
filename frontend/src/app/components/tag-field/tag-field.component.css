@@ -1,0 +1,28 @@
+.tag-list {
+  max-width: 75%;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.tag-item {
+  margin: 0.25rem;
+  display: inline-block;
+}
+
+.tag-item-box {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: max-content;
+  background-color: var(--accent);
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+}
+
+.tag-remove-btn {
+  background-color: inherit;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-inline: 0.25rem;
+  width: max-content;
+}

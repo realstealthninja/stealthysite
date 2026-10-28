@@ -1,8 +1,12 @@
 spring:
   datasource:
     url: "jdbc:postgresql://localhost:5432/${POSTGRES_DB}"
+  output:
+    ansi.enabled: ALWAYS
 
 logging:
   level:
     org.springframework.security: DEBUG
-    org.springframework.web.cors: TRACE
+    org.springframework.web: DEBUG
+
+    site.stealthy: TRACE

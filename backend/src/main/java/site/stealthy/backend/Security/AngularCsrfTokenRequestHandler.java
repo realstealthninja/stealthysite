@@ -15,7 +15,7 @@ public class AngularCsrfTokenRequestHandler implements CsrfTokenRequestHandler {
     private final CsrfTokenRequestHandler plain = new CsrfTokenRequestAttributeHandler();
     private final CsrfTokenRequestHandler xor = new XorCsrfTokenRequestAttributeHandler();
 
-    /** 
+    /**
      * @param request
      * @param response
      * @param csrfToken
@@ -27,7 +27,7 @@ public class AngularCsrfTokenRequestHandler implements CsrfTokenRequestHandler {
         csrfToken.get();
     }
 
-    /** 
+    /**
      * @param request
      * @param csrfToken
      * @return String
